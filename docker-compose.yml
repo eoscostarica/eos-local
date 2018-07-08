@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  nodeosd:
+    image: eosio/eos-dev
+    command: /opt/eosio/bin/nodeosd.sh --data-dir /opt/eosio/bin/data-dir -e --replay-blockchain --hard-replay-blockchain
+    hostname: nodeosd
+    ports:
+      - 8888:8888
+      - 9876:9876
+    expose:
+      - "8888"
+    volumes:
+      - nodeos-data-volume:/opt/eosio/bin/data-dir
+    environment:
+      - VIRTUAL_HOST=local.eosio.cr
+      - VIRTUAL_PORT=8888
+    networks:
+      eos-local:
+        aliases:
+          - local.eosio.cr
+
+  keosd:
+    image: eosio/eos-dev
+    command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=127.0.0.1:8900
+    hostname: keosd
+    links:
+      - nodeosd
+    volumes:
+      - keosd-data-volume:/opt/eosio/bin/data-dir
+    networks:
+      eos-local:
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      eos-local:
+
+volumes:
+ nodeos-data-volume:
+   external: true
+ keosd-data-volume:
+   external: true
+
+networks:
+  eos-local:
