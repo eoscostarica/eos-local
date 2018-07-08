@@ -64,6 +64,7 @@ We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://gi
 - improve docker compose commands documentation
 - create more handy scripts
 - create a sample dapp
+- add recipe for configuring clion https://www.jetbrains.com/help/clion/docker.html 
 - `yarn start` starts the sample dapp
 - seeding ?
 
