@@ -20,7 +20,7 @@
 	</a>
 </p>
 
-# EOS Dapp Development Environment with Docker Compose
+# EOS Dapp Development Environment
 
 A docker compose based development environment for EOS DApp Development.   
 This is easiest way maintain a local environment for development that is guaranteed to work out of the box across the different host operating systems: Mac OS, Windows and Linux.  
@@ -29,10 +29,11 @@ This is easiest way maintain a local environment for development that is guarant
 
 ## Features
 
-- fully containerized EOS development environment.
+- containerized EOS blockchain development environment.
 - nginx reverse proxy for virtual host resolution from the host machine.
 - network specific service aliases for "virtual host" resolution within the containers.
 - handy scripts for interacting with the local EOS services.
+- yarn as task manager
 
 ## Getting started
 
@@ -40,8 +41,10 @@ Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required to use 
 
 **Global Dependencies**
 
-- Docker https://docs.docker.com/install/. At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
-- Install node.js v8 ( carbon ) on your machine we recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to [manage multiple your version on your computer](https://gaboesquivel.com/blog/2015/automatic-node.js-version-switching/).
+- Docker https://docs.docker.com/install/.   
+At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
+- Install node.js v8 ( carbon ) on your machine.  
+We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to [manage multiple your version on your computer](https://gaboesquivel.com/blog/2015/automatic-node.js-version-switching/).
 - Yarn https://yarnpkg.com/lang/en/docs/install/.
 
 *Note: at the moment we are not using a docker container for running dapp due to issues related to reloading the app*
