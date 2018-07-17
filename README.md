@@ -55,7 +55,7 @@ We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://gi
 
 **Commands**
 
-- `yarn eos-dev` starts the eos
+- `yarn eos-dev` starts the docker containers
 - `yarn eos-dev:down` stops and removes the containers
 
 **Known Issues**
