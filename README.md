@@ -56,7 +56,11 @@ We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://gi
 **Commands**
 
 - `yarn eos-dev` starts the eos
-- `yarn eos-dev:down` starts the eos
+- `yarn eos-dev:down` stops and removes the containers
+
+**Known Issues**
+
+- During first run, "eos-dapp-dev-env_nodeosd_1 exited with code 254" can be avoided by commenting the parameters --replay-blockchain --hard-replay-blockchain, on the nodeosd service in the docker-compose.yml file.
 
 ## TODO
 
@@ -64,7 +68,7 @@ We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://gi
 - improve docker compose commands documentation
 - create more handy scripts
 - create a sample dapp
-- add recipe for configuring clion https://www.jetbrains.com/help/clion/docker.html 
+- add recipe for configuring clion https://www.jetbrains.com/help/clion/docker.html
 - `yarn start` starts the sample dapp
 - seeding ?
 
