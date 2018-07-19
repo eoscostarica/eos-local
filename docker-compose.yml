@@ -3,7 +3,7 @@ version: "3"
 services:
   nodeosd:
     image: eosio/eos-dev
-    command: /opt/eosio/bin/nodeosd.sh --data-dir /opt/eosio/bin/data-dir -e --replay-blockchain --hard-replay-blockchain
+    command: /opt/eosio/bin/nodeosd.sh --data-dir /opt/eosio/bin/data-dir -e # --replay-blockchain --hard-replay-blockchain
     hostname: nodeosd
     ports:
       - 8888:8888
@@ -15,6 +15,9 @@ services:
     environment:
       - VIRTUAL_HOST=local.eosio.cr
       - VIRTUAL_PORT=8888
+    cap_add:
+      - IPC_LOCK
+    stop_grace_period: 10m
     networks:
       eos-local:
         aliases:
@@ -28,6 +31,7 @@ services:
       - nodeosd
     volumes:
       - keosd-data-volume:/opt/eosio/bin/data-dir
+    stop_grace_period: 10m
     networks:
       eos-local:
 
