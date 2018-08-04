@@ -33,7 +33,7 @@ This is easiest way maintain a local environment for development that is guarant
 - nginx reverse proxy for virtual host resolution from the host machine.
 - network specific service aliases for "virtual host" resolution within the containers.
 - handy scripts for interacting with the local EOS services.
-- yarn as task manager
+- yarn as task manager.
 
 ## Getting started
 
@@ -44,23 +44,23 @@ Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required to use 
 - Docker https://docs.docker.com/install/.   
 At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
 - Install node.js v8 ( carbon ) on your machine.  
-We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to [manage multiple your version on your computer](https://gaboesquivel.com/blog/2015/automatic-node.js-version-switching/).
+We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to [manage multiple node.js versions on your computer](https://gaboesquivel.com/blog/2015/automatic-node.js-version-switching/).
 - Yarn https://yarnpkg.com/lang/en/docs/install/.
 
 *Note: at the moment we are not using a docker container for running dapp due to issues related to reloading the app*
 
 **Client Side Dependencies**
 
-- `yarn`
+- `yarn`   install node packages
 
 **Commands**
 
-- `yarn eos-dev` starts the docker containers
-- `yarn eos-dev:down` stops and removes the containers
-- `eos-flush-nodeos` pull the latest eos-dev image from dockerhub
-- `yarn eos-flush-nodeos` remove all blockchain data
-- `yarn eos-flush-keosd` remove all wallet data
-- `yarn eos-flush-all` remove all data
+- `yarn eos-dev` starts the docker containers with nodeos and keosd processes.
+- `yarn eos-dev:down` stops and removes the containers.
+- `eos-flush-nodeos` pull the latest eos-dev image from dockerhub.
+- `yarn eos-flush-nodeos` remove all blockchain data.
+- `yarn eos-flush-keosd` remove all wallet data.
+- `yarn eos-flush-all` remove all data.
 
 **Known Issues**
 
