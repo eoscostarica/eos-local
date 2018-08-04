@@ -23,7 +23,7 @@
 # EOS Dapp Development Environment
 
 A docker compose based development environment for EOS DApp Development.   
-This is easiest way maintain a local environment for development that is guaranteed to work out of the box across the different host operating systems: Mac OS, Windows and Linux.  
+This is easiest way maintain a local environment for development that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows and Linux.  
 
 **Disclaimer: This is a Work in Progress**
 
@@ -57,6 +57,10 @@ We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://gi
 
 - `yarn eos-dev` starts the docker containers
 - `yarn eos-dev:down` stops and removes the containers
+- `eos-flush-nodeos` pull the latest eos-dev image from dockerhub
+- `yarn eos-flush-nodeos` remove all blockchain data
+- `yarn eos-flush-keosd` remove all wallet data
+- `yarn eos-flush-all` remove all data
 
 **Known Issues**
 
@@ -66,16 +70,15 @@ We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://gi
 
 - instructions for contract development
 - improve docker compose commands documentation
-- create more handy scripts
 - create a sample dapp
 - add recipe for configuring clion https://www.jetbrains.com/help/clion/docker.html
+- add recipe for vscode
 - `yarn start` starts the sample dapp
-- seeding ?
 
 ## EOS Documentation & Resources
 
 - https://developers.eos.io
-- https://github.com/eoscostarica/eos-dev-learning-resources
+- https://learn.eoscostarica.io
 
 ## Contributing
 
@@ -85,7 +88,7 @@ Read the [contributing guidelines](CONTRIBUTING.md) for details.
 
 EOS Blockchain is aiming to become a decentralized operating system which can support large-scale decentralized applications.
 
-EOS Costa Rica supports the global and local open source efforts and development communities by maintaining and contribute to open source initiatives, meetups and workshops.
+EOS Costa Rica supports the EOS.io community by maintaining and contributing to open source initiatives, meetups and workshops.
 
 We challenge ourselves to provide the EOS platform with a strong geographical and political diversity by running the most robust EOS Block Producer possible from Costa Rica; We pledge to leverage our talent, experience, and sustainable internet resources to meet such an important challenge.
 
