@@ -5,8 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "cleos": "./cleos.sh",
     "eos-dev": "docker-compose up --build",
-    "eos-dev:down": "docker-compose down"
+    "eos-dev:down": "docker-compose down",
+    "eos-update": "docker pull eosio/eos-dev",
+    "eos-flush-nodeos": "yarn eos-dev:down; docker volume rm nodeos-data-volume; docker volume create nodeos-data-volume",
+    "eos-flush-keosd": "yarn eos-dev:down; docker volume rm keosd-data-volume; docker volume create keosd-data-volume",
+    "eos-flush-all": "yarn eos-flush-nodeos; yarn eos-flush-keosd"
   },
   "author": "EOS Costa Rica (https://gaboesquivel.com)",
   "license": "MIT",
