@@ -57,7 +57,7 @@ We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://gi
 
 - `yarn eos-dev` starts the docker containers with nodeos and keosd processes.
 - `yarn eos-dev:down` stops and removes the containers.
-- `eos-flush-nodeos` pull the latest eos-dev image from dockerhub.
+- `yarn eos-update` pull the latest eos-dev image from dockerhub.
 - `yarn eos-flush-nodeos` remove all blockchain data.
 - `yarn eos-flush-keosd` remove all wallet data.
 - `yarn eos-flush-all` remove all data.
