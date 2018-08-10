@@ -62,6 +62,30 @@ We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://gi
 - `yarn eos-flush-keosd` remove all wallet data.
 - `yarn eos-flush-all` remove all data.
 
+- `yarn cleos` executes cleos on the virtualized environment. 
+
+Eg:
+
+```shell
+➜  eos-dapp-dev-env git:(master) yarn cleos get info
+yarn run v1.5.1
+$ ./cleos.sh get info
+{
+  "server_version": "ad4ba283",
+  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
+  "head_block_num": 166769,
+  "last_irreversible_block_num": 166768,
+  "last_irreversible_block_id": "00028b701ab37605eb05fc3735a185c8cb1087d58a53f162cbae02f25918299f",
+  "head_block_id": "00028b7148565b4056e20566a9e96187c9157dc30a3b758dc6ab795b39f0656e",
+  "head_block_time": "2018-08-10T13:07:48.500",
+  "head_block_producer": "eosio",
+  "virtual_block_cpu_limit": 200000000,
+  "virtual_block_net_limit": 1048576000,
+  "block_cpu_limit": 199900,
+  "block_net_limit": 1048576
+}
+```
+
 **Known Issues**
 
 - During first run, "eos-dapp-dev-env_nodeosd_1 exited with code 254" can be avoided by commenting the parameters --replay-blockchain --hard-replay-blockchain, on the nodeosd service in the docker-compose.yml file.
