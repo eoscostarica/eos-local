@@ -16,3 +16,6 @@ nbproject
 npm-debug.log
 
 package-lock.json
+
+# This is where we will be creating and storing our EOS local keys
+keys/

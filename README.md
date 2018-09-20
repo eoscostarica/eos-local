@@ -39,6 +39,8 @@ This is easiest way maintain a local environment for development that is guarant
 
 Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required to use this environment.
 
+Please look at our [Getting Started With EOS]
+
 **Global Dependencies**
 
 - Docker https://docs.docker.com/install/.   
@@ -117,3 +119,7 @@ EOS Costa Rica supports the EOS.io community by maintaining and contributing to 
 We challenge ourselves to provide the EOS platform with a strong geographical and political diversity by running the most robust EOS Block Producer possible from Costa Rica; We pledge to leverage our talent, experience, and sustainable internet resources to meet such an important challenge.
 
 [eoscostarica.io](https://eoscostarica.io)
+
+
+[Getting Started With EOS]: getting-started-with-eos.md
+
