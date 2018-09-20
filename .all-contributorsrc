@@ -1,0 +1,49 @@
+{
+  "projectName": "eos-dapp-dev-env",
+  "projectOwner": "eoscostarica",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "gaboesquivel",
+      "name": "Gabo Esquivel",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/391270?v=4",
+      "profile": "https://gaboesquivel.com",
+      "contributions": [
+        "ideas",
+        "doc",
+        "code",
+        "review"
+      ]
+    },
+     {
+      "login": "danazkari",
+      "name": "Daniel Prado",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/349542?v=4",
+      "profile": "https://github.com/danazkari",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "xavier506",
+      "name": "Xavier Fernandez",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5632966?v=4",
+      "profile": "https://github.com/xavier506",
+      "contributions": [
+        "ideas",
+        "blog",
+        "talk",
+        "infra"
+      ]
+    }
+  ]
+}

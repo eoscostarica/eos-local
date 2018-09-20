@@ -11,7 +11,9 @@
     "eos-update": "docker pull eosio/eos-dev",
     "eos-flush-nodeos": "yarn eos-dev:down; docker volume rm nodeos-data-volume; docker volume create nodeos-data-volume",
     "eos-flush-keosd": "yarn eos-dev:down; docker volume rm keosd-data-volume; docker volume create keosd-data-volume",
-    "eos-flush-all": "yarn eos-flush-nodeos; yarn eos-flush-keosd"
+    "eos-flush-all": "yarn eos-flush-nodeos; yarn eos-flush-keosd",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "author": "EOS Costa Rica (https://gaboesquivel.com)",
   "license": "MIT",
@@ -22,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/eoscostarica/eos-dapp-dev-env/issues"
   },
-  "homepage": "https://github.com/eoscostarica/eos-dapp-dev-env#readme"
+  "homepage": "https://github.com/eoscostarica/eos-dapp-dev-env#readme",
+  "dependencies": {
+    "all-contributors-cli": "^5.4.0"
+  }
 }
