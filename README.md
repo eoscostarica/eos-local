@@ -27,6 +27,8 @@ This is easiest way maintain a local environment for development that is guarant
 
 **Disclaimer: This is a Work in Progress**
 
+Most recent developments can be found in the [fast-forward-env]  branch/(https://github.com/eoscostarica/eos-dapp-dev-env/tree/fast-forward-env)
+
 ## Features
 
 - containerized EOS blockchain development environment.
