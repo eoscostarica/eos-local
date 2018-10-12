@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cleos": "./cleos.sh",
+    "cleos": "./scripts/cleos.sh",
     "eos-dev": "docker-compose up --build",
     "eos-dev:down": "docker-compose down",
     "eos-update": "docker pull eosio/eos-dev",

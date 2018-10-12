@@ -1,0 +1,17 @@
+{
+  "translations": {
+
+    "settingsTitle": "Settings",
+    "settingsLanguages": "English/Spanish",
+    "settingsNotifications": "Notifications",
+
+    "notFound": "Not found",
+
+    "accountTitle": "My Account",
+
+    "drawerLinkHome": "Home",
+    "drawerLinkSettings": "Settings",
+
+    "homeTitle": "Hack the Planet!"
+  }
+}
