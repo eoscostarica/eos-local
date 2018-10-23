@@ -20,7 +20,7 @@
 	</a>
 </p>
 
-# EOS Dapp Development Environment
+# EOS Local 
 
 A docker compose based development environment for EOS DApp Development.   
 This is easiest way maintain a local environment for development that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows and Linux.  
