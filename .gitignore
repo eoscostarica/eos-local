@@ -1,21 +1,30 @@
-node_modules
+# Compiled codes
+build/
+dist/
+*.wast
 
-*~
-*#
-.DS_STORE
-Thumbs.db
-.netbeans
-nbproject
+# IDE's
+.vscode
 .idea
-.node_history
+*.iml
 
-*.seed
+# Dependency directories
+node_modules
 *.log
-*.out
-*.pid
-npm-debug.log
 
-package-lock.json
+# Desktop Services Store on macOS
+.DS_Store
 
-# This is where we will be creating and storing our EOS local keys
-keys/
+# Temp
+temp
+.mongo-data
+.pgsql-data
+
+# database data
+.dbdata/
+
+# wallet keys
+keys
+
+# netlify cli
+.netlify/

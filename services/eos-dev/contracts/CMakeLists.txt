@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
-project(dmeetupeosio VERSION 0.0.1)
+project(eoslocal VERSION 0.3.0)
 
-set(EOSIO_DEPENDENCY "1.3")
+set(EOSIO_DEPENDENCY "1.2")
 set(EOSIO_CDT_DEPENDENCY "1.2")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -30,7 +30,7 @@ if (NOT "${output}" EQUAL 0)
 endif()
 
 include_directories(AFTER ${BOOST_ROOT}/include)
-add_subdirectory(monstereosio)
+add_subdirectory(eoslocal)
 
 if (APPLE)
    set(OPENSSL_ROOT "/usr/local/opt/openssl")
