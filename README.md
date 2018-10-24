@@ -23,9 +23,25 @@
 # EOS Local 
 
 A docker compose based development environment for EOS DApp Development.   
+
 This is easiest way maintain a local environment for development that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows and Linux.  
 
 **Important Disclaimer: This is a Work in Progress** 
+
+EOS Local is a community-driven project lead by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals.
+
+## Contributing
+
+We use a Kanban-style board with built-in triggers to automatically move issues and pull requests across New Issues, To Do, In Progress and Done columns. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
+
+The main communication channels for organizing and collaborating are [github issues](https://github.com/eoscostarica/eos-local/issues) and the [EOS Costa Rica Discord server](https://eoscostarica.io/discord). Feel to join and ask as many questions you may have.
+
+
+We follow EOS Costa Rica's Open Source Contributing Guidelines. https://learn.eoscostarica.io/open-source/
+
+Our weekly sync call is every Monday 7pm-8pm Costa Rica / Central Standard Time at [meet.eoscostarica.io](https:/meet.eoscostarica.io).
+
+Please report bugs big and small by [opening an issue](https://github.com/eoscostarica/eos-local/issues)
 
 ## Features
 
@@ -101,9 +117,6 @@ $ ./cleos.sh get info
 - https://developers.eos.io
 - https://learn.eoscostarica.io
 
-## Contributing
-
-Read the [contributing guidelines](CONTRIBUTING.md) for details.
 
 ## About EOS Costa Rica
 
