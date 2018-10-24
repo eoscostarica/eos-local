@@ -44,7 +44,7 @@ const loop = async (db: any, dbFull: any) => {
   if (isSync) {
     console.info("Chain is synched, starting cleaning tasks")
 
-    //NOTE: add your cleaninig tasks here
+    // NOTE: add your cleaninig tasks here
 
   } else {
     console.info("Chain is out of sync, skipping cleaning")
