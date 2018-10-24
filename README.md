@@ -30,6 +30,7 @@ This is easiest way maintain a local environment for development that is guarant
 ## Features
 
 - fully virtualized EOS blockchain development environment.
+- inteligent automated blockchain replay. ( no more replay flag shenanigans )
 - microservices architecture with docker compose with:
   - nginx reverse proxy for virtual host resolution from the host machine.
   - network specific service aliases for "virtual host" resolution within the containers.
@@ -66,14 +67,12 @@ We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://gi
 
 **Commands**
 
-- `yarn eos-dev` starts the docker containers with nodeos and keosd processes.
-- `yarn eos-dev:down` stops and removes the containers.
-- `yarn eos-update` pull the latest eos-dev image from dockerhub.
-- `yarn eos-flush-nodeos` remove all blockchain data.
-- `yarn eos-flush-keosd` remove all wallet data.
-- `yarn eos-flush-all` remove all data.
-
-- `yarn cleos` executes cleos on the virtualized environment. 
+- `gulp setup` run chain initilization and database migrations.
+- `gulp start` starts the docker containers with nodeos and keosd processes.
+- `gulp stop` stops and removes all containers.
+- `gulp restart` restarts all services.
+- `gulp flush` remove all blockchain and database data.
+- `gulp cleos` executes cleos on the virtualized environment against the eosiodev node. 
 
 Eg:
 
@@ -96,19 +95,6 @@ $ ./cleos.sh get info
   "block_net_limit": 1048576
 }
 ```
-
-**Known Issues**
-
-- During first run, "eos-dapp-dev-env_nodeosd_1 exited with code 254" can be avoided by commenting the parameters --replay-blockchain --hard-replay-blockchain, on the nodeosd service in the docker-compose.yml file.
-
-## TODO
-
-- instructions for contract development
-- improve docker compose commands documentation
-- create a sample dapp
-- add recipe for configuring clion https://www.jetbrains.com/help/clion/docker.html
-- add recipe for vscode
-- `yarn start` starts the sample dapp
 
 ## EOS Documentation & Resources
 
