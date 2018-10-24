@@ -25,83 +25,26 @@
 A docker compose based development environment for EOS DApp Development.   
 This is easiest way maintain a local environment for development that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows and Linux.  
 
-**Disclaimer: This is a Work in Progress**
+**Important Disclaimer: This is a Work in Progress**
 
 Most recent developments can be found in the [fast-forward-env]  branch/(https://github.com/eoscostarica/eos-dapp-dev-env/tree/fast-forward-env)
 
 ## Features
 
-- containerized EOS blockchain development environment.
-- nginx reverse proxy for virtual host resolution from the host machine.
-- network specific service aliases for "virtual host" resolution within the containers.
+- fully virtualized EOS blockchain development environment.
+- microservices architecture with docker compose with:
+  - nginx reverse proxy for virtual host resolution from the host machine.
+  - network specific service aliases for "virtual host" resolution within the containers.
+- out-of-box services: 
+  - postgres database
+  - mongodb database 
+  - demux
+  - eos-dev node for contract dev and compilation
+  - eos fullnode with history
+  - graphql endpoint
+  - reactjs client  
 - handy scripts for interacting with the local EOS services.
-- yarn as task manager.
-
-## Getting started
-
-Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required to use this environment.
-
-Please look at our [Getting Started With EOS]
-
-**Global Dependencies**
-
-- Docker https://docs.docker.com/install/.   
-At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
-- Install node.js v8 ( carbon ) on your machine.  
-We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to [manage multiple node.js versions on your computer](https://gaboesquivel.com/blog/2015/automatic-node.js-version-switching/).
-- Yarn https://yarnpkg.com/lang/en/docs/install/.
-
-*Note: at the moment we are not using a docker container for running dapp due to issues related to reloading the app*
-
-**Client Side Dependencies**
-
-- `yarn`   install node packages
-
-**Commands**
-
-- `yarn eos-dev` starts the docker containers with nodeos and keosd processes.
-- `yarn eos-dev:down` stops and removes the containers.
-- `yarn eos-update` pull the latest eos-dev image from dockerhub.
-- `yarn eos-flush-nodeos` remove all blockchain data.
-- `yarn eos-flush-keosd` remove all wallet data.
-- `yarn eos-flush-all` remove all data.
-
-- `yarn cleos` executes cleos on the virtualized environment. 
-
-Eg:
-
-```shell
-➜  eos-dapp-dev-env git:(master) yarn cleos get info
-yarn run v1.5.1
-$ ./cleos.sh get info
-{
-  "server_version": "ad4ba283",
-  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
-  "head_block_num": 166769,
-  "last_irreversible_block_num": 166768,
-  "last_irreversible_block_id": "00028b701ab37605eb05fc3735a185c8cb1087d58a53f162cbae02f25918299f",
-  "head_block_id": "00028b7148565b4056e20566a9e96187c9157dc30a3b758dc6ab795b39f0656e",
-  "head_block_time": "2018-08-10T13:07:48.500",
-  "head_block_producer": "eosio",
-  "virtual_block_cpu_limit": 200000000,
-  "virtual_block_net_limit": 1048576000,
-  "block_cpu_limit": 199900,
-  "block_net_limit": 1048576
-}
-```
-
-**Known Issues**
-
-- During first run, "eos-dapp-dev-env_nodeosd_1 exited with code 254" can be avoided by commenting the parameters --replay-blockchain --hard-replay-blockchain, on the nodeosd service in the docker-compose.yml file.
-
-## TODO
-
-- instructions for contract development
-- improve docker compose commands documentation
-- create a sample dapp
-- add recipe for configuring clion https://www.jetbrains.com/help/clion/docker.html
-- add recipe for vscode
-- `yarn start` starts the sample dapp
+- gulp as task manager.
 
 ## EOS Documentation & Resources
 
