@@ -27,7 +27,9 @@ This is easiest way maintain a local environment for development that is guarant
 
 **Important Disclaimer: This is a Work in Progress**
 
-Most recent developments can be found in the [fast-forward-env](https://github.com/eoscostarica/eos-dapp-dev-env/tree/fast-forward-env) branch  
+Most recent developments can be found in the [fast-forward-env](https://github.com/eoscostarica/eos-dapp-dev-env/tree/fast-forward-env) branch.
+
+Please follow the [EOS 1.4 and Microservices Architecture](https://github.com/eoscostarica/eos-local/pull/7)
 
 ## Features
 
