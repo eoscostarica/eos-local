@@ -65,6 +65,8 @@ Please report bugs big and small by [opening an issue](https://github.com/eoscos
     - GraphQL Apollo client.
 - Handy scripts for interacting with the local EOS services.
 - Gulp as global task manager.
+- Automated code linting and testing.
+- Continuous Integration and Deployment. ( Travis and Netlify )
 
 ## Getting started
 
