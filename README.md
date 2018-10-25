@@ -45,21 +45,26 @@ Please report bugs big and small by [opening an issue](https://github.com/eoscos
 
 ## Features
 
-- fully virtualized EOS blockchain development environment.
-- inteligent automated blockchain replay. ( no more replay flag shenanigans )
-- microservices architecture with docker compose with:
-  - nginx reverse proxy for virtual host resolution from the host machine.
-  - network specific service aliases for "virtual host" resolution within the containers.
-- out-of-box services: 
-  - postgres database
-  - mongodb database 
-  - demux
-  - eos-dev node for contract dev and compilation
-  - eos fullnode with history
-  - graphql endpoint
-  - reactjs client  
-- handy scripts for interacting with the local EOS services.
-- gulp as task manager.
+- Fully virtualized EOS blockchain development environment.
+- Fnteligent automated blockchain replay. ( no more replay flag shenanigans )
+- Microservices architecture with docker compose with:
+  - Nginx reverse proxy for virtual host resolution from the host machine.
+  - Network specific service aliases for "virtual host" resolution within the containers.
+- Out-of-box services: 
+  - Postgres database.
+  - Mongodb database.
+  - Demux service.
+  - Eos-dev node for contract dev and compilation.
+  - Eos fullnode with history.
+  - Graphql endpoint.
+  - reactjs client with:
+    - Scatter integration.
+    - Lynx integration.
+    - Eosaccount profile page.
+    - Material UI.
+    - GraphQL Apollo client.
+- Handy scripts for interacting with the local EOS services.
+- Gulp as global task manager.
 
 ## Getting started
 
