@@ -34,6 +34,19 @@
       ]
     },
     {
+      "login": "murillojorge",
+      "name": "Jorge Murillo",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1179619?v=4",
+      "profile": "https://github.com/murillojorge",
+      "contributions": [
+        "ideas",
+        "doc",
+        "design",
+        "code",
+        "review"
+      ]
+    },
+    {
       "login": "xavier506",
       "name": "Xavier Fernandez",
       "avatar_url": "https://avatars0.githubusercontent.com/u/5632966?v=4",
@@ -43,6 +56,16 @@
         "blog",
         "talk",
         "infra"
+      ]
+    },
+    {
+      "login": "rubenabix",
+      "name": "Rubén Abarca Navarro",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/13205620?v=4",
+      "profile": "https://github.com/rubenabix",
+      "contributions": [
+        "ideas",
+        "review"
       ]
     }
   ]

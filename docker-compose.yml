@@ -1,50 +1,113 @@
-version: "3"
+version: '3.5'
 
 services:
-  nodeosd:
-    image: eosio/eos-dev
-    command: /opt/eosio/bin/nodeosd.sh --data-dir /opt/eosio/bin/data-dir -e --http-validate-host=false # --replay-blockchain --hard-replay-blockchain
-    hostname: nodeosd
-    ports:
-      - 8888:8888
-      - 9876:9876
-    expose:
-      - "8888"
-    volumes:
-      - nodeos-data-volume:/opt/eosio/bin/data-dir
-    networks:
-      eos-local:
-        aliases:
-          - local.eosio.cr
-    environment:
-      - VIRTUAL_HOST=local.eosio.cr
-      - VIRTUAL_PORT=8888
-  keosd:
-    image: eosio/eos-dev
-    command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=127.0.0.1:8900
-    hostname: keosd
-    links:
-      - nodeosd
-    volumes:
-      - keosd-data-volume:/opt/eosio/bin/data-dir
-    stop_grace_period: 10m
-    networks:
-      - eos-local
 
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - "80:80"
+  postgres:
+    image: postgres:10.4
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./.dbdata/.pgsql-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      DB_NAME: eoslocal
+      DB_USER: user
+      DB_PASSWORD: pass
+      POSTGRES_DB: eoslocal
     networks:
-      - eos-local
+      eoslocal:
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./.dbdata/.mongo-data:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+      eoslocal:
+
+  fullnode:
+    image: eosio/eos:v1.4.1
+    build:
+      context: ./services/eos-node
+      dockerfile: Dockerfile
+    image: eoslocal/fullnode
+    stop_grace_period: 3m0s
+    ports:
+      - '8840:8888'
+      - '9840:9876'
+    environment:
+      WAIT_HOSTS: mongo:27017, eosiodev:8888
+      WAIT_HOSTS_TIMEOUT: 60
+      DATA_DIR: /opt/eosio/bin/data-dir
+    depends_on:
+      - mongo
+      - eosiodev
+    volumes:
+      - 'fullnode:/opt/eosio/bin/data-dir'
+      - './services/eos-node/config-full-node.ini:/opt/eosio/bin/data-dir/config.ini'
+      # - './services/eos-node/config-main-node.ini:/opt/eosio/bin/data-dir/config.ini'
+      # - './services/eos-node/mainnet-genesis.json:/opt/eosio/bin/genesis.json'
+    networks:
+      eoslocal:
+
+  # only required for dev
+  eosiodev:
+    build:
+      context: ./services/eos-dev
+      dockerfile: Dockerfile
+    image: eoslocal/eosiodev
+    stop_grace_period: 3m0s
+    ports:
+      - '8888:8888'
+      - '9830:9876'
+    environment:
+      DATA_DIR: /root/.local/share
+      CONFIG_DIR: /opt/application/config
+    volumes:
+      - eosiodev:/root/.local/share
+      - ./services/eos-dev:/opt/application
+    networks:
+      eoslocal:
+
+  demux:
+    build:
+      context: ./services/demux
+      dockerfile: ./Dockerfile
+      args:
+        SERVICE: 'demux'
+    image: eoslocal/demux
+    volumes:
+      - ./services/demux:/opt/application  # mount demux service folder
+      - /opt/application/node_modules # prevents host/container conflicts
+    depends_on:
+      - mongo
+      - postgres
+      - eosiodev
+    environment:
+      DB_USER: user
+      DB_PASSWORD: pass
+      DB_PORT: 5432
+      DB_NAME: eoslocal
+      DB_HOST: postgres
+      DB_SCHEMA: pets
+      CHAIN_HOST: 'http://eosiodev:8888'
+      CHAIN_INIT_BLOCK: 10
+      MONGO_URI: 'mongodb://mongo:27017'
+      MONGO_DB: EOSFN
+      WAIT_HOSTS: postgres:5432, mongo:27017
+      WAIT_HOSTS_TIMEOUT: 60
+    ports:
+      - '3030:3030'
+    networks:
+      eoslocal:
 
 volumes:
- nodeos-data-volume:
-   external: true
- keosd-data-volume:
-   external: true
+  eosiodev:
+  fullnode:
 
 networks:
-  eos-local:
+  eoslocal:
+    name: eoslocal
