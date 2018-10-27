@@ -67,7 +67,7 @@ services:
       DATA_DIR: /root/.local/share
       CONFIG_DIR: /opt/application/config
     volumes:
-      - eosiodevapp:/root/.local/share
+      - eosiodev:/root/.local/share
       - ./services/eos-dev:/opt/application
     networks:
       eoslocal:
@@ -105,7 +105,7 @@ services:
       eoslocal:
 
 volumes:
-  eosiodevapp:
+  eosiodev:
   fullnode:
 
 networks:

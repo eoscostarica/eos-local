@@ -11,23 +11,23 @@ EOSLOCAL_ACCOUNT_PUBLIC_OWNER_KEY="EOS6P62N6D14ShhUnM7taEQHLTMmS7ohCyfikwAi46U7A
 EOSLOCAL_ACCOUNT_PRIVATE_ACTIVE_KEY="5JhTPDSe9ugHomFnhMgAdzzE2HniuR8rG3SyzzqvQrgJNPC4685"
 EOSLOCAL_ACCOUNT_PUBLIC_ACTIVE_KEY="EOS5X6m7mxcKRsKvHDyCVp1DE5YAy5dEsb5TwFqG4F2xRvRYAAdZx"
 
-EOSLOCAL_USERA_ACCOUNT="eoslocalusera"
+EOSLOCAL_USERA_ACCOUNT="eoslocalusra"
 EOSLOCAL_USERA_PVTKEY="5K4MHQN7sPdEURaxzjCnbynUwkEKRJzs8zVUf24ofaFiZNK815J"
 EOSLOCAL_USERA_PUBKEY="EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL"
 
-EOSLOCAL_USERB_ACCOUNT="eoslocaluserb"
+EOSLOCAL_USERB_ACCOUNT="eoslocalusrb"
 EOSLOCAL_USERB_PVTKEY="5JHCQDi7jsbnQnWdyxteRjT2DdNZHePiEG1DTaPQQDDP2X6aor6"
 EOSLOCAL_USERB_PUBKEY="EOS6TVQ6EmphCWavUuYiZMmDNYMRgbb96wgqWDncjrkvFPcpokgdD"
 
-EOSLOCAL_USERC_ACCOUNT="eoslocaluserc"
+EOSLOCAL_USERC_ACCOUNT="eoslocalusrc"
 EOSLOCAL_USERC_PVTKEY="5JXCt633pzYaUysn7exDHeVXwhwMjX2L231b37CdsSb7y1uvDH7"
 EOSLOCAL_USERC_PUBKEY="EOS7CB47VMLWp49QhajE3uTuHuf9qoSeR6scUHMKGCD6LXYufRUDc"
 
-EOSLOCAL_USERD_ACCOUNT="eoslocaluserd"
+EOSLOCAL_USERD_ACCOUNT="eoslocalusrd"
 EOSLOCAL_USERD_PVTKEY="5JdRgeRBriBDdxb3r76sLJaQmwGgXkMU8GReTAmy8xYppMSAAoZ"
 EOSLOCAL_USERD_PUBKEY="EOS6Jv4RykLZQQopCBdBHSwaGoMyFxyaxFNXimqFPdEXNWqgWbG1a"
 
-EOSLOCAL_USERE_ACCOUNT="eoslocalusere"
+EOSLOCAL_USERE_ACCOUNT="eoslocalusre"
 EOSLOCAL_USERE_PVTKEY="5Jdwjwto9wxy5ZNPnWSn965eb8ZtSrK1uRKUxhviLpr9gK79hmM"
 EOSLOCAL_USERE_PUBKEY="EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy"
 
@@ -114,25 +114,25 @@ sleep .5
 sleep 2s
 ./cleos -u http://eosiodev:8888 set contract eosio /contracts/eosio.system
 
-# Create the eoslocal account
+# Create the eoslocaldapp account
 sleep 2s
-echo "Creating eoslocal account"
-cleos -u http://eosiodev:8888 system newaccount eosio --transfer eoslocal $EOSLOCAL_ACCOUNT_PUBLIC_OWNER_KEY $EOSLOCAL_ACCOUNT_PUBLIC_ACTIVE_KEY --stake-net "100000.0000 SYS" --stake-cpu "100000.0000 SYS" --buy-ram "100000.000 SYS"
+echo "Creating eoslocaldapp account"
+cleos -u http://eosiodev:8888 system newaccount eosio --transfer eoslocaldapp $EOSLOCAL_ACCOUNT_PUBLIC_OWNER_KEY $EOSLOCAL_ACCOUNT_PUBLIC_ACTIVE_KEY --stake-net "100000.0000 SYS" --stake-cpu "100000.0000 SYS" --buy-ram "100000.000 SYS"
 sleep .5
-cleos -u http://eosiodev:8888 transfer eosio eoslocal "1000000.0000 SYS"
-cleos -u http://eosiodev:8888 transfer eosio eoslocal "1000000.0000 EOS"
+cleos -u http://eosiodev:8888 transfer eosio eoslocaldapp "1000000.0000 SYS"
+cleos -u http://eosiodev:8888 transfer eosio eoslocaldapp "1000000.0000 EOS"
 
-cleos set account permission eoslocal active \
+cleos set account permission eoslocaldapp active \
 '{"threshold": 1,
   "keys": [{
     "key": "'${EOSLOCAL_ACCOUNT_PUBLIC_ACTIVE_KEY}'",
     "weight": 1
   }],
   "accounts": [{
-    "permission": {"actor": "eoslocaleosio",
+    "permission": {"actor": "eoslocaldapp",
                    "permission": "eosio.code"},
                    "weight": 1
-  }]}' owner -p eoslocal
+  }]}' owner -p eoslocaldapp
 
 
 # echo "Compiling EOSLOCAL Contract"
