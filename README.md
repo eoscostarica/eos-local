@@ -26,21 +26,29 @@ A docker compose based development environment for EOS DApp Development.
 
 This is easiest way maintain a local environment for development that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows and Linux.  
 
-**Important Disclaimer: This is a Work in Progress** 
-
-EOS Local is a community-driven project lead by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals.
-
 A common reusable docker based microservices architecture boilerplate and development environment that will allow to deploy EOS appliactions faster.
 
-It's based on MonsterEOS EOSIO DreamStack architecture.
+It's inspired on MonsterEOS' EOSIO DreamStack architecture.
 
-## Features
+EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals.
+
+**Important Disclaimer: This is a Work in Progress** 
+
+## Advantages.
+
+- Get started with EOS DApp development in less than 5 minutes with a single command.
+- Focus on your biz logic, not on configurations or integrating commonly used third party services.
+- Scalable architecture. 
+- Deploy your dApp dedicated services easily to any infrastructure provider with containers.  
+- Ability to run multiple versions of EOS with different configuration with no conflicts.
+- This project follows EOS DApp development best practices.
+- Improved developer's experience. Yes! that super important isn't it? :) 
+
+## Technical Specs
 
 - Fully virtualized EOS blockchain development environment.
-- Fnteligent automated blockchain replay. ( no more replay flag shenanigans )
-- Microservices architecture with docker compose with:
-  - Nginx reverse proxy for virtual host resolution from the host machine.
-  - Network specific service aliases for "virtual host" resolution within the containers.
+- Inteligent automated blockchain replay. ( no more replay flag shenanigans )
+- Microservices architecture.
 - Out-of-box services: 
   - Postgres database.
   - Mongodb database.
@@ -48,67 +56,48 @@ It's based on MonsterEOS EOSIO DreamStack architecture.
   - Eos-dev node for contract dev and compilation.
   - Eos fullnode with history.
   - Graphql endpoint.
-  - reactjs client with:
+  - Reactjs client with:
     - Scatter integration.
     - Lynx integration.
-    - Eosaccount profile page.
+    - EOS Account profile page.
     - Material UI.
     - GraphQL Apollo client.
+- Services accesible through virtual host names both from host machine and within the docker network.
 - Handy scripts for interacting with the local EOS services.
 - Gulp as global task manager.
 - Automated code linting and testing.
+- Automated "seeding" of testing accounts and contract compilation.
 - Continuous Integration and Deployment. ( Travis and Netlify )
+- Kubernetes support ( coming soon https://github.com/eoscostarica/eos-local/issues/8 )
+
+*Note: at the moment we are not using a docker container for running the React client due to issues related to hot reloading the app efficiently*
 
 ## Getting started
 
-Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required to use this environment.
+Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required.
 
-Please look at our [Getting Started With EOS]
+### Installation
 
 **Global Dependencies**
 
 - Docker https://docs.docker.com/install/.   
 At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
-- Install node.js v8 ( carbon ) on your machine.  
-We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to [manage multiple node.js versions on your computer](https://gaboesquivel.com/blog/2015/automatic-node.js-version-switching/).
+- Install node.js v10 on your machine. We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
 - Yarn https://yarnpkg.com/lang/en/docs/install/.
+- Gulp CLI  `yarn global add gulp-cli`.
 
-*Note: at the moment we are not using a docker container for running dapp due to issues related to reloading the app*
+**NPM packages**
 
-**Client Side Dependencies**
+- run `yarn` on the root directoty to install node packages required by `gulp-cli`
 
-- `yarn`   install node packages
-
-**Commands**
+## Commands
 
 - `gulp setup` run chain initilization and database migrations.
-- `gulp start` starts the docker containers with nodeos and keosd processes.
+- `gulp start` starts the docker containers.
 - `gulp stop` stops and removes all containers.
 - `gulp restart` restarts all services.
-- `gulp flush` remove all blockchain and database data.
-- `gulp cleos` executes cleos on the virtualized environment against the eosiodev node. 
-
-Eg:
-
-```shell
-➜  eos-dapp-dev-env git:(master) yarn cleos get info
-yarn run v1.5.1
-$ ./cleos.sh get info
-{
-  "server_version": "ad4ba283",
-  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
-  "head_block_num": 166769,
-  "last_irreversible_block_num": 166768,
-  "last_irreversible_block_id": "00028b701ab37605eb05fc3735a185c8cb1087d58a53f162cbae02f25918299f",
-  "head_block_id": "00028b7148565b4056e20566a9e96187c9157dc30a3b758dc6ab795b39f0656e",
-  "head_block_time": "2018-08-10T13:07:48.500",
-  "head_block_producer": "eosio",
-  "virtual_block_cpu_limit": 200000000,
-  "virtual_block_net_limit": 1048576000,
-  "block_cpu_limit": 199900,
-  "block_net_limit": 1048576
-}
-```
+- `gulp flush` stop all services and remove all blockchain and database data.
+- `gulp logs` displays and folows all services logs.
 
 ## Directory Structure
 
@@ -116,22 +105,43 @@ $ ./cleos.sh get info
 .
 ├── docs/ .............................................. documentation files and media
 ├── services/ .......................................... microservices
-|	├── eosiodev/ ........................................ eos node for contact development
-|	|	├── config/ ........................................ eos node config
-|	|	├── contracts/ ..................................... smart contracts 
-|	└── frontend/ ........................................ reactjs frontend
-|		├── public/ ........................................ static and public files
-|		├── src/ ........................................... reactjs views and components
-|		├── config-overrides.js ............................ configuration overrides for `cra`
-|		├── .env ........................................... environment variables
-|		├── .eslintrc ...................................... code style rules
-|		└── package.json ................................... dependencies manifest
+|   ├── demux/ ......................................... demux-js service
+|   |   ├── database/ .................................. postgres config and migrations
+|   |   ├── src/ ....................................... application biz logic 
+|   |   ├── Dockerfile ................................. service image spec 
+|   |   ├── pm2.config.js .............................. process specs for pm2
+|   |   ├── tsconfig.json .............................. tslint config
+|   |   ├── tslint.json ................................ code style rules
+|   |   └── package.json ............................... service dependencies manifest
+|   |
+|   ├── eosiodev/ ...................................... eos-dev node for contact development
+|   |   ├── config/ .................................... eos node config
+|   |   ├── contracts/ ................................. smart contracts 
+|   |   ├── scripts/ ................................... chain and wallet init scripts
+|   |   ├── Dockerfile ................................. service image spec 
+|   |   └── start.sh ................................... service startup script
+|   |
+|   ├── eos-node/ ...................................... eos fullnode
+|   |   ├── config.ini ................................. eos node configuration file
+|   |   ├── Dockerfile ................................. service image spec 
+|   |   └── start.sh ................................... service startup script
+|   |
+|   └── frontend/ ...................................... reactjs frontend
+|      ├── public/ .................................... static and public files
+|      ├── src/ ....................................... reactjs views and components
+|      ├── config-overrides.js ........................ configuration overrides for `cra`
+|      ├── .env ....................................... environment variables
+|      ├── .eslintrc .................................. code style rules
+|      └── package.json ............................... service dependencies manifest
+|   
 ├── docker-compose.yaml ................................ docker compose for local dev
 ├── contributing.md .................................... contributing guidelines
-├── LICENSE ............................................ project license
-├── README.md .......................................... project homepage
-├── netlify.toml ....................................... netlify configuration file
-└── .travis.yml ........................................ travis ci configuration file
+├── license ............................................ project license
+├── readme.md .......................................... project documentation
+├── netlify.toml ....................................... netlify config file
+├── .travis.yml ........................................ travis ci config file
+├── .editorconfig ...................................... common text editor configs
+└── package.json ....................................... dependencies manifest for gulp-cli
 ```
 
 ## Services
@@ -159,24 +169,21 @@ https://developers.eos.io/eosio-nodeos/docs/local-single-node-testnet
 
 ## Contributing
 
+We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
 
-We use a Kanban-style board with built-in triggers to automatically move issues and pull requests across New Issues, To Do, In Progress and Done columns. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
+The main communication channels are [github issues](https://github.com/eoscostarica/eos-local/issues) and [EOS Costa Rica's Discord server](https://eoscostarica.io/discord). Feel to join and ask as many questions you may have.
 
-The main communication channels for organizing and collaborating are [github issues](https://github.com/eoscostarica/eos-local/issues) and the [EOS Costa Rica Discord server](https://eoscostarica.io/discord). Feel to join and ask as many questions you may have.
+Our weekly sync call is every Monday 1:00 AM UTC. [meet.eoscostarica.io](https:/meet.eoscostarica.io).
 
-
-We follow EOS Costa Rica's Open Source Contributing Guidelines. https://learn.eoscostarica.io/open-source/
-
-Our weekly sync call is every Monday 7pm-8pm Costa Rica / Central Standard Time at [meet.eoscostarica.io](https:/meet.eoscostarica.io).
+Contributing Guidelines https://learn.eoscostarica.io/open-source/.
 
 Please report bugs big and small by [opening an issue](https://github.com/eoscostarica/eos-local/issues)
-
 
 ## About EOS Costa Rica
 
 EOS Blockchain is aiming to become a decentralized operating system which can support large-scale decentralized applications.
 
-EOS Costa Rica supports the EOS.io community by maintaining and contributing to open source initiatives, meetups and workshops.
+EOS Costa Rica supports the EOSIO community by maintaining and contributing to open source initiatives, meetups and workshops.
 
 We challenge ourselves to provide the EOS platform with a strong geographical and political diversity by running the most robust EOS Block Producer possible from Costa Rica; We pledge to leverage our talent, experience, and sustainable internet resources to meet such an important challenge.
 
