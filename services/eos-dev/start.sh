@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "Starting eosiodev service ..."  
 
 if [ "$(ls -A $DATA_DIR)" ]; then
