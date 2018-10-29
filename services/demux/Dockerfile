@@ -20,11 +20,11 @@ WORKDIR /opt/application
 # Install application dependencies
 COPY package.json ./
 COPY yarn.lock ./
-RUN yarn
+RUN yarn --ignore-optional --frozen-lockfile --network-timeout 1000000 --network-concurrency 1 --verbose
 
 EXPOSE 3030
 
-# Copy app source -- required for CI/CD, overwritten by docker compose mounting 
+# Copy app source -- required for CI/CD, overwritten by docker compose mounting
 COPY . .
 
 ## Add the wait script to the image
