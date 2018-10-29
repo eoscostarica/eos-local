@@ -179,6 +179,17 @@ Contributing Guidelines https://learn.eoscostarica.io/open-source/.
 
 Please report bugs big and small by [opening an issue](https://github.com/eoscostarica/eos-local/issues)
 
+## Awesome Lists
+
+https://github.com/EOS-Nation/Awesome-EOS
+https://github.com/DanailMinchev/awesome-eosio
+https://github.com/veggiemonk/awesome-docker
+https://github.com/dhamaniasad/awesome-postgres
+https://github.com/ramnes/awesome-mongodb
+https://github.com/enaqx/awesome-react
+https://github.com/jaredpalmer/awesome-react-render-props
+https://github.com/chentsulin/awesome-graphql
+
 ## About EOS Costa Rica
 
 EOS Blockchain is aiming to become a decentralized operating system which can support large-scale decentralized applications.
