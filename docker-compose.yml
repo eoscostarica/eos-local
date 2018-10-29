@@ -31,7 +31,7 @@ services:
   fullnode:
     image: eosio/eos:v1.4.1
     build:
-      context: ./services/eos-node
+      context: ./services/eos-fullnode
       dockerfile: Dockerfile
     image: eoslocal/fullnode
     stop_grace_period: 3m0s
@@ -47,9 +47,9 @@ services:
       - eosiodev
     volumes:
       - 'fullnode:/opt/eosio/bin/data-dir'
-      - './services/eos-node/config.ini:/opt/eosio/bin/data-dir/config.ini'
-      # - './services/eos-node/config-main-node.ini:/opt/eosio/bin/data-dir/config.ini'
-      # - './services/eos-node/mainnet-genesis.json:/opt/eosio/bin/genesis.json'
+      - './services/eos-fullnode/config.ini:/opt/eosio/bin/data-dir/config.ini'
+      # - './services/eos-fullnode/config-main-node.ini:/opt/eosio/bin/data-dir/config.ini'
+      # - './services/eos-fullnode/mainnet-genesis.json:/opt/eosio/bin/genesis.json'
     networks:
       eoslocal:
 
