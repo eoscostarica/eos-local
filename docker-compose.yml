@@ -47,7 +47,7 @@ services:
       - eosiodev
     volumes:
       - 'fullnode:/opt/eosio/bin/data-dir'
-      - './services/eos-node/config-full-node.ini:/opt/eosio/bin/data-dir/config.ini'
+      - './services/eos-node/config.ini:/opt/eosio/bin/data-dir/config.ini'
       # - './services/eos-node/config-main-node.ini:/opt/eosio/bin/data-dir/config.ini'
       # - './services/eos-node/mainnet-genesis.json:/opt/eosio/bin/genesis.json'
     networks:
