@@ -121,7 +121,7 @@ At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
 |   |   ├── Dockerfile ................................. service image spec 
 |   |   └── start.sh ................................... service startup script
 |   |
-|   ├── eos-node/ ...................................... eos fullnode
+|   ├── eos-fullnode/ .................................. eos fullnode
 |   |   ├── config.ini ................................. eos node configuration file
 |   |   ├── Dockerfile ................................. service image spec 
 |   |   └── start.sh ................................... service startup script
@@ -148,24 +148,59 @@ At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
 
 ### demux
 
-https://eosio.github.io/demux-js/
+Demux is a backend infrastructure pattern for sourcing blockchain events to deterministically update queryable datastores and trigger side effects. 
+
+Taking inspiration from the [Flux Architecture](https://facebook.github.io/flux/docs/in-depth-overview.html#content) pattern and [Redux](https://github.com/reduxjs/redux/), Demux was born out of the following qualifications:
+
+1. A separation of concerns between how state exists on the blockchain and how it is queried by the client front-end
+1. Client front-end not solely responsible for determining derived, reduced, and/or accumulated state
+1. Ability for blockchain events to trigger new transactions, as well as other side effects outside of the blockchain
+1. The blockchain as the single source of truth for all application state
+
+Learn more at https://eosio.github.io/demux-js/.
 
 ### eosiodev
 
+Due to the fact that the eosio/eos image does not contain the required dependencies for contract development (this is by design, to keep the image size small), you will need to utilize the eosio/eos-dev image. This image contains both the required binaries and dependencies to build contracts using eosiocpp.
+
+https://hub.docker.com/r/eosio/eos-dev/ the base image can be found at https://github.com/EOSIO/eos/blob/master/Docker/dev/Dockerfile.
+
 ### fullnode
+
+This is node the provides the RPC API.
+
+See fullnode cofiguration at https://github.com/eoscostarica/eos-local/blob/master/services/eos-fullnode/config.ini
+
+https://hub.docker.com/r/eosio/eos/ the base image source code can be found at https://github.com/EOSIO/eos/blob/master/Docker/Dockerfile.
 
 ### postgres
 
+Postgres database instance for the demux service.
+
 ### mongodb
 
-https://developers.eos.io/eosio-nodeos/docs/local-single-node-testnet
+MongoDB instance for the fullnode. 
+
+The eosio::mongo_db_plugin provides archiving of blockchain data into a MongoDB. It is recommended that the plugin be added to a non-producing node as it is designed to shut down on any failed insert into the MongoDB and is resource intensive.
+
+https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 
 ## EOS Documentation & Resources
 
+- https://github.com/EOSIO/eos/tree/master/Docker
 - https://developers.eos.io
 - https://learn.eoscostarica.io
 - https://github.com/slowmist/eos-smart-contract-security-best-practices
 - https://nadejde.github.io/eos-token-sale
+- https://docs.docker.com/kitematic/userguide/
+
+## Frequently Asked Questions
+
+### How does this project compares to EOSFactory ?
+
+EOSFactory is Python based framework for building and testing EOS smart contracts. This project is Docker based and serves as boilerplate to start an scalable EOSIO project with microservices architecture following best practices at all levels. It includes many required services for large scale EOSIO based applications and ReactJS client with Scatter and Lynx already integrated. 
+
+EOS Local is somehow language agnostic in the sense you can you can spin up services more services using any programming languague. However the out-of-the-box services are JavaScript based.
 
 ## Contributing
 
