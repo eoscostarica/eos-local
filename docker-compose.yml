@@ -104,6 +104,19 @@ services:
     networks:
       eoslocal:
 
+  admin-mongo:
+    image: mrvautin/adminmongo:latest
+    ports:
+      - '8082:8082'
+    environment:
+      - PORT=8082
+      - CONN_NAME=fullnode-mongo
+      - DB_HOST=mongo
+    depends_on:
+      - mongo
+    networks:
+      eoslocal:
+
 volumes:
   eosiodev:
   fullnode:

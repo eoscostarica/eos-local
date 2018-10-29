@@ -27,6 +27,9 @@ fi
 echo "Initializing demux!"
 docker-compose up -d demux
 
+echo "Initializing admin-mongo!"
+docker-compose up -d admin-mongo
+
 echo "Installing frontend packages"
 cd services/frontend
 yarn install
