@@ -105,34 +105,34 @@ At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
 .
 ├── docs/ .............................................. documentation files and media
 ├── services/ .......................................... microservices
-|	  ├── demux/ ......................................... demux-js service
-|	  |	  ├── database/ .................................. postgres config and migrations
-|	  |	  ├── src/ ....................................... application biz logic 
-|		|   ├── Dockerfile ................................. service image spec 
-|		|   ├── pm2.config.js .............................. process specs for pm2
-|		|   ├── tsconfig.json .............................. tslint config
-|		|   ├── tslint.json ................................ code style rules
-|		|   └── package.json ............................... service dependencies manifest
+|   ├── demux/ ......................................... demux-js service
+|   |   ├── database/ .................................. postgres config and migrations
+|   |   ├── src/ ....................................... application biz logic 
+|   |   ├── Dockerfile ................................. service image spec 
+|   |   ├── pm2.config.js .............................. process specs for pm2
+|   |   ├── tsconfig.json .............................. tslint config
+|   |   ├── tslint.json ................................ code style rules
+|   |   └── package.json ............................... service dependencies manifest
 |   |
-|	  ├── eosiodev/ ...................................... eos-dev node for contact development
-|	  |	  ├── config/ .................................... eos node config
-|	  |	  ├── contracts/ ................................. smart contracts 
-|	  |	  ├── scripts/ ................................... chain and wallet init scripts
-|		|   ├── Dockerfile ................................. service image spec 
-|		|   └── start.sh ................................... service startup script
+|   ├── eosiodev/ ...................................... eos-dev node for contact development
+|   |   ├── config/ .................................... eos node config
+|   |   ├── contracts/ ................................. smart contracts 
+|   |   ├── scripts/ ................................... chain and wallet init scripts
+|   |   ├── Dockerfile ................................. service image spec 
+|   |   └── start.sh ................................... service startup script
 |   |
-|	  ├── eos-node/ ...................................... eos fullnode
-|	  |	  ├── config.ini ................................. eos node configuration file
-|		|   ├── Dockerfile ................................. service image spec 
-|		|   └── start.sh ................................... service startup script
+|   ├── eos-node/ ...................................... eos fullnode
+|   |   ├── config.ini ................................. eos node configuration file
+|   |   ├── Dockerfile ................................. service image spec 
+|   |   └── start.sh ................................... service startup script
 |   |
-|	  └── frontend/ ...................................... reactjs frontend
-|		    ├── public/ .................................... static and public files
-|		    ├── src/ ....................................... reactjs views and components
-|		    ├── config-overrides.js ........................ configuration overrides for `cra`
-|		    ├── .env ....................................... environment variables
-|		    ├── .eslintrc .................................. code style rules
-|		    └── package.json ............................... service dependencies manifest
+|   └── frontend/ ...................................... reactjs frontend
+|      ├── public/ .................................... static and public files
+|      ├── src/ ....................................... reactjs views and components
+|      ├── config-overrides.js ........................ configuration overrides for `cra`
+|      ├── .env ....................................... environment variables
+|      ├── .eslintrc .................................. code style rules
+|      └── package.json ............................... service dependencies manifest
 |   
 ├── docker-compose.yaml ................................ docker compose for local dev
 ├── contributing.md .................................... contributing guidelines
