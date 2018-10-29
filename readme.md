@@ -34,7 +34,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 
 **Important Disclaimer: This is a Work in Progress** 
 
-## Advantages.
+## Advantages
 
 - Get started with EOS DApp development in less than 5 minutes with a single command.
 - Focus on your biz logic, not on configurations or integrating commonly used third party services.
@@ -186,12 +186,12 @@ https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 
 ## EOS Documentation & Resources
 
-- https://github.com/EOSIO/eos/tree/master/Docker
-- https://developers.eos.io
-- https://learn.eoscostarica.io
-- https://github.com/slowmist/eos-smart-contract-security-best-practices
-- https://nadejde.github.io/eos-token-sale
-- https://docs.docker.com/kitematic/userguide/
+- https://github.com/EOSIO/eos/tree/master/Docker  
+- https://developers.eos.io  
+- https://learn.eoscostarica.io  
+- https://github.com/slowmist/eos-smart-contract-security-best-practices  
+- https://nadejde.github.io/eos-token-sale  
+- https://docs.docker.com/kitematic/userguide/  
 
 ## Frequently Asked Questions
 
