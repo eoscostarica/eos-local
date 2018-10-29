@@ -42,7 +42,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - Deploy your dApp dedicated services easily to any infrastructure provider with containers.  
 - Ability to run multiple versions of EOS with different configuration with no conflicts.
 - This project follows EOS DApp development best practices.
-- Improved developer's experience. Yes! that super important isn't it? :) 
 
 ## Technical Specs
 
