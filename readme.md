@@ -22,13 +22,9 @@
 
 # EOS Local 
 
-A docker compose based development environment for EOS DApp Development.   
+The quickest and most efficient way to setup and maintain a local environment for development that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows, and Linux.
 
-This is easiest way maintain a local environment for development that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows and Linux.  
-
-A common reusable docker based microservices architecture boilerplate and development environment that will allow to deploy EOS appliactions faster.
-
-It's inspired on MonsterEOS' EOSIO DreamStack architecture.
+It is a reusable docker based development environment inspired on MonsterEOS' EOSIO DreamStack architecture that will allow you to develop EOS applications faster.
 
 EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals.
 
@@ -37,8 +33,8 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 ## Advantages
 
 - Get started with EOS DApp development in less than 5 minutes with a single command.
-- Focus on your biz logic, not on configurations or integrating commonly used third party services.
-- Scalable architecture. 
+- Focus on your biz logic, not on configurations or integrating commonly used third party-services.
+- Scalable microservices architecture. 
 - Deploy your dApp dedicated services easily to any infrastructure provider with containers.  
 - Ability to run multiple versions of EOS with different configuration with no conflicts.
 - This project follows EOS DApp development best practices.
@@ -46,7 +42,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 ## Technical Specs
 
 - Fully virtualized EOS blockchain development environment.
-- Inteligent automated blockchain replay. ( no more replay flag shenanigans )
 - Microservices architecture.
 - Out-of-box services: 
   - Postgres database.
@@ -61,7 +56,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
     - EOS Account profile page.
     - Material UI.
     - GraphQL Apollo client.
-- Services accesible through virtual host names both from host machine and within the docker network.
+- Services accessible through virtual host names both from host machine and within the docker network.
 - Handy scripts for interacting with the local EOS services.
 - Gulp as global task manager.
 - Automated code linting and testing.
@@ -91,12 +86,12 @@ At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
 
 ## Commands
 
-- `gulp setup` run chain initilization and database migrations.
+- `gulp setup` run chain initialization and database migrations.
 - `gulp start` starts the docker containers.
 - `gulp stop` stops and removes all containers.
 - `gulp restart` restarts all services.
-- `gulp flush` stop all services and remove all blockchain and database data.
-- `gulp logs` displays and folows all services logs.
+- `gulp flush` stops all services and remove all blockchain and database data.
+- `gulp logs` displays and follows all services logs.
 
 ## Directory Structure
 
@@ -153,8 +148,21 @@ Taking inspiration from the [Flux Architecture](https://facebook.github.io/flux/
 
 1. A separation of concerns between how state exists on the blockchain and how it is queried by the client front-end
 1. Client front-end not solely responsible for determining derived, reduced, and/or accumulated state
-1. Ability for blockchain events to trigger new transactions, as well as other side effects outside of the blockchain
+1. The ability for blockchain events to trigger new transactions, as well as other side effects outside of the blockchain
 1. The blockchain as the single source of truth for all application state
+
+<p align="center">
+		<img src="assets/demux.png" width="600">
+</p>
+
+1. Client sends transaction to blockchain.
+1. Action Watcher invokes Action Reader to check for new blocks.
+1. Action Reader sees transaction in new block, parses actions.
+1. Action Watcher sends actions to Action Handler.
+1. Action Handler processes actions through Updaters and Effects.
+1. Actions run their corresponding Updaters, updating the state of the Datastore.
+1. Actions run their corresponding Effects, triggering external events.
+1. Client queries API for updated data.
 
 Learn more at https://eosio.github.io/demux-js/.
 
@@ -174,7 +182,17 @@ https://hub.docker.com/r/eosio/eos/ the base image source code can be found at h
 
 ### postgres
 
-Postgres database instance for the demux service.
+Postgres database instance for the demux and graphql service.
+
+PostgreSQL is a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
+
+- Postgres has a strongly typed schema that leaves very little room for errors. You first create the schema for a table and then add rows to the table. You can also define relationships between different tables with rules so that you can store related data across several tables and avoid data duplication.
+
+- You can change tables in PostgreSQL without requiring to lock it for every operation. For example, you can add a column and set a default value quickly without locking the entire table. This ensures that every row in a table has the column and your codebase remains clean without needing to check if the column exists at every stage. It is also much quicker to update every row since Postgres doesn't need to retrieve each row, update, and put it back.
+
+- Postgres also supports JSONB, which lets you create unstructured data, but with data constraint and validation functions to help ensure that JSON documents are more meaningful. The folks at Sisense have written a great blog with a detailed comparison of [Postgres vs MongoDB for JSON documents](https://www.sisense.com/blog/postgres-vs-mongodb-for-storing-json-data/).
+
+learn more at https://www.postgresql.org
 
 ### mongodb
 
@@ -187,19 +205,37 @@ https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 ## EOS Documentation & Resources
 
 - https://github.com/EOSIO/eos/tree/master/Docker  
-- https://developers.eos.io  
-- https://learn.eoscostarica.io  
-- https://github.com/slowmist/eos-smart-contract-security-best-practices  
-- https://nadejde.github.io/eos-token-sale  
-- https://docs.docker.com/kitematic/userguide/  
+- https://developers.eos.io    
+- https://learn.eoscostarica.io    
+- https://github.com/slowmist/eos-smart-contract-security-best-practices    
+- https://nadejde.github.io/eos-token-sale    
+- https://docs.docker.com/kitematic/userguide/    
 
 ## Frequently Asked Questions
 
-### How does this project compares to EOSFactory ?
+### How does this project compare to EOSFactory ?
 
-EOSFactory is Python based framework for building and testing EOS smart contracts. This project is Docker based and serves as boilerplate to start an scalable EOSIO project with microservices architecture following best practices at all levels. It includes many required services for large scale EOSIO based applications and ReactJS client with Scatter and Lynx already integrated. 
+EOSFactory is Python-based framework for building and testing EOS smart contracts. This project is Docker-based and serves as boilerplate to start a scalable EOSIO project with microservices architecture following best practices at all levels. It includes many required services for large-scale EOSIO based applications and ReactJS client with Scatter and Lynx already integrated.
 
-EOS Local is somehow language agnostic in the sense you can you can spin up services more services using any programming languague. However the out-of-the-box services are JavaScript based.
+EOS Local is somehow language agnostic in the sense you can you can spin up services more services using any programming language. However, the out-of-the-box services are written in JavaScript.
+
+### Why Containers ?
+
+The primary benefits of containers are efficiency and agility. Containers are orders of magnitude faster to provision, and much lighter-weight to build and define versus methods like omnibus software builds and full Virtual Machine images. Containers in a single OS are also more efficient at resource utilization than running a Hypervisor and guest OSs.
+
+Efficiency and agility are good for everyone, but they become game-changers at scale. 
+
+It also gives the ability to run distint versions of the different services like EOSIO on your laptop without conflicts.
+
+Containers offer a logical packaging mechanism in which applications can be abstracted from the environment in which they actually run. This decoupling allows container-based applications to be deployed easily and consistently, regardless of whether the target environment is a private data center, the public cloud, or even a developer’s personal laptop. Containerization provides a clean separation of concerns, as developers focus on their application logic and dependencies, while IT operations teams can focus on deployment and management without bothering with application details such as specific software versions and configurations specific to the app.
+
+For those coming from virtualized environments, containers are often compared with virtual machines (VMs). You might already be familiar with VMs: a guest operating system such as Linux or Windows runs on top of a host operating system with virtualized access to the underlying hardware. Like virtual machines, containers allow you to package your application together with libraries and other dependencies, providing isolated environments for running your software services. As you’ll see below however, the similarities end here as containers offer a far more lightweight unit for developers and IT Ops teams to work with, carrying a myriad of benefits.
+
+<p align="center">
+		<img src="assets/containers.png" width="600">
+</p>
+
+Learn more at https://cloud.google.com/containers/
 
 ## Contributing
 
