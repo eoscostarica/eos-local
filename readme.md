@@ -192,6 +192,12 @@ PostgreSQL is a powerful, open source object-relational database system with ove
 
 - Postgres also supports JSONB, which lets you create unstructured data, but with data constraint and validation functions to help ensure that JSON documents are more meaningful. The folks at Sisense have written a great blog with a detailed comparison of [Postgres vs MongoDB for JSON documents](https://www.sisense.com/blog/postgres-vs-mongodb-for-storing-json-data/).
 
+- The newest round of performance comparisons of PostgreSQL and MongoDB produced a near repeat of the results from the first tests that proved PostgreSQL can outperform MongoDB.
+
+<p align="center">
+		<img src="assets/postgres.webp" width="600">
+</p>
+
 learn more at https://www.postgresql.org
 
 ### mongodb
