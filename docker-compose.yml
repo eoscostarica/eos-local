@@ -15,8 +15,12 @@ services:
       DB_USER: user
       DB_PASSWORD: pass
       POSTGRES_DB: eoslocal
+      VIRTUAL_HOST: postgres.eoslocal.io
+      VIRTUAL_PORT: 5432
     networks:
       eoslocal:
+        aliases:
+          - postgres.eoslocal.io
 
   mongo:
     image: mongo
@@ -25,8 +29,13 @@ services:
       - ./.dbdata/.mongo-data:/data/db
     ports:
       - '27017:27017'
+    environment:
+      VIRTUAL_HOST: mongo.eoslocal.io
+      VIRTUAL_PORT: 27017
     networks:
       eoslocal:
+        aliases:
+          - mongo.eoslocal.io
 
   fullnode:
     image: eosio/eos:v1.4.1
@@ -42,6 +51,8 @@ services:
       WAIT_HOSTS: mongo:27017, eosiodev:8888
       WAIT_HOSTS_TIMEOUT: 60
       DATA_DIR: /opt/eosio/bin/data-dir
+      VIRTUAL_HOST: fullnode.eoslocal.io
+      VIRTUAL_PORT: 8888
     depends_on:
       - mongo
       - eosiodev
@@ -52,6 +63,8 @@ services:
       # - './services/eos-fullnode/mainnet-genesis.json:/opt/eosio/bin/genesis.json'
     networks:
       eoslocal:
+        aliases:
+          - fullnode.eoslocal.io
 
   # only required for dev
   eosiodev:
@@ -66,11 +79,15 @@ services:
     environment:
       DATA_DIR: /root/.local/share
       CONFIG_DIR: /opt/application/config
+      VIRTUAL_HOST: eosiodev.eoslocal.io
+      VIRTUAL_PORT: 8888
     volumes:
       - eosiodev:/root/.local/share
       - ./services/eos-dev:/opt/application
     networks:
       eoslocal:
+        aliases:
+          - eosiodev.eoslocal.io
 
   demux:
     build:
@@ -99,21 +116,42 @@ services:
       MONGO_DB: EOSFN
       WAIT_HOSTS: postgres:5432, mongo:27017
       WAIT_HOSTS_TIMEOUT: 60
+      VIRTUAL_HOST: demux.eoslocal.io
+      VIRTUAL_PORT: 3030
     ports:
       - '3030:3030'
     networks:
       eoslocal:
+        aliases:
+          - demux.eoslocal.io
 
   admin-mongo:
     image: mrvautin/adminmongo:latest
     ports:
       - '8082:8082'
     environment:
-      - PORT=8082
-      - CONN_NAME=fullnode-mongo
-      - DB_HOST=mongo
+      PORT: 8082
+      CONN_NAME: fullnode-mongo
+      DB_HOST: mongo
+      VIRTUAL_HOST: admin-mongo.eoslocal.io
+      VIRTUAL_PORT: 8082
     depends_on:
       - mongo
+    networks:
+      eoslocal:
+        aliases:
+          - admin-mongo.eoslocal.io
+
+  # nginx reverse proxy that allows accesing the services directly on the host machine
+  # the wildcard *.esolocal.io that points to 127.0.0.1,
+  # therefore as long as you can hit the dns server it will redirect all requests to your machine
+  # and nginx-proxy does the internal docker network routing to the right service
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    ports:
+      - '80:80'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       eoslocal:
 

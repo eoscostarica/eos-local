@@ -208,6 +208,16 @@ The eosio::mongo_db_plugin provides archiving of blockchain data into a MongoDB.
 
 https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 
+### ngnix-proxy
+
+Nginx reverse proxy that allows accesing the services directly on the host machine the wildcard `*.esolocal.io` that points to `127.0.0.1`, therefore as long as you can hit the dns server it will redirect all requests to your machine and nginx-proxy does the internal docker network routing to the right service. 
+
+Run `ping {whatever}.eoslocal.io` to verify.
+
+Optionally you can avoid the round trip and work offline maintaining virtual hosts by manually adding your dns to your `hosts` file. https://en.wikipedia.org/wiki/Hosts_(file)
+
+See the `docker-compose.yml` for available virtual hosts for easier access without port shenanigans.x
+
 ## EOS Documentation & Resources
 
 - https://github.com/EOSIO/eos/tree/master/Docker  
