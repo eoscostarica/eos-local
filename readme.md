@@ -101,6 +101,18 @@ At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
 - `gulp flush` stops all services and remove all blockchain and database data.
 - `gulp logs` displays and follows all services logs.
 
+## Chain Initialization and Database Migrations
+
+Whe you run `gulp setup` several things will happen:
+
+- Chain initialization.
+- Testing Users Creation.
+- Contracts Compilation and deployment.
+- Postgres Schema Creation.
+- Postgres Database Migrations.
+
+See [services/eos-dev/scripts/0000_init_chain.sh](services/eos-dev/scripts/0000_init_chain.sh)
+
 ## Directory Structure
 
 ```

@@ -1,7 +1,7 @@
 {
   "name": "eoslocal-demux",
   "version": "1.0.0",
-  "author": "Leo Ribeiro",
+  "author": "EOS Costa Rica",
   "license": "MIT",
   "dependencies": {
     "@types/cors": "^2.8.4",
