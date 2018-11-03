@@ -216,7 +216,26 @@ Run `ping {whatever}.eoslocal.io` to verify.
 
 Optionally you can avoid the round trip and work offline maintaining virtual hosts by manually adding your dns to your `hosts` file. https://en.wikipedia.org/wiki/Hosts_(file)
 
-See the `docker-compose.yml` for available virtual hosts for easier access without port shenanigans.x
+See the `docker-compose.yml` for available virtual hosts for easier access without port shenanigans.
+
+### reactjs web client
+
+In the services/frontend folder you will find a production ready frontend with Scatter and Lynx libraries ready for you to use. 
+
+#### components
+
+- [react-app-rewired](https://github.com/timarney/react-app-rewired) for tweaking `create-react-app` configuration without ejecting.
+- [reach-router](https://github.com/reach/router) for a more accessible router.
+- state management with [rematch](https://github.com/rematch/rematch) to use `redux` best practices without all the boilerplate.
+- [react-apollo](https://github.com/apollographql/react-apollo) react apollo client.
+- [material-ui](https://github.com/mui-org/material-ui).
+- [scatter-js](https://github.com/GetScatter/scatter-js).
+- [eoslynx integration](https://developers.eoslynx.com/).
+
+## Continuous Integration Process
+
+- [TravisCI](https://travis-ci.org/) to run test and code style checks.
+- [Netlify](https://netlify.com) for continuous delivery and creation of ephemeral test environments.
 
 ## EOS Documentation & Resources
 
