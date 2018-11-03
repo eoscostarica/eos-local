@@ -22,6 +22,16 @@ services:
         aliases:
           - postgres.eoslocal.io
 
+  flyway:
+    image: boxfuse/flyway:5.2.1
+    command: -url=jdbc:postgresql://postgres:5432/eoslocal -user=user -password=pass -connectRetries=60 migrate
+    volumes:
+      - ./services/postgres/migrations:/flyway/sql
+    depends_on:
+      - postgres
+    networks:
+      eoslocal:
+
   mongo:
     image: mongo
     restart: always
@@ -109,7 +119,7 @@ services:
       DB_PORT: 5432
       DB_NAME: eoslocal
       DB_HOST: postgres
-      DB_SCHEMA: pets
+      DB_SCHEMA: public
       CHAIN_HOST: 'http://eosiodev:8888'
       CHAIN_INIT_BLOCK: 10
       MONGO_URI: 'mongodb://mongo:27017'

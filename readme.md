@@ -37,7 +37,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 </p>
 
 
-
 ## Advantages
 
 - Get started with EOS DApp development in less than 5 minutes with a single command.
@@ -100,10 +99,12 @@ At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
 - `gulp restart` restarts all services.
 - `gulp flush` stops all services and remove all blockchain and database data.
 - `gulp logs` displays and follows all services logs.
+- `gulp migrate` executes flywaydb migrations against the postgres database.
+- `gulp psql` connects you to the postgres db instance thru command line.
 
 ## Chain Initialization and Database Migrations
 
-Whe you run `gulp setup` several things will happen:
+When you run `gulp setup` several things will happen:
 
 - Chain initialization.
 - Testing Users Creation.
@@ -218,7 +219,15 @@ PostgreSQL is a powerful, open source object-relational database system with ove
 		<img src="assets/postgres.webp" width="600">
 </p>
 
-learn more at https://www.postgresql.org
+Learn more at https://www.postgresql.org
+
+### flywaydb
+
+Flyway is an open-source database migration tool. It strongly favors simplicity and convention over configuration.
+It is based around just 7 basic commands: Migrate, Clean, Info, Validate, Undo, Baseline and Repair.
+EOS Local leverages Flyway to manage the Postgres database migrations.
+
+Learn more at https://flywaydb.org/documentation/migrations & https://flywaydb.org/documentation/videos
 
 ### mongodb
 
@@ -259,7 +268,7 @@ In the services/frontend folder you will find a production ready frontend with S
 
 ## EOS Documentation & Resources
 
-- https://github.com/EOSIO/eos/tree/master/Docker  
+- https://github.com/EOSIO/eos/tree/master/Docker
 - https://developers.eos.io    
 - https://learn.eoscostarica.io    
 - https://github.com/slowmist/eos-smart-contract-security-best-practices    
@@ -270,9 +279,7 @@ In the services/frontend folder you will find a production ready frontend with S
 
 ### How does this project compare to EOSFactory ?
 
-EOSFactory is Python-based framework for building and testing EOS smart contracts. This project is Docker-based and serves as boilerplate to start a scalable EOSIO project with microservices architecture following best practices at all levels. It includes many required services for large-scale EOSIO based applications and ReactJS client with Scatter and Lynx already integrated.
-
-EOS Local is somehow language agnostic in the sense you can you can spin up services more services using any programming language. However, the out-of-the-box services are written in JavaScript.
+EOSFactory is Python-based framework for building and testing EOS smart contracts. EOS Local has a larger scope. It is Docker-based and serves as boilerplate to start a scalable EOSIO project with microservices architecture following best practices at all levels. It includes many required services for large-scale EOSIO based applications and ReactJS client with Scatter and Lynx already integrated.
 
 ### Why Containers ?
 
@@ -291,6 +298,17 @@ For those coming from virtualized environments, containers are often compared wi
 </p>
 
 Learn more at https://cloud.google.com/containers/
+
+### Why Database Migrations ?
+
+- It enables a rock-solid deployment process because you are doing exactly the same when updating your local database, your development database, your QA database, your acceptance database and your production database. It’s always the same process and it can be automated.
+- You can easily bring a (CI-)database to the point you want by loading a baseline backup and running all migration scripts until a certain point.
+- If you do it right you have database versioning and change documentation included
+- The approach encourages small changes at a time, leading to less risky deployments
+- It enables and empowers continuous integration because you can easily transport your functional stat to different data sets (e.g. test data)
+- You know exactly what’s happening. That’s in my opinion the greatest benefit of all, because it gives you confidence that what you’re delivering will work. It also gives you enormous flexibility and lets you solve any kind of challenge – even and especially ones which need specific business logic.
+
+Learn more at https://dev.to/pesse/one-does-not-simply-update-a-database--migration-based-database-development-527d
 
 ## Contributing
 

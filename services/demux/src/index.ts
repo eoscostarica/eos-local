@@ -22,7 +22,7 @@ const dbConfig = {
   host: process.env.DB_HOST || "localhost",
   port: Number(process.env.DB_PORT) || 5432,
   database: process.env.DB_NAME || "eoslocal",
-  schema: process.env.DB_SCHEMA || "eoslocal",
+  schema: process.env.DB_SCHEMA || "public",
 }
 
 console.info("DB Config >>>\n", dbConfig)

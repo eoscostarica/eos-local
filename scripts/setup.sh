@@ -9,13 +9,8 @@ docker-compose up -d eosiodev
 sleep 3s
 docker-compose up -d fullnode
 
-read -p "Creating Postgres schema (y/n)?" -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  echo "Please use the password: pass (or any other one you setup in docker-compose)"
-  docker-compose run demux yarn _migrate
-fi
+echo "Initializing Postgres"
+docker-compose up flyway
 
 read -p "Initializing Chain data (y/n)? " -n 1 -r
 echo    # (optional) move to a new line

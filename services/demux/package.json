@@ -46,8 +46,6 @@
   "scripts": {
     "start": "pm2-dev start pm2.config.js",
     "build": "yarn build-ts && yarn lint",
-    "migrate": "docker-compose run demux yarn _migrate",
-    "_migrate": "./migrate.sh up pets",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "which": "which pm2-dev",
