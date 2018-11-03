@@ -30,6 +30,14 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 
 **Important Disclaimer: This is a Work in Progress** 
 
+## Architecture
+
+<p align="center">
+		<img src="assets/EOS-Local-Architecture.png" width="600">
+</p>
+
+
+
 ## Advantages
 
 - Get started with EOS DApp development in less than 5 minutes with a single command.
