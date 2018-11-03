@@ -28,3 +28,6 @@ keys
 
 # netlify cli
 .netlify/
+
+
+__docs

@@ -54,6 +54,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - Postgres database.
   - Mongodb database.
   - Demux service.
+  - Flyway service for Postgres DB migrations.
   - Eos-dev node for contract dev and compilation.
   - Eos fullnode with history.
   - Graphql endpoint.
