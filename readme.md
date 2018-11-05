@@ -233,9 +233,18 @@ Learn more at https://eosio.github.io/demux-js/.
 
 ### eosiodev
 
-Due to the fact that the eosio/eos image does not contain the required dependencies for contract development (this is by design, to keep the image size small), you will need to utilize the eosio/eos-dev image. This image contains both the required binaries and dependencies to build contracts using eosiocpp.
+This ubuntu server contains everything that's required for contract compilation.
 
-https://hub.docker.com/r/eosio/eos-dev/ the base image can be found at https://github.com/EOSIO/eos/blob/master/Docker/dev/Dockerfile.
+The eosio/eos image does not contain the required dependencies for contract development (this is by design, to keep the image size small), we use eosio.cdt for this and the `eosiodev` docker image already has it installed for automated and manual compilation.
+
+__Note:__
+*The eosio/eos-dev image contains both the required binaries and dependencies to build contracts using `eosiocpp`. https://hub.docker.com/r/eosio/eos-dev/ the base image can be found at https://github.com/EOSIO/eos/blob/master/Docker/dev/Dockerfile. However eosiocpp is now deprecated in favor `eosio-cpp` and the lastest `eosio/oes-dev` docker image does not contain `eosio-cpp`, at least not yet* 
+
+#### EOSIO.CDT (Contract Development Toolkit)  1.3.x
+
+EOSIO.CDT is a toolchain for WebAssembly (WASM) and set of tools to facilitate contract writing for the EOSIO platform. In addition to being a general purpose WebAssembly toolchain, EOSIO specific optimizations are available to support building EOSIO smart contracts. This new toolchain is built around Clang 7, which means that EOSIO.CDT has the most currently available optimizations and analyses from LLVM, but as the WASM target is still considered experimental, some optimizations are not available or incomplete.
+
+Learn more at https://github.com/EOSIO/eosio.cdt
 
 ### fullnode
 
@@ -265,7 +274,7 @@ PostgreSQL is a powerful, open source object-relational database system with ove
 
 Learn more at https://www.postgresql.org
 
-### flywaydb
+### flyway
 
 Flyway is an open-source database migration tool. It strongly favors simplicity and convention over configuration.
 It is based around just 7 basic commands: Migrate, Clean, Info, Validate, Undo, Baseline and Repair.
