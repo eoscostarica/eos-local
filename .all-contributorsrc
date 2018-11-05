@@ -21,7 +21,7 @@
         "review"
       ]
     },
-     {
+    {
       "login": "danazkari",
       "name": "Daniel Prado",
       "avatar_url": "https://avatars2.githubusercontent.com/u/349542?v=4",
@@ -65,7 +65,19 @@
       "profile": "https://github.com/rubenabix",
       "contributions": [
         "ideas",
-        "review"
+        "review",
+        "code"
+      ]
+    },
+    {
+      "login": "jsegura17",
+      "name": "jsegura17",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15035769?v=4",
+      "profile": "https://github.com/jsegura17",
+      "contributions": [
+        "code",
+        "review",
+        "ideas"
       ]
     }
   ]
