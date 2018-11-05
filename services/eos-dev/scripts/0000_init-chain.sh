@@ -136,8 +136,8 @@ cleos set account permission eoslocaldapp active \
 
 
 # echo "Compiling EOSLOCAL Contract"
-# ./eosiocpp -o "$CONTRACTS_DIR"/pet/pet.wast "$CONTRACTS_DIR"/pet/petcode.cpp
-# ./eosiocpp -g "$CONTRACTS_DIR"/pet/pet.abi "$CONTRACTS_DIR"/pet/petabi.cpp
+# ./eosiocpp -o "$CONTRACTS_DIR"/eoslocal/eoslocal.wast "$CONTRACTS_DIR"/eoslocal/eoslocal.cpp
+# ./eosiocpp -g "$CONTRACTS_DIR"/eoslocal/eoslocal.abi "$CONTRACTS_DIR"/eoslocal/eoslocal.cpp
 
 echo "Deploying EOSLOCAL Contracts"
 cleos -u http://eosiodev:8888 set contract eoslocal "$CONTRACTS_DIR"/eoslocal
