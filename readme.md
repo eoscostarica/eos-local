@@ -417,6 +417,13 @@ Learn more at https://cloud.google.com/containers/
 
 Learn more at https://dev.to/pesse/one-does-not-simply-update-a-database--migration-based-database-development-527d
 
+### Who is using EOS Local ?
+
+- [BeSpiral](http://bespiral.com).
+- [EOS Rate](https://rate.eoscostarica.io).
+- [DMeetup](https://github.com/eoscostarica/dmeetup).
+- Add your project by creating a pull request.
+
 ## Contributing
 
 We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
