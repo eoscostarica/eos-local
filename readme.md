@@ -113,7 +113,7 @@ When you run `gulp setup` several things will happen:
 - Postgres Schema Creation.
 - Postgres Database Migrations.
 
-See [services/eos-dev/scripts/0000_init_chain.sh](services/eos-dev/scripts/0000_init_chain.sh)
+See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostarica/eos-local/blob/master/services/eos-dev/scripts/0000_init-chain.sh)
 
 ## Directory Structure
 
@@ -266,6 +266,73 @@ In the services/frontend folder you will find a production ready frontend with S
 
 - [TravisCI](https://travis-ci.org/) to run test and code style checks.
 - [Netlify](https://netlify.com) for continuous delivery and creation of ephemeral test environments.
+
+## Using Cleos on EOS Local
+
+Cleos is a command line tool that interfaces with the REST API exposed by nodeos. In order to use cleos you will need to have the end point (IP address and port number) to a nodeos instance and also configure nodeos to load the 'eosio::chain_api_plugin'. `cleos` contains documentation for all of its commands. 
+
+More at https://developers.eos.io/eosio-nodeos/docs/cleos-overview 
+
+EOS Local comes with 2 EOS nodes running in separate docker containers, you can interact with these nodes using `cleos` in several ways:
+
+### Invoking cleos through docker-compose exec
+
+You can execute commands on any container from you host machine using the `docker-compose exec` command.
+Eg:
+
+`docker-compose exec eosiodev cleos --url http://localhost:8888/`
+
+We recomend using declaring alias on your shell configuration  Eg (.bashrc or .zshrc) 
+
+```
+alias cleos_eosiodev='docker-compose exec eosiodev cleos --url http://localhost:8888/'
+alias cleos_fullnode='docker-compose exec fullnode cleos --url http://localhost:8888/'
+```
+
+After you have added those lines to your config you can open a new terminal window and run `cleos_eosiodev --help` and `cleos_fullnode --help` to test.
+
+#### Handy Yarn scritps
+
+EOS Local provides to handy yarn scripts to accomplish the same functionality mentioned above.
+
+-  `yarn cleos` ............. connects to eosiodev node
+-  `yarn cleos:eosiodev` .... connects to eosiodev node
+-  `yarn cleos:fullnode` .... connects to the eos fullnode
+
+__Important note:__  
+*We currently use yarn instead gulp for this because it allows to pass parameters more easily.
+In the future gulp and yarn script at the root level will be replaced with an `eoslocal` cli.*
+
+Follow up here https://github.com/eoscostarica/eos-local/issues/17 
+
+### SHH into the containers and use cleos directly
+
+You can also login into the containers using the following docker-compose command 
+
+`docker-compose exec [service_name] bash`  where `service_name` is either `eosiodev` or `fullnode`
+
+That will log you in and you will be able to execute cleos directly within the ubuntu server.
+Eg.
+
+```
+➜  eos-local git:(master) ✗ docker-compose exec eosiodev bash
+root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
+{
+  "server_version": "f9a3d023",
+  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
+  "head_block_num": 4900,
+  "last_irreversible_block_num": 4899,
+  "last_irreversible_block_id": "000013232f7193f86a4edc59b6aa2b2a8ccd6c2060d24eb0e5c497beb97b76e5",
+  "head_block_id": "000013249772e5af12592d7d3eeb401276c09f781e3ed76faa75a49f53b481bd",
+  "head_block_time": "2018-11-05T20:27:45.000",
+  "head_block_producer": "eosio",
+  "virtual_block_cpu_limit": 26829884,
+  "virtual_block_net_limit": 140951435,
+  "block_cpu_limit": 199900,
+  "block_net_limit": 1048576,
+  "server_version_string": "v1.4.1"
+}
+```
 
 ## EOS Documentation & Resources
 

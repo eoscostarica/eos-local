@@ -13,8 +13,6 @@ gulp.task('stop', shell.task('./scripts/stop.sh', { cwd }))
 
 gulp.task('flush', shell.task('./scripts/flush.sh', { cwd }))
 
-gulp.task('cleos', shell.task('./scripts/cleos.sh', { cwd }))
-
 gulp.task('logs', shell.task('docker-compose logs -f', { cwd }))
 
 gulp.task('migrate', shell.task('docker-compose up flyway', { cwd }))
