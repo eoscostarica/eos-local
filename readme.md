@@ -30,12 +30,51 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 
 **Important Disclaimer: This is a Work in Progress** 
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Architecture](#architecture)
+- [Advantages](#advantages)
+- [Technical Specs](#technical-specs)
+- [Getting started](#getting-started)
+  - [Installation](#installation)
+- [Commands](#commands)
+- [Chain Initialization and Database Migrations](#chain-initialization-and-database-migrations)
+- [Directory Structure](#directory-structure)
+- [Services](#services)
+  - [demux](#demux)
+  - [eosiodev](#eosiodev)
+  - [fullnode](#fullnode)
+  - [postgres](#postgres)
+  - [flywaydb](#flywaydb)
+  - [mongodb](#mongodb)
+  - [ngnix-proxy](#ngnix-proxy)
+  - [reactjs web client](#reactjs-web-client)
+    - [components](#components)
+- [Continuous Integration Process](#continuous-integration-process)
+- [Using Cleos on EOS Local](#using-cleos-on-eos-local)
+  - [Invoking cleos through docker-compose exec](#invoking-cleos-through-docker-compose-exec)
+    - [Handy Yarn scritps](#handy-yarn-scritps)
+  - [SHH into the containers and use cleos directly](#shh-into-the-containers-and-use-cleos-directly)
+- [EOS Documentation & Resources](#eos-documentation--resources)
+- [Frequently Asked Questions](#frequently-asked-questions)
+  - [How does this project compare to EOSFactory ?](#how-does-this-project-compare-to-eosfactory-)
+  - [Why Containers ?](#why-containers-)
+  - [Why Database Migrations ?](#why-database-migrations-)
+- [Contributing](#contributing)
+- [Awesome Lists](#awesome-lists)
+- [About EOS Costa Rica](#about-eos-costa-rica)
+- [License](#license)
+- [Contributors](#contributors)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Architecture
 
 <p align="center">
 		<img src="assets/EOS-Local-Architecture.png" width="600">
 </p>
-
 
 ## Advantages
 
