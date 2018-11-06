@@ -169,7 +169,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 ├── docs/ .............................................. documentation files and media
 ├── services/ .......................................... microservices
 |   ├── demux/ ......................................... demux-js service
-|   |   ├── database/ .................................. postgres config and migrations
+|   |   ├── utils/ ..................................... general utilities
 |   |   ├── src/ ....................................... application biz logic 
 |   |   ├── Dockerfile ................................. service image spec 
 |   |   ├── pm2.config.js .............................. process specs for pm2
@@ -178,6 +178,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 |   |   └── package.json ............................... service dependencies manifest
 |   |
 |   ├── eosiodev/ ...................................... eos-dev node for contact development
+|   |   ├── utils/ ..................................... general utilities
 |   |   ├── config/ .................................... eos node config
 |   |   ├── contracts/ ................................. smart contracts 
 |   |   ├── scripts/ ................................... chain and wallet init scripts
@@ -185,17 +186,21 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 |   |   └── start.sh ................................... service startup script
 |   |
 |   ├── eos-fullnode/ .................................. eos fullnode
+|   |   ├── utils/ ..................................... general utilities
 |   |   ├── config.ini ................................. eos node configuration file
 |   |   ├── Dockerfile ................................. service image spec 
 |   |   └── start.sh ................................... service startup script
 |   |
+|   ├── postgres/ ...................................... postgres db related files
+|   |   └── migrations/ ................................ flyway migrations
+|   |
 |   └── frontend/ ...................................... reactjs frontend
-|      ├── public/ .................................... static and public files
-|      ├── src/ ....................................... reactjs views and components
-|      ├── config-overrides.js ........................ configuration overrides for `cra`
-|      ├── .env ....................................... environment variables
-|      ├── .eslintrc .................................. code style rules
-|      └── package.json ............................... service dependencies manifest
+|       ├── public/ .................................... static and public files
+|       ├── src/ ....................................... reactjs views and components
+|       ├── config-overrides.js ........................ configuration overrides for `cra`
+|       ├── .env ....................................... environment variables
+|       ├── .eslintrc .................................. code style rules
+|       └── package.json ............................... service dependencies manifest
 |   
 ├── docker-compose.yaml ................................ docker compose for local dev
 ├── contributing.md .................................... contributing guidelines
