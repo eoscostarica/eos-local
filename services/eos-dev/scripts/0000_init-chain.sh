@@ -140,7 +140,7 @@ eosio-cpp -o "$CONTRACTS_DIR"/eoslocal/eoslocal.wast "$CONTRACTS_DIR"/eoslocal/e
 eosio-cpp -g "$CONTRACTS_DIR"/eoslocal/eoslocal.abi "$CONTRACTS_DIR"/eoslocal/eoslocal.cpp
 
 echo "Deploying EOSLOCAL Contracts"
-cleos -u http://eosiodev:8888 set contract eoslocal "$CONTRACTS_DIR"/eoslocal
+cleos -u http://eosiodev:8888 set contract eoslocal "$CONTRACTS_DIR"/eoslocal -p eoslocaldapp@active
 
 sleep .5
 echo "Creating user accounts"

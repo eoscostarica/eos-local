@@ -3,15 +3,12 @@ FROM eosio/eos-dev:v1.4.1
 RUN apt-get update && apt-get install curl -y
 
 COPY ./ /opt/application
+# install EOS Contract Development Toolkit
+RUN apt install /opt/application/resources/eosio.cdt-1.3.2.x86_64.deb
 
 VOLUME /opt/application
 
 WORKDIR /opt/eosio/bin
-
-# install EOS Contract Development Toolkit
-RUN wget https://github.com/eosio/eosio.cdt/releases/download/v1.3.2/eosio.cdt-1.3.2.x86_64.deb
-RUN apt install ./eosio.cdt-1.3.2.x86_64.deb
-RUN rm ./eosio.cdt-1.3.2.x86_64.deb
 
 # used by start.sh
 ENV DATA_DIR /root/.local/share
