@@ -77,7 +77,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 ## Architecture
 
 <p align="center">
-		<img src="assets/EOS-Local-Architecture.png" width="600">
+	<img src="assets/EOS-Local-Architecture.png" width="600">
 </p>
 
 ## Advantages
@@ -127,10 +127,6 @@ Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required.
 
 - Docker https://docs.docker.com/install/.   
 At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
- You need to use aliasing to pass options to node for npm. In the .bashrc file in your home folder:
-
-alias npm='node --max_old_space_size=10000 /usr/bin/npm'
-
 - Install node.js v10 on your machine. We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
 - Yarn https://yarnpkg.com/lang/en/docs/install/.
 - Gulp CLI  `yarn global add gulp-cli`.
