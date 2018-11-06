@@ -1,4 +1,4 @@
-FROM eosio/eos:v1.2.4
+FROM eosio/eos:v1.4.2
 
 RUN apt-get update && apt-get install curl -y
 
