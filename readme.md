@@ -349,7 +349,7 @@ In the services/frontend folder you will find a production ready frontend with S
 
 ## Continuous Integration Process
 
-- [TravisCI](https://travis-ci.org/) to run test and code style checks.
+- [TravisCI](https://travis-ci.org/) to run test and code style checks.  We are planning on moving to Circle CI https://github.com/eoscostarica/eos-local/projects/3.
 - [Netlify](https://netlify.com) for continuous delivery and creation of ephemeral test environments.
 
 ## Using Cleos on EOS Local
