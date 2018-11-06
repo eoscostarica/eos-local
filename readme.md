@@ -44,10 +44,13 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - [Directory Structure](#directory-structure)
 - [Services](#services)
   - [demux](#demux)
+  - [graphql](#graphql)
+    - [PostGraphile](#postgraphile)
   - [eosiodev](#eosiodev)
+    - [EOSIO.CDT (Contract Development Toolkit)  1.3.x](#eosiocdt-contract-development-toolkit--13x)
   - [fullnode](#fullnode)
   - [postgres](#postgres)
-  - [flywaydb](#flywaydb)
+  - [flyway](#flyway)
   - [mongodb](#mongodb)
   - [ngnix-proxy](#ngnix-proxy)
   - [reactjs web client](#reactjs-web-client)
@@ -62,6 +65,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - [How does this project compare to EOSFactory ?](#how-does-this-project-compare-to-eosfactory-)
   - [Why Containers ?](#why-containers-)
   - [Why Database Migrations ?](#why-database-migrations-)
+  - [Who is using EOS Local ?](#who-is-using-eos-local-)
 - [Contributing](#contributing)
 - [Awesome Lists](#awesome-lists)
 - [About EOS Costa Rica](#about-eos-costa-rica)
@@ -231,6 +235,28 @@ Taking inspiration from the [Flux Architecture](https://facebook.github.io/flux/
 
 Learn more at https://eosio.github.io/demux-js/.
 
+### graphql 
+
+GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
+
+There are many reason for choosing GraphQL over other solutions, read [Top 5 Reasons to Use GraphQL](https://www.prisma.io/blog/top-5-reasons-to-use-graphql-b60cfa683511/).
+
+__Move faster with powerful developer tools__
+
+Know exactly what data you can request from your API without leaving your editor, highlight potential issues before sending a query, and take advantage of improved code intelligence. GraphQL makes it easy to build powerful tools like [GraphiQL](https://github.com/graphql/graphiql) by leveraging your API’s type system.
+
+The GraphiQL instance on EOS Local is available at http://localhost:3030/graphiql
+
+Learn more at https://graphql.org & https://www.howtographql.com
+
+#### PostGraphile 
+
+PostGraphile is an open-source tool to help you rapidly design and serve a high-performance, secure, client-facing GraphQL API backed primarily by your PostgreSQL database. Delight your customers with incredible performance whilst maintaining full control over your data and your database. Use our powerful plugin system to customise every facet of your GraphQL API to your liking.
+
+This is what EOS Local uses to provide the GraphQL endpoint.
+
+Learn more at https://www.graphile.org/postgraphile
+
 ### eosiodev
 
 This ubuntu server contains everything that's required for contract compilation.
@@ -239,6 +265,8 @@ The eosio/eos image does not contain the required dependencies for contract deve
 
 __Note:__
 *The eosio/eos-dev image contains both the required binaries and dependencies to build contracts using `eosiocpp`. https://hub.docker.com/r/eosio/eos-dev/ the base image can be found at https://github.com/EOSIO/eos/blob/master/Docker/dev/Dockerfile. However eosiocpp is now deprecated in favor `eosio-cpp` and the lastest `eosio/oes-dev` docker image does not contain `eosio-cpp`, at least not yet* 
+
+Follow up on https://github.com/eoscostarica/eos-local/issues/27
 
 #### EOSIO.CDT (Contract Development Toolkit)  1.3.x
 
