@@ -3,15 +3,12 @@
     "settingsTitle": "Configuración",
     "settingsLanguages": "Ingles/Español",
     "settingsNotifications": "Notificación",
-
     "not-found": "Recurso no encontrado",
-
     "accountTitle": "Mi Cuenta",
-
     "drawerLinkHome": "Página Principal",
     "drawerLinkAllBPs": "Productores de Bloques",
     "drawerLinkSettings": "Configuración",
-
-    "homeTitle": "Hackea el Mundo!"
+    "HomeInputLabel": "300 CARACTERES",
+    "HomeInputPlaceholder": "Escribe tu saludo..."
   }
 }

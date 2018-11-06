@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { translate } from 'react-i18next'
 import PropTypes from 'prop-types'
 
-const Home = ({ t }) => <h1>{t('homeTitle')}</h1>
+import Home from 'components/Home'
 
-Home.propTypes = {
+class HomeContainer extends Component {
+  render () {
+    const { t } = this.props
+
+    return (
+      <Home
+        inputLabel={t('HomeInputLabel')}
+        inputPlaceholder={t('HomeInputPlaceholder')}
+      />
+    )
+  }
+}
+
+HomeContainer.propTypes = {
   t: PropTypes.func.isRequired
 }
 
-export default translate('translations')(Home)
+export default translate('translations')(HomeContainer)
