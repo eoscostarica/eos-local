@@ -109,6 +109,17 @@
         "review",
         "ideas"
       ]
+    },
+    {
+      "login": "edgar-eoscostarica",
+      "name": "Edgar Fernandez",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/40245170?v=4",
+      "profile": "http://www.eoscostarica.io",
+      "contributions": [
+        "ideas",
+        "blog",
+        "talk"
+      ]
     }
   ]
 }
