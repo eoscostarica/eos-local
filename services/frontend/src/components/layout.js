@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Hidden from '@material-ui/core/Hidden'
 import MainTopBar from 'components/app-bar'
-import MainDrawer from 'components/main-drawer'
 
 const styles = theme => ({
   root: {
@@ -25,33 +23,35 @@ const styles = theme => ({
     overflow: 'scroll',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3
+    marginTop: 75
   }
 })
 
 class Layout extends Component {
   state = {
-    mobileNavOpen: false
+    mobileNavOpen: false,
+    anchorEl: null
   }
 
   handleDrawerToggle = () =>
     this.setState({ mobileNavOpen: !this.state.mobileNavOpen })
 
+  handleMenu = e => this.setState({ anchorEl: e.currentTarget })
+
+  handleClose = () => this.setState({ anchorEl: null })
+
   render () {
     const { classes, children } = this.props
+    const open = Boolean(this.state.anchorEl)
     return (
       <div className={classes.root}>
-        <MainTopBar handleDrawerToggle={this.handleDrawerToggle} />
-        <Hidden mdUp>
-          <MainDrawer
-            variant='mobile'
-            open={this.state.mobileNavOpen}
-            onClose={this.handleDrawerToggle}
-          />
-        </Hidden>
-        <Hidden smDown implementation='css'>
-          <MainDrawer />
-        </Hidden>
+        <MainTopBar
+          handleDrawerToggle={this.handleDrawerToggle}
+          handleMenu={this.handleMenu}
+          anchorEl={this.state.anchorEl}
+          open={open}
+          onClose={this.handleClose}
+        />
         <main className={classes.content}>
           <div className={classes.toolbar} />
           {children}

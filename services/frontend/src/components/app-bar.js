@@ -1,14 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import MenuIcon from '@material-ui/icons/Menu'
+import {
+  AppBar,
+  Toolbar,
+  Grid,
+  Button,
+  InputAdornment,
+  IconButton,
+  TextField,
+  Typography,
+  MenuItem,
+  Menu
+} from '@material-ui/core'
+import {
+  ChatBubbleOutline,
+  Settings,
+  Fingerprint
+} from '@material-ui/icons'
 import { fade } from '@material-ui/core/styles/colorManipulator'
-import FingerprintIcon from '@material-ui/icons/Fingerprint'
 import { Link } from '@reach/router'
+import { translate } from 'react-i18next'
 
 const styles = theme => ({
   root: {
@@ -74,23 +86,32 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: 200
     }
+  },
+  menuLink: {
+    textDecoration: 'none'
+  },
+  textFieldInput: {
+    color: 'white'
+  },
+  textFieldFormLabel: {
+    color: 'white !important'
   }
 })
 
-const MainTopBar = ({ classes, handleDrawerToggle }) => (
+const MainTopBar = ({
+  classes,
+  handleDrawerToggle,
+  handleMenu,
+  anchorEl,
+  open,
+  onClose,
+  t
+}) => (
   <AppBar position='absolute'>
     <Toolbar>
-      <IconButton
-        className={classes.menuButton}
-        color='inherit'
-        aria-label='Menu'
-        onClick={handleDrawerToggle}
-      >
-        <MenuIcon />
-      </IconButton>
       <Link to='/' className={classes.link}>
         <Typography variant='title' color='inherit' className={classes.title}>
-          EOS dApp
+            EOS Grettings
         </Typography>
       </Link>
       <div className={classes.grow} />
@@ -98,16 +119,79 @@ const MainTopBar = ({ classes, handleDrawerToggle }) => (
       <div className={classes.grow} />
       <Link to='/account' className={classes.link}>
         <IconButton color='inherit'>
-          <FingerprintIcon />
+          <Fingerprint />
         </IconButton>
       </Link>
+      <IconButton color='inherit' onClick={handleMenu}>
+        <Settings />
+      </IconButton>
+      <Menu
+        id='menu-appbar'
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        open={open}
+        onClose={onClose}
+      >
+        <MenuItem onClick={onClose}><Link to='/settings' className={classes.menuLink}>Settings</Link></MenuItem>
+      </Menu>
     </Toolbar>
+    <Grid container alignItems='center'>
+      <Grid item xs={10}>
+        <TextField
+          id='filled-full-width'
+          label={t('inputLabel')}
+          style={{ margin: 8 }}
+          placeholder={t('inputPlaceholder')}
+          fullWidth
+          variant='filled'
+          inputStyle={{ backgroundColor: 'red' }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position='start' style={{ marginTop: 14, color: '#fff' }}>
+                <ChatBubbleOutline />
+              </InputAdornment>
+            ),
+            classes: {
+              root: classes.textFieldRoot,
+              input: classes.textFieldInput
+            }
+          }}
+          InputLabelProps={{
+            className: classes.textFieldFormLabel
+          }}
+        />
+      </Grid>
+      <Grid item xs={2} style={{ justifyContent: 'center', display: 'flex' }}>
+        <Button
+          className='textPrimary'
+          variant='contained'
+          size='small'
+          color='secondary'
+          style={{ color: '#fff' }}
+        >
+          <Fingerprint />
+            Publish
+        </Button>
+      </Grid>
+    </Grid>
   </AppBar>
 )
 
 MainTopBar.propTypes = {
   classes: PropTypes.object,
-  handleDrawerToggle: PropTypes.func
+  handleDrawerToggle: PropTypes.func,
+  handleMenu: PropTypes.func,
+  anchorEl: PropTypes.string,
+  open: PropTypes.boolean,
+  onClose: PropTypes.func,
+  t: PropTypes.funx
 }
 
-export default withStyles(styles)(MainTopBar)
+export default withStyles(styles)(translate('translations')(MainTopBar))
