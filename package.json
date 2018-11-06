@@ -10,5 +10,10 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-shell": "^0.6.5"
+  },
+  "scripts": {
+    "cleos": "yarn cleos:eosiodev",
+    "cleos:eosiodev": "SERVICE=eosiodev ./scripts/cleos.sh",
+    "cleos:fullnode": "SERVICE=fullnode ./scripts/cleos.sh"
   }
 }

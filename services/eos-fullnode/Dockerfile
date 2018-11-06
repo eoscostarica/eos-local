@@ -1,4 +1,4 @@
-FROM eosio/eos:v1.2.4
+FROM eosio/eos:v1.4.2
 
 RUN apt-get update && apt-get install curl -y
 
@@ -9,7 +9,7 @@ VOLUME /opt/application
 WORKDIR /opt/eosio/bin
 
 ## Add the wait script to the image
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.4.0/wait /wait
+ADD ./utils/wait /wait
 RUN chmod +x /wait
 
 # Used by start.sh

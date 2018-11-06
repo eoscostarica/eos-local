@@ -28,7 +28,7 @@ EXPOSE 3030
 COPY . .
 
 ## Add the wait script to the image
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.4.0/wait /wait
+ADD ./utils/wait /wait
 RUN chmod +x /wait
 
 ## Launch the wait tool and then use pm2-dev to start the app with live reload

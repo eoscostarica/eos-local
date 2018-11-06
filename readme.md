@@ -30,12 +30,55 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 
 **Important Disclaimer: This is a Work in Progress** 
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Architecture](#architecture)
+- [Advantages](#advantages)
+- [Technical Specs](#technical-specs)
+- [Getting started](#getting-started)
+  - [Installation](#installation)
+- [Commands](#commands)
+- [Chain Initialization and Database Migrations](#chain-initialization-and-database-migrations)
+- [Directory Structure](#directory-structure)
+- [Services](#services)
+  - [demux](#demux)
+  - [graphql](#graphql)
+    - [PostGraphile](#postgraphile)
+  - [eosiodev](#eosiodev)
+    - [EOSIO.CDT (Contract Development Toolkit)  1.3.x](#eosiocdt-contract-development-toolkit--13x)
+  - [fullnode](#fullnode)
+  - [postgres](#postgres)
+  - [flyway](#flyway)
+  - [mongodb](#mongodb)
+  - [ngnix-proxy](#ngnix-proxy)
+  - [reactjs web client](#reactjs-web-client)
+    - [components](#components)
+- [Continuous Integration Process](#continuous-integration-process)
+- [Using Cleos on EOS Local](#using-cleos-on-eos-local)
+  - [Invoking cleos through docker-compose exec](#invoking-cleos-through-docker-compose-exec)
+    - [Handy Yarn scritps](#handy-yarn-scritps)
+  - [SHH into the containers and use cleos directly](#shh-into-the-containers-and-use-cleos-directly)
+- [EOS Documentation & Resources](#eos-documentation--resources)
+- [Frequently Asked Questions](#frequently-asked-questions)
+  - [How does this project compare to EOSFactory ?](#how-does-this-project-compare-to-eosfactory-)
+  - [Why Containers ?](#why-containers-)
+  - [Why Database Migrations ?](#why-database-migrations-)
+  - [Who is using EOS Local ?](#who-is-using-eos-local-)
+- [Contributing](#contributing)
+- [Awesome Lists](#awesome-lists)
+- [About EOS Costa Rica](#about-eos-costa-rica)
+- [License](#license)
+- [Contributors](#contributors)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Architecture
 
 <p align="center">
 		<img src="assets/EOS-Local-Architecture.png" width="600">
 </p>
-
 
 ## Advantages
 
@@ -83,7 +126,11 @@ Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required.
 **Global Dependencies**
 
 - Docker https://docs.docker.com/install/.   
-At least 7GB RAM (Docker -> Preferences -> Advanced -> Memory -> 7GB or above)
+At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
+ You need to use aliasing to pass options to node for npm. In the .bashrc file in your home folder:
+
+alias npm='node --max_old_space_size=10000 /usr/bin/npm'
+
 - Install node.js v10 on your machine. We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
 - Yarn https://yarnpkg.com/lang/en/docs/install/.
 - Gulp CLI  `yarn global add gulp-cli`.
@@ -113,7 +160,7 @@ When you run `gulp setup` several things will happen:
 - Postgres Schema Creation.
 - Postgres Database Migrations.
 
-See [services/eos-dev/scripts/0000_init_chain.sh](services/eos-dev/scripts/0000_init_chain.sh)
+See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostarica/eos-local/blob/master/services/eos-dev/scripts/0000_init-chain.sh)
 
 ## Directory Structure
 
@@ -122,7 +169,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](services/eos-dev/scripts/0000_
 ├── docs/ .............................................. documentation files and media
 ├── services/ .......................................... microservices
 |   ├── demux/ ......................................... demux-js service
-|   |   ├── database/ .................................. postgres config and migrations
+|   |   ├── utils/ ..................................... general utilities
 |   |   ├── src/ ....................................... application biz logic 
 |   |   ├── Dockerfile ................................. service image spec 
 |   |   ├── pm2.config.js .............................. process specs for pm2
@@ -131,6 +178,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](services/eos-dev/scripts/0000_
 |   |   └── package.json ............................... service dependencies manifest
 |   |
 |   ├── eosiodev/ ...................................... eos-dev node for contact development
+|   |   ├── utils/ ..................................... general utilities
 |   |   ├── config/ .................................... eos node config
 |   |   ├── contracts/ ................................. smart contracts 
 |   |   ├── scripts/ ................................... chain and wallet init scripts
@@ -138,17 +186,21 @@ See [services/eos-dev/scripts/0000_init_chain.sh](services/eos-dev/scripts/0000_
 |   |   └── start.sh ................................... service startup script
 |   |
 |   ├── eos-fullnode/ .................................. eos fullnode
+|   |   ├── utils/ ..................................... general utilities
 |   |   ├── config.ini ................................. eos node configuration file
 |   |   ├── Dockerfile ................................. service image spec 
 |   |   └── start.sh ................................... service startup script
 |   |
+|   ├── postgres/ ...................................... postgres db related files
+|   |   └── migrations/ ................................ flyway migrations
+|   |
 |   └── frontend/ ...................................... reactjs frontend
-|      ├── public/ .................................... static and public files
-|      ├── src/ ....................................... reactjs views and components
-|      ├── config-overrides.js ........................ configuration overrides for `cra`
-|      ├── .env ....................................... environment variables
-|      ├── .eslintrc .................................. code style rules
-|      └── package.json ............................... service dependencies manifest
+|       ├── public/ .................................... static and public files
+|       ├── src/ ....................................... reactjs views and components
+|       ├── config-overrides.js ........................ configuration overrides for `cra`
+|       ├── .env ....................................... environment variables
+|       ├── .eslintrc .................................. code style rules
+|       └── package.json ............................... service dependencies manifest
 |   
 ├── docker-compose.yaml ................................ docker compose for local dev
 ├── contributing.md .................................... contributing guidelines
@@ -188,11 +240,44 @@ Taking inspiration from the [Flux Architecture](https://facebook.github.io/flux/
 
 Learn more at https://eosio.github.io/demux-js/.
 
+### graphql 
+
+GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
+
+There are many reason for choosing GraphQL over other solutions, read [Top 5 Reasons to Use GraphQL](https://www.prisma.io/blog/top-5-reasons-to-use-graphql-b60cfa683511/).
+
+__Move faster with powerful developer tools__
+
+Know exactly what data you can request from your API without leaving your editor, highlight potential issues before sending a query, and take advantage of improved code intelligence. GraphQL makes it easy to build powerful tools like [GraphiQL](https://github.com/graphql/graphiql) by leveraging your API’s type system.
+
+The GraphiQL instance on EOS Local is available at http://localhost:3030/graphiql
+
+Learn more at https://graphql.org & https://www.howtographql.com
+
+#### PostGraphile 
+
+PostGraphile is an open-source tool to help you rapidly design and serve a high-performance, secure, client-facing GraphQL API backed primarily by your PostgreSQL database. Delight your customers with incredible performance whilst maintaining full control over your data and your database. Use our powerful plugin system to customise every facet of your GraphQL API to your liking.
+
+This is what EOS Local uses to provide the GraphQL endpoint.
+
+Learn more at https://www.graphile.org/postgraphile
+
 ### eosiodev
 
-Due to the fact that the eosio/eos image does not contain the required dependencies for contract development (this is by design, to keep the image size small), you will need to utilize the eosio/eos-dev image. This image contains both the required binaries and dependencies to build contracts using eosiocpp.
+This ubuntu server contains everything that's required for contract compilation.
 
-https://hub.docker.com/r/eosio/eos-dev/ the base image can be found at https://github.com/EOSIO/eos/blob/master/Docker/dev/Dockerfile.
+The eosio/eos image does not contain the required dependencies for contract development (this is by design, to keep the image size small), we use eosio.cdt for this and the `eosiodev` docker image already has it installed for automated and manual compilation.
+
+__Note:__
+*The eosio/eos-dev image contains both the required binaries and dependencies to build contracts using `eosiocpp`. https://hub.docker.com/r/eosio/eos-dev/ the base image can be found at https://github.com/EOSIO/eos/blob/master/Docker/dev/Dockerfile. However eosiocpp is now deprecated in favor `eosio-cpp` and the lastest `eosio/oes-dev` docker image does not contain `eosio-cpp`, at least not yet* 
+
+Follow up on https://github.com/eoscostarica/eos-local/issues/27
+
+#### EOSIO.CDT (Contract Development Toolkit)  1.3.x
+
+EOSIO.CDT is a toolchain for WebAssembly (WASM) and set of tools to facilitate contract writing for the EOSIO platform. In addition to being a general purpose WebAssembly toolchain, EOSIO specific optimizations are available to support building EOSIO smart contracts. This new toolchain is built around Clang 7, which means that EOSIO.CDT has the most currently available optimizations and analyses from LLVM, but as the WASM target is still considered experimental, some optimizations are not available or incomplete.
+
+Learn more at https://github.com/EOSIO/eosio.cdt
 
 ### fullnode
 
@@ -222,7 +307,7 @@ PostgreSQL is a powerful, open source object-relational database system with ove
 
 Learn more at https://www.postgresql.org
 
-### flywaydb
+### flyway
 
 Flyway is an open-source database migration tool. It strongly favors simplicity and convention over configuration.
 It is based around just 7 basic commands: Migrate, Clean, Info, Validate, Undo, Baseline and Repair.
@@ -266,6 +351,73 @@ In the services/frontend folder you will find a production ready frontend with S
 
 - [TravisCI](https://travis-ci.org/) to run test and code style checks.
 - [Netlify](https://netlify.com) for continuous delivery and creation of ephemeral test environments.
+
+## Using Cleos on EOS Local
+
+Cleos is a command line tool that interfaces with the REST API exposed by nodeos. In order to use cleos you will need to have the end point (IP address and port number) to a nodeos instance and also configure nodeos to load the 'eosio::chain_api_plugin'. `cleos` contains documentation for all of its commands. 
+
+More at https://developers.eos.io/eosio-nodeos/docs/cleos-overview 
+
+EOS Local comes with 2 EOS nodes running in separate docker containers, you can interact with these nodes using `cleos` in several ways:
+
+### Invoking cleos through docker-compose exec
+
+You can execute commands on any container from you host machine using the `docker-compose exec` command.
+Eg:
+
+`docker-compose exec eosiodev cleos --url http://localhost:8888/`
+
+We recomend using declaring alias on your shell configuration  Eg (.bashrc or .zshrc) 
+
+```
+alias cleos_eosiodev='docker-compose exec eosiodev cleos --url http://localhost:8888/'
+alias cleos_fullnode='docker-compose exec fullnode cleos --url http://localhost:8888/'
+```
+
+After you have added those lines to your config you can open a new terminal window and run `cleos_eosiodev --help` and `cleos_fullnode --help` to test.
+
+#### Handy Yarn scritps
+
+EOS Local provides to handy yarn scripts to accomplish the same functionality mentioned above.
+
+-  `yarn cleos` ............. connects to eosiodev node
+-  `yarn cleos:eosiodev` .... connects to eosiodev node
+-  `yarn cleos:fullnode` .... connects to the eos fullnode
+
+__Important note:__  
+*We currently use yarn instead gulp for this because it allows to pass parameters more easily.
+In the future gulp and yarn script at the root level will be replaced with an `eoslocal` cli.*
+
+Follow up here https://github.com/eoscostarica/eos-local/issues/17 
+
+### SHH into the containers and use cleos directly
+
+You can also login into the containers using the following docker-compose command 
+
+`docker-compose exec [service_name] bash`  where `service_name` is either `eosiodev` or `fullnode`
+
+That will log you in and you will be able to execute cleos directly within the ubuntu server.
+Eg.
+
+```
+➜  eos-local git:(master) ✗ docker-compose exec eosiodev bash
+root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
+{
+  "server_version": "f9a3d023",
+  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
+  "head_block_num": 4900,
+  "last_irreversible_block_num": 4899,
+  "last_irreversible_block_id": "000013232f7193f86a4edc59b6aa2b2a8ccd6c2060d24eb0e5c497beb97b76e5",
+  "head_block_id": "000013249772e5af12592d7d3eeb401276c09f781e3ed76faa75a49f53b481bd",
+  "head_block_time": "2018-11-05T20:27:45.000",
+  "head_block_producer": "eosio",
+  "virtual_block_cpu_limit": 26829884,
+  "virtual_block_net_limit": 140951435,
+  "block_cpu_limit": 199900,
+  "block_net_limit": 1048576,
+  "server_version_string": "v1.4.1"
+}
+```
 
 ## EOS Documentation & Resources
 
@@ -311,6 +463,13 @@ Learn more at https://cloud.google.com/containers/
 
 Learn more at https://dev.to/pesse/one-does-not-simply-update-a-database--migration-based-database-development-527d
 
+### Who is using EOS Local ?
+
+- [BeSpiral](http://bespiral.com).
+- [EOS Rate](https://rate.eoscostarica.io).
+- [DMeetup](https://github.com/eoscostarica/dmeetup).
+- Add your project by creating a pull request.
+
 ## Contributing
 
 We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
@@ -352,8 +511,9 @@ MIT © [EOS Costa Rica](https://eoscostarica.io)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars0.githubusercontent.com/u/391270?v=4" width="100px;"/><br /><sub><b>Gabo Esquivel</b></sub>](https://gaboesquivel.com)<br />[🤔](#ideas-gaboesquivel "Ideas, Planning, & Feedback") [📖](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=gaboesquivel "Documentation") [💻](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=gaboesquivel "Code") [👀](#review-gaboesquivel "Reviewed Pull Requests") | [<img src="https://avatars2.githubusercontent.com/u/349542?v=4" width="100px;"/><br /><sub><b>Daniel Prado</b></sub>](https://github.com/danazkari)<br />[💻](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=danazkari "Code") [📖](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=danazkari "Documentation") [🤔](#ideas-danazkari "Ideas, Planning, & Feedback") [👀](#review-danazkari "Reviewed Pull Requests") | [<img src="https://avatars1.githubusercontent.com/u/1179619?v=4" width="100px;"/><br /><sub><b>Jorge Murillo</b></sub>](https://github.com/murillojorge)<br />[🤔](#ideas-murillojorge "Ideas, Planning, & Feedback") [📖](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=murillojorge "Documentation") [🎨](#design-murillojorge "Design") [💻](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=murillojorge "Code") [👀](#review-murillojorge "Reviewed Pull Requests") | [<img src="https://avatars0.githubusercontent.com/u/5632966?v=4" width="100px;"/><br /><sub><b>Xavier Fernandez</b></sub>](https://github.com/xavier506)<br />[🤔](#ideas-xavier506 "Ideas, Planning, & Feedback") [📝](#blog-xavier506 "Blogposts") [📢](#talk-xavier506 "Talks") [🚇](#infra-xavier506 "Infrastructure (Hosting, Build-Tools, etc)") | [<img src="https://avatars2.githubusercontent.com/u/13205620?v=4" width="100px;"/><br /><sub><b>Rubén Abarca Navarro</b></sub>](https://github.com/rubenabix)<br />[🤔](#ideas-rubenabix "Ideas, Planning, & Feedback") [👀](#review-rubenabix "Reviewed Pull Requests") |
-| :---: | :---: | :---: | :---: | :---: |
+| [<img src="https://avatars0.githubusercontent.com/u/391270?v=4" width="100px;"/><br /><sub><b>Gabo Esquivel</b></sub>](https://gaboesquivel.com)<br />[🤔](#ideas-gaboesquivel "Ideas, Planning, & Feedback") [📖](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=gaboesquivel "Documentation") [💻](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=gaboesquivel "Code") [👀](#review-gaboesquivel "Reviewed Pull Requests") | [<img src="https://avatars2.githubusercontent.com/u/349542?v=4" width="100px;"/><br /><sub><b>Daniel Prado</b></sub>](https://github.com/danazkari)<br />[💻](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=danazkari "Code") [📖](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=danazkari "Documentation") [🤔](#ideas-danazkari "Ideas, Planning, & Feedback") [👀](#review-danazkari "Reviewed Pull Requests") | [<img src="https://avatars1.githubusercontent.com/u/1179619?v=4" width="100px;"/><br /><sub><b>Jorge Murillo</b></sub>](https://github.com/murillojorge)<br />[🤔](#ideas-murillojorge "Ideas, Planning, & Feedback") [📖](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=murillojorge "Documentation") [🎨](#design-murillojorge "Design") [💻](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=murillojorge "Code") [👀](#review-murillojorge "Reviewed Pull Requests") | [<img src="https://avatars0.githubusercontent.com/u/5632966?v=4" width="100px;"/><br /><sub><b>Xavier Fernandez</b></sub>](https://github.com/xavier506)<br />[🤔](#ideas-xavier506 "Ideas, Planning, & Feedback") [📝](#blog-xavier506 "Blogposts") [📢](#talk-xavier506 "Talks") [🚇](#infra-xavier506 "Infrastructure (Hosting, Build-Tools, etc)") | [<img src="https://avatars2.githubusercontent.com/u/13205620?v=4" width="100px;"/><br /><sub><b>Rubén Abarca Navarro</b></sub>](https://github.com/rubenabix)<br />[🤔](#ideas-rubenabix "Ideas, Planning, & Feedback") [👀](#review-rubenabix "Reviewed Pull Requests") [💻](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=rubenabix "Code") | [<img src="https://avatars2.githubusercontent.com/u/15035769?v=4" width="100px;"/><br /><sub><b>jsegura17</b></sub>](https://github.com/jsegura17)<br />[💻](https://github.com/eoscostarica/eos-dapp-dev-env/commits?author=jsegura17 "Code") [👀](#review-jsegura17 "Reviewed Pull Requests") [🤔](#ideas-jsegura17 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/6147142?v=4" width="100px;"/><br /><sub><b>Leo Ribeiro</b></sub>](http://leordev.github.io)<br />[🤔](#ideas-leordev "Ideas, Planning, & Feedback") [👀](#review-leordev "Reviewed Pull Requests") |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| [<img src="https://avatars2.githubusercontent.com/u/16544451?v=4" width="100px;"/><br /><sub><b>Mariano Alvarez</b></sub>](https://github.com/mahcr)<br />[🤔](#ideas-mahcr "Ideas, Planning, & Feedback") [👀](#review-mahcr "Reviewed Pull Requests") | [<img src="https://avatars1.githubusercontent.com/u/1082127?v=4" width="100px;"/><br /><sub><b>Julien Lucca</b></sub>](http://lucca65.github.io)<br />[👀](#review-lucca65 "Reviewed Pull Requests") [🤔](#ideas-lucca65 "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/40245170?v=4" width="100px;"/><br /><sub><b>Edgar Fernandez</b></sub>](http://www.eoscostarica.io)<br />[🤔](#ideas-edgar-eoscostarica "Ideas, Planning, & Feedback") [📝](#blog-edgar-eoscostarica "Blogposts") [📢](#talk-edgar-eoscostarica "Talks") |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 

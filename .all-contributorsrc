@@ -21,7 +21,7 @@
         "review"
       ]
     },
-     {
+    {
       "login": "danazkari",
       "name": "Daniel Prado",
       "avatar_url": "https://avatars2.githubusercontent.com/u/349542?v=4",
@@ -65,7 +65,60 @@
       "profile": "https://github.com/rubenabix",
       "contributions": [
         "ideas",
+        "review",
+        "code"
+      ]
+    },
+    {
+      "login": "jsegura17",
+      "name": "jsegura17",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15035769?v=4",
+      "profile": "https://github.com/jsegura17",
+      "contributions": [
+        "code",
+        "review",
+        "ideas"
+      ]
+    },
+    {
+      "login": "leordev",
+      "name": "Leo Ribeiro",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6147142?v=4",
+      "profile": "http://leordev.github.io",
+      "contributions": [
+        "ideas",
         "review"
+      ]
+    },
+    {
+      "login": "mahcr",
+      "name": "Mariano Alvarez",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/16544451?v=4",
+      "profile": "https://github.com/mahcr",
+      "contributions": [
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "lucca65",
+      "name": "Julien Lucca",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1082127?v=4",
+      "profile": "http://lucca65.github.io",
+      "contributions": [
+        "review",
+        "ideas"
+      ]
+    },
+    {
+      "login": "edgar-eoscostarica",
+      "name": "Edgar Fernandez",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/40245170?v=4",
+      "profile": "http://www.eoscostarica.io",
+      "contributions": [
+        "ideas",
+        "blog",
+        "talk"
       ]
     }
   ]
