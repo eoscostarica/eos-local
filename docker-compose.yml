@@ -48,7 +48,6 @@ services:
           - mongo.eoslocal.io
 
   fullnode:
-    image: eosio/eos:v1.4.1
     build:
       context: ./services/eos-fullnode
       dockerfile: Dockerfile
