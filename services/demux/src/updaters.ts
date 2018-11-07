@@ -2,12 +2,12 @@ import { BlockInfo } from "demux"
 
 const storeGreetingMessage = async (db: any, payload: any, blockInfo: BlockInfo) => {
 
-  console.info("\n\n==== Greeeting Updater ====")
+  console.info("\n\n==== Greeting Updater ====")
   console.info("\n\nUpdater Payload >>> \n", payload)
   console.info("\n\nUpdater Block Info >>> \n", blockInfo)
 
   const data = {
-    owner: payload.data.owner,
+    greeting: payload.data.owner,
     created_block: blockInfo.blockNumber,
     created_trx: payload.transactionId,
     created_at: blockInfo.timestamp,

@@ -234,7 +234,7 @@ Taking inspiration from the [Flux Architecture](https://facebook.github.io/flux/
 1. Actions run their corresponding Effects, triggering external events.
 1. Client queries API for updated data.
 
-Learn more at https://eosio.github.io/demux-js/.
+Learn more at https://github.com/EOSIO/demux-js.
 
 ### graphql 
 
