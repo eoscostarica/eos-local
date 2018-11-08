@@ -418,7 +418,8 @@ root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
 ## EOS Documentation & Resources
 
 - https://github.com/EOSIO/eos/tree/master/Docker
-- https://developers.eos.io    
+- https://developers.eos.io  
+- https://github.com/EOSIO/eosio.contracts  
 - https://learn.eoscostarica.io    
 - https://github.com/slowmist/eos-smart-contract-security-best-practices    
 - https://nadejde.github.io/eos-token-sale    
