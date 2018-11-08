@@ -9,6 +9,9 @@ EOSLOCAL_ACCOUNT_PUBLIC_OWNER_KEY="EOS88bvtAMTwPBQyF8cxFUFXez9zCoebABS3dXngdNphq
 EOSLOCAL_ACCOUNT_PRIVATE_ACTIVE_KEY="5Hy5kAujsv4fVWa9xv784Pgy4eLgrrDf3trP49J3FvDpKRfzaNn"
 EOSLOCAL_ACCOUNT_PUBLIC_ACTIVE_KEY="EOS8G66UbcXKfQ7unJES7BrKHggQMZfHUkTMkMF8nEbsktpjsb9tr"
 
+# move into the executable directory
+cd $ROOT_DIR
+
 echo "Creating wallet"
 wallet_password=$(cleos -u http://eosiodev:8888 wallet create --to-console | awk 'FNR > 3 { print $1 }' | tr -d '"')
 echo $wallet_password > "$CONFIG_DIR"/keys/default_wallet_password.txt
@@ -35,18 +38,34 @@ cleos -u http://eosiodev:8888 create account eosio bob $EOSLOCAL_ACCOUNT_PUBLIC_
 
 cleos -u http://eosiodev:8888 create account eosio alice $EOSLOCAL_ACCOUNT_PUBLIC_OWNER_KEY
 
-echo "Compiling demo contract"
+echo "Compiling hello demo contract"
 
-eosio-cpp -abigen /opt/application/contracts/hello/hello.cpp -o /opt/application/contracts/hello/hello.wasm
+cd /opt/application/contracts/hello
+
+eosio-cpp -abigen hello.cpp -o hello.wasm
+
+echo "Compiling eoslocal demo contract"
+
+cd /opt/application/contracts/eoslocal
+
+eosio-cpp -abigen eoslocal.cpp -o eoslocal.wasm
+
+# move into the executable directory
+cd $ROOT_DIR
 
 cleos -u http://eosiodev:8888 wallet keys
 
 cleos -u http://eosiodev:8888 create account eosio hello $EOSLOCAL_ACCOUNT_PUBLIC_OWNER_KEY -p eosio@active
 
+cleos -u http://eosiodev:8888 create account eosio eoslocal $EOSLOCAL_ACCOUNT_PUBLIC_OWNER_KEY -p eosio@active
+
 echo "Deploying demo contract"
 
 cleos -u http://eosiodev:8888 set contract hello /opt/application/contracts/hello -p hello@active
 
+cleos -u http://eosiodev:8888 set contract eoslocal /opt/application/contracts/eoslocal -p eoslocal@active
+
 echo "Testing contract"
 
 cleos -u http://eosiodev:8888 push action hello hi '["bob"]' -p bob@active
+cleos -u http://eosiodev:8888 push action eoslocal greet '["bob"]' -p bob@active
