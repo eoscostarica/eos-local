@@ -213,7 +213,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 Recommended process for designing EOS Smart Contracts.  
 
 <p align="center">
-	<img src="assets/smart-contracts-process.png" width="600">
+	<img src="assets/smart-contracts-process.png" width="300">
 </p>
 
 Simple use case of equipment rentals that list their equipment for rent and renters who pay rent for those items.
