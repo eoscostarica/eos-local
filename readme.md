@@ -208,6 +208,18 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 └── package.json ....................................... dependencies manifest for gulp-cli
 ```
 
+## Designing and Developing EOS Smart Contracts
+
+Recommended process for designing EOS Smart Contracts.  
+
+<p align="center">
+	<img src="assets/smart-contracts-process.png" width="600">
+</p>
+
+Simple use case of equipment rentals that list their equipment for rent and renters who pay rent for those items.
+[digital-scarcity/equiprental](https://github.com/digital-scarcity/equiprental)
+
+
 ## Services
 
 ### demux
