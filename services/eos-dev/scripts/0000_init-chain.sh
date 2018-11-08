@@ -3,7 +3,6 @@
 EOSIO_PRIVATE_KEY="5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 EOSIO_PUBLIC_KEY="EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV"
 
-# https://infinitexlabs.com/eos-development-tutorial-part-1/
 EOSLOCAL_ACCOUNT_PRIVATE_OWNER_KEY="5KacG2v3XYrjmxazgriHVo1updD7PKXJMWzcaQmBMMXE9Y69aW9"
 EOSLOCAL_ACCOUNT_PUBLIC_OWNER_KEY="EOS88bvtAMTwPBQyF8cxFUFXez9zCoebABS3dXngdNphqNtiszLQh"
 
@@ -38,7 +37,7 @@ cleos -u http://eosiodev:8888 create account eosio alice $EOSLOCAL_ACCOUNT_PUBLI
 
 echo "Compiling demo contract"
 
-eosio-cpp -o /opt/application/contracts/hello/hello.wast /opt/application/contracts/hello/hello.cpp --abigen
+eosio-cpp -abigen /opt/application/contracts/hello/hello.cpp -o /opt/application/contracts/hello/hello.wasm
 
 cleos -u http://eosiodev:8888 wallet keys
 

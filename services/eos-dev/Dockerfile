@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install curl -y
 
 COPY ./ /opt/application
 # install EOS Contract Development Toolkit
-RUN apt install /opt/application/utils/eosio.cdt-1.3.2.x86_64.deb
+RUN apt install /opt/application/utils/eosio.cdt-1.4.0.x86_64.deb
 
 VOLUME /opt/application
 
