@@ -9,9 +9,7 @@ import {
   InputAdornment,
   IconButton,
   TextField,
-  Typography,
-  MenuItem,
-  Menu
+  Typography
 } from '@material-ui/core'
 import {
   ChatBubbleOutline,
@@ -103,8 +101,6 @@ const MainTopBar = ({
   handleDrawerToggle,
   handleMenu,
   anchorEl,
-  open,
-  onClose,
   t
 }) => (
   <AppBar position='absolute'>
@@ -117,44 +113,26 @@ const MainTopBar = ({
       <div className={classes.grow} />
 
       <div className={classes.grow} />
+
       <Link to='/account' className={classes.link}>
-        <IconButton color='inherit'>
-          <Fingerprint />
+        <IconButton
+          color='inherit'>
+          <Settings />
         </IconButton>
       </Link>
-      <IconButton color='inherit' onClick={handleMenu}>
-        <Settings />
-      </IconButton>
-      <Menu
-        id='menu-appbar'
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-        open={open}
-        onClose={onClose}
-      >
-        <MenuItem onClick={onClose}><Link to='/settings' className={classes.menuLink}>Settings</Link></MenuItem>
-      </Menu>
+
     </Toolbar>
     <Grid container alignItems='center'>
       <Grid item xs={10}>
         <TextField
           id='filled-full-width'
-          label={t('inputLabel')}
+          label={t('chatLabel')}
           style={{ margin: 8 }}
-          placeholder={t('inputPlaceholder')}
           fullWidth
           variant='filled'
-          inputStyle={{ backgroundColor: 'red' }}
           InputProps={{
             startAdornment: (
-              <InputAdornment position='start' style={{ marginTop: 14, color: '#fff' }}>
+              <InputAdornment position='start' style={{ marginTop: 20, color: '#fff' }}>
                 <ChatBubbleOutline />
               </InputAdornment>
             ),
@@ -189,9 +167,7 @@ MainTopBar.propTypes = {
   handleDrawerToggle: PropTypes.func,
   handleMenu: PropTypes.func,
   anchorEl: PropTypes.string,
-  open: PropTypes.boolean,
-  onClose: PropTypes.func,
-  t: PropTypes.funx
+  t: PropTypes.func
 }
 
 export default withStyles(styles)(translate('translations')(MainTopBar))
