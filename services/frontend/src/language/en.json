@@ -8,6 +8,7 @@
     "drawerLinkHome": "Home",
     "drawerLinkSettings": "Settings",
     "HomeInputLabel": "300 CHARACTERS",
-    "HomeInputPlaceholder": "Type your greeting..."
+    "HomeInputPlaceholder": "Type your greeting..."  ,
+    "chatLabel": "Greeting"
   }
 }
