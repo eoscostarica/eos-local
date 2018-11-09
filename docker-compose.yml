@@ -68,8 +68,6 @@ services:
     volumes:
       - 'fullnode:/opt/eosio/bin/data-dir'
       - './services/eos-fullnode/config.ini:/opt/eosio/bin/data-dir/config.ini'
-      # - './services/eos-fullnode/config-main-node.ini:/opt/eosio/bin/data-dir/config.ini'
-      # - './services/eos-fullnode/mainnet-genesis.json:/opt/eosio/bin/genesis.json'
     networks:
       eoslocal:
         aliases:
@@ -86,12 +84,12 @@ services:
       - '8888:8888'
       - '9830:9876'
     environment:
-      DATA_DIR: /root/.local/share
+      DATA_DIR: /root/data-dir
       CONFIG_DIR: /opt/application/config
       VIRTUAL_HOST: eosiodev.eoslocal.io
       VIRTUAL_PORT: 8888
     volumes:
-      - eosiodev:/root/.local/share
+      - eosiodev:/root/data-dir
       - ./services/eos-dev:/opt/application
     networks:
       eoslocal:
