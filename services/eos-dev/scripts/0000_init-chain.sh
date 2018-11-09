@@ -68,4 +68,6 @@ cleos -u http://eosiodev:8888 set contract eoslocal /opt/application/contracts/e
 echo "Testing contract"
 
 cleos -u http://eosiodev:8888 push action hello hi '["bob"]' -p bob@active
-cleos -u http://eosiodev:8888 push action eoslocal greet '["bob"]' -p bob@active
+
+cleos -u http://eosiodev:8888 push action eoslocal greet '["bob","Saludo de Bienvenida de BOB"]' -p bob@active
+cleos -u http://eosiodev:8888 push action eoslocal greet '["alice","Saludo de Bienvenida de ALICE"]' -p alice@active
