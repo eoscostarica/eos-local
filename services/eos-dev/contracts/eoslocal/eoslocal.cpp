@@ -8,25 +8,42 @@ CONTRACT eoslocal : public eosio::contract {
 
   public:
     using contract::contract;
-/// @abi action
-    ACTION greet( name user ) 
-    {
-      require_auth( user );
-      Greet_Action greetd_act;
-      greetd_act.greet_data = "Text of Greeting Section";
-      print("User-> %s your call to greet: %s", name{user});
-    }
+
+    eoslocal(name receiver, name code, datastream<const char *> ds) : contract(receiver, code, ds) {}
 
 /// @abi action
-    ACTION add() 
+    ACTION greet( name user, std::string msg ) 
     {
-      print("your call to add");
+      require_auth(user);
+        greetings_type v_greetings(_code, _code.value);
+        auto iterator = v_greetings.find(user.value);
+
+        if (iterator == v_greetings.end())
+        {
+            //The user isn't in the table
+            v_greetings.emplace(user, [&](auto &row) {
+                row.key = user;
+                row.msg = msg;
+            });
+        }
+        else
+        {
+            //The user is in the table
+            v_greetings.modify(iterator, user, [&](auto &row) {
+                row.key = user;
+                row.msg = msg;
+            });
+        }
     }
-/// @abi action
-    ACTION result()
-    {
-      print("your call to result");
-    }
+
+  private:
+    struct greetings {
+	name key;
+	std::string msg;
+
+	uint64_t primary_key() const { return key.value;}
+    };
+
+    typedef eosio::multi_index<"greet"_n, greetings> greetings_type;
 };
-//EOSIO_ABI( eoslocal, (greet) (add) (result) )
-EOSIO_DISPATCH( eoslocal, (greet) (add) (result) );
+EOSIO_DISPATCH( eoslocal, (greet) );
