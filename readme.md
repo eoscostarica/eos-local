@@ -35,6 +35,15 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 
 **Important Disclaimer: This is a Work in Progress** 
 
+<p align="center">
+	Watch the EOS Local Introductory Video on YouTube
+</p>
+<p align="center">
+  <a target="_blank" href="https://www.youtube.com/watch?v=wFk2RsT8IAk">
+	  <img src="assets/intro-video.png" width="600">
+  </a>
+</p>
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -529,7 +538,6 @@ We use a Kanban-style board. That's were we prioritize the work. [Go to Project 
 <p align="center">
 	<img src="assets/project-board.png" width="600">
 </p>
-
 
 The main communication channels are [github issues](https://github.com/eoscostarica/eos-local/issues) and [EOS Costa Rica's Discord server](https://eoscostarica.io/discord). Feel to join and ask as many questions you may have.
 
