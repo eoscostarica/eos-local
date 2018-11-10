@@ -11,39 +11,27 @@ CONTRACT eoslocal : public eosio::contract {
 
     eoslocal(name receiver, name code, datastream<const char *> ds) : contract(receiver, code, ds) {}
 
-/// @abi action
-    ACTION greet( name user, std::string msg ) 
+    ACTION greet(uint64_t id, name user, std::string msg )
     {
       require_auth(user);
-        greetings_type v_greetings(_code, _code.value);
-        auto iterator = v_greetings.find(user.value);
+        greetings_table v_greetings(_code, _code.value);
 
-        if (iterator == v_greetings.end())
-        {
-            //The user isn't in the table
-            v_greetings.emplace(user, [&](auto &row) {
-                row.key = user;
-                row.msg = msg;
-            });
-        }
-        else
-        {
-            //The user is in the table
-            v_greetings.modify(iterator, user, [&](auto &row) {
-                row.key = user;
-                row.msg = msg;
-            });
-        }
+        v_greetings.emplace(user, [&](auto &row) {
+            row.id = id;
+            row.key = user;
+            row.msg = msg;
+        });
     }
 
   private:
-    struct greetings {
-	name key;
-	std::string msg;
+     TABLE greetings_table_struct {
+      uint64_t id;
+      name key;
+      std::string msg;
 
-	uint64_t primary_key() const { return key.value;}
+      uint64_t primary_key() const { return id; }
     };
 
-    typedef eosio::multi_index<"greet"_n, greetings> greetings_type;
+    typedef eosio::multi_index<"greetings"_n, greetings_table_struct> greetings_table;
 };
 EOSIO_DISPATCH( eoslocal, (greet) );

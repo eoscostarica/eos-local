@@ -26,6 +26,10 @@ function create_wallet () {
   sleep .5
 }
 
+function import_private_key () {
+  $cleos wallet import --private-key $1
+}
+
 # initialize chain
 function initialize () {
 
@@ -41,9 +45,9 @@ function initialize () {
     EOSLOCAL_ACTIVE_PUBKEY="EOS8G66UbcXKfQ7unJES7BrKHggQMZfHUkTMkMF8nEbsktpjsb9tr"
 
     echo "Importing eosio and eoslocal keys"
-    $cleos wallet import --private-key $EOSIO_PVTKEY
-    $cleos wallet import --private-key $EOSLOCAL_OWNER_PVTKEY
-    $cleos wallet import --private-key $EOSLOCAL_ACTIVE_PVTKEY
+    import_private_key $EOSIO_PVTKEY
+    import_private_key $EOSLOCAL_OWNER_PVTKEY
+    import_private_key $EOSLOCAL_ACTIVE_PVTKEY
     sleep .5
 
     echo "Deploy bios and token..."
@@ -60,6 +64,7 @@ function initialize () {
 }
 
 function create_testing_accounts () {
+
   echo "Creating testing accounts"
 
   USER_A_ACCOUNT="eoslocalusra"
@@ -82,6 +87,12 @@ function create_testing_accounts () {
   USER_E_PVTKEY="5Jdwjwto9wxy5ZNPnWSn965eb8ZtSrK1uRKUxhviLpr9gK79hmM"
   USER_E_PUBKEY="EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy"
 
+  import_private_key $USER_A_PVTKEY
+  import_private_key $USER_B_PVTKEY
+  import_private_key $USER_C_PVTKEY
+  import_private_key $USER_D_PVTKEY
+  import_private_key $USER_E_PVTKEY
+
   create_eos_account $USER_A_ACCOUNT $USER_A_PUBKEY
   create_eos_account $USER_B_ACCOUNT $USER_B_PUBKEY
   create_eos_account $USER_C_ACCOUNT $USER_C_PUBKEY
@@ -97,18 +108,18 @@ function build_and_deploy_contracts () {
 
   eosio-cpp -abigen eoslocal.cpp -o eoslocal.wasm
 
-  echo "Deploying contract"
+  ls -la .
 
-  $cleos set contract eoslocal eoslocal -p eoslocal@active
+  echo "Deploying contract"
+  $cleos set contract eoslocal /opt/application/contracts/eoslocal -p eoslocal@active
 
   echo "Verifying contract actions and user wallets work"
 
-  $cleos push action eoslocal greet '["eoslocalusra","Hello form USER A"]' -p eoslocalusra@active
-  $cleos push action eoslocal greet '["eoslocalusrb","Hola hola hola from USER B"]' -p eoslocalusrb@active
+  $cleos push action eoslocal greet '["1","eoslocalusra","Hello form USER A"]' -p eoslocalusra@active
+  $cleos push action eoslocal greet '["2","eoslocalusrb","Hola hola hola from USER B"]' -p eoslocalusrb@active
 }
 
 # setup chain, testing users and contracts
-
 create_wallet
 initialize
 create_testing_accounts
