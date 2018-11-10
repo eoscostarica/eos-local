@@ -92,7 +92,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 ## Advantages
 
 - Get started with EOS DApp development in less than 5 minutes with a single command.
-- Focus on your biz logic, not on configurations or integrating commonly used third party-services.
+- Focus on your features, not on configurations or integrating commonly used third party-services.
 - Scalable microservices architecture. 
 - Deploy your dApp dedicated services easily to any infrastructure provider with containers.  
 - Ability to run multiple versions of EOS with different configuration with no conflicts.
