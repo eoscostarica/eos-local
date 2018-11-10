@@ -331,6 +331,20 @@ The eosio::mongo_db_plugin provides archiving of blockchain data into a MongoDB.
 
 https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 
+### admin-mongo
+
+AdminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs. adminMongo is fully responsive and should work on a range of devices.
+
+Out-of-the-box it is connected to the fullnode mongodb instance and allows you to explore transactions and other data in that database.
+
+<p align="center">
+	<img src="assets/admin-mongo.png" width="600">
+</p>
+
+_adminMongo connection information (including username/password) is stored unencrypted in a config file, it is not recommended to run this application on a production or public facing server without proper security considerations._
+
+Learn more https://mrvautin.com/adminmongo/
+
 ### ngnix-proxy
 
 Nginx reverse proxy that allows accesing the services directly on the host machine the wildcard `*.esolocal.io` that points to `127.0.0.1`, therefore as long as you can hit the dns server it will redirect all requests to your machine and nginx-proxy does the internal docker network routing to the right service. 
