@@ -4,12 +4,13 @@
 set -ux
 
 # Alias cleos with endpoint param to avoid repetition
-cleos="cleos -u http://localhost:8888"
+# We use as host here because that service name configured in docker-compose.yml
+cleos="cleos -u http://eosiodev:8888"
 
 # Creates an eos account with 10.0000 EOS
 function create_eos_account () {
-    $cleos create account eoslocal $1 $2 $2
-    $cleos push action eosio.token issue '[ "'$1'", "10.0000 EOS", "initial stake" ]' -p eosio
+  $cleos create account eoslocal $1 $2 $2
+  $cleos push action eosio.token issue '[ "'$1'", "10.0000 EOS", "initial stake" ]' -p eosio
 }
 
 # Unlocks the default wallet and waits .5 seconds
@@ -32,35 +33,34 @@ function import_private_key () {
 
 # initialize chain
 function initialize () {
+  # EOSIO keys
+  EOSIO_PVTKEY="5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
+  EOSIO_PUBKEY="EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV"
 
-    # EOSIO keys
-    EOSIO_PVTKEY="5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
-    EOSIO_PUBKEY="EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV"
+  # EOSLOCAL keys
+  EOSLOCAL_OWNER_PVTKEY="5KacG2v3XYrjmxazgriHVo1updD7PKXJMWzcaQmBMMXE9Y69aW9"
+  EOSLOCAL_OWNER_PUBKEY="EOS88bvtAMTwPBQyF8cxFUFXez9zCoebABS3dXngdNphqNtiszLQh"
 
-    # EOSLOCAL keys
-    EOSLOCAL_OWNER_PVTKEY="5KacG2v3XYrjmxazgriHVo1updD7PKXJMWzcaQmBMMXE9Y69aW9"
-    EOSLOCAL_OWNER_PUBKEY="EOS88bvtAMTwPBQyF8cxFUFXez9zCoebABS3dXngdNphqNtiszLQh"
+  EOSLOCAL_ACTIVE_PVTKEY="5Hy5kAujsv4fVWa9xv784Pgy4eLgrrDf3trP49J3FvDpKRfzaNn"
+  EOSLOCAL_ACTIVE_PUBKEY="EOS8G66UbcXKfQ7unJES7BrKHggQMZfHUkTMkMF8nEbsktpjsb9tr"
 
-    EOSLOCAL_ACTIVE_PVTKEY="5Hy5kAujsv4fVWa9xv784Pgy4eLgrrDf3trP49J3FvDpKRfzaNn"
-    EOSLOCAL_ACTIVE_PUBKEY="EOS8G66UbcXKfQ7unJES7BrKHggQMZfHUkTMkMF8nEbsktpjsb9tr"
+  echo "Importing eosio and eoslocal keys"
+  import_private_key $EOSIO_PVTKEY
+  import_private_key $EOSLOCAL_OWNER_PVTKEY
+  import_private_key $EOSLOCAL_ACTIVE_PVTKEY
+  sleep .5
 
-    echo "Importing eosio and eoslocal keys"
-    import_private_key $EOSIO_PVTKEY
-    import_private_key $EOSLOCAL_OWNER_PVTKEY
-    import_private_key $EOSLOCAL_ACTIVE_PVTKEY
-    sleep .5
+  echo "Deploy bios and token..."
+  $cleos set contract eosio /contracts/eosio.bios -p eosio
+  $cleos create account eosio eosio.token $EOSIO_PUBKEY $EOSIO_PUBKEY
+  $cleos set contract eosio.token /contracts/eosio.token -p eosio.token
+  $cleos push action eosio.token create '[ "eosio", "1000000000.0000 EOS", 0, 0, 0]' -p eosio.token
+  sleep .5
 
-    echo "Deploy bios and token..."
-    $cleos set contract eosio /contracts/eosio.bios -p eosio
-    $cleos create account eosio eosio.token $EOSIO_PUBKEY $EOSIO_PUBKEY
-    $cleos set contract eosio.token /contracts/eosio.token -p eosio.token
-    $cleos push action eosio.token create '[ "eosio", "1000000000.0000 EOS", 0, 0, 0]' -p eosio.token
-    sleep .5
-
-    echo "Creates eoslocal account with stake..."
-    $cleos create account eosio eoslocal $EOSLOCAL_OWNER_PUBKEY $EOSLOCAL_ACTIVE_PUBKEY
-    $cleos push action eosio.token issue '[ "'eoslocal'", "1000.0000 EOS", "initial stake" ]' -p eosio
-    sleep .5
+  echo "Creates eoslocal account with stake..."
+  $cleos create account eosio eoslocal $EOSLOCAL_OWNER_PUBKEY $EOSLOCAL_ACTIVE_PUBKEY
+  $cleos push action eosio.token issue '[ "'eoslocal'", "1000.0000 EOS", "initial stake" ]' -p eosio
+  sleep .5
 }
 
 function create_testing_accounts () {
@@ -108,21 +108,18 @@ function build_and_deploy_contracts () {
 
   eosio-cpp -abigen eoslocal.cpp -o eoslocal.wasm
 
-  ls -la .
-
   echo "Deploying contract"
   $cleos set contract eoslocal /opt/application/contracts/eoslocal -p eoslocal@active
 
   echo "Verifying contract actions and user wallets work"
-
   $cleos push action eoslocal greet '["1","eoslocalusra","Hello form USER A"]' -p eoslocalusra@active
   $cleos push action eoslocal greet '["2","eoslocalusrb","Hola hola hola from USER B"]' -p eoslocalusrb@active
 }
 
 # setup chain, testing users and contracts
-until curl localhost:8888/v1/chain/get_info
+until curl eosiodev:8888/v1/chain/get_info
 do
-    sleep 1s
+  sleep 1s
 done
 
 create_wallet
