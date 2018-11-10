@@ -77,6 +77,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - [Who is using EOS Local ?](#who-is-using-eos-local-)
 - [Contributing](#contributing)
 - [Awesome Lists](#awesome-lists)
+- [Support](#support)
 - [About EOS Costa Rica](#about-eos-costa-rica)
 - [License](#license)
 - [Contributors](#contributors)
@@ -526,6 +527,11 @@ Learn more at https://dev.to/pesse/one-does-not-simply-update-a-database--migrat
 
 We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
 
+<p align="center">
+	<img src="assets/project-board.png" width="600">
+</p>
+
+
 The main communication channels are [github issues](https://github.com/eoscostarica/eos-local/issues) and [EOS Costa Rica's Discord server](https://eoscostarica.io/discord). Feel to join and ask as many questions you may have.
 
 Our weekly sync call is every Monday 1:00 AM UTC. [meet.eoscostarica.io](https:/meet.eoscostarica.io).
@@ -545,6 +551,10 @@ Please report bugs big and small by [opening an issue](https://github.com/eoscos
 - https://github.com/enaqx/awesome-react
 - https://github.com/jaredpalmer/awesome-react-render-props
 - https://github.com/chentsulin/awesome-graphql
+
+## Support
+
+Contact the team directly on the #eos-local channel on [EOS Costa Rica's Discord server](https://eoscostarica.io/discord), we will assist you as soon as possible.
 
 ## About EOS Costa Rica
 
