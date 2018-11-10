@@ -144,6 +144,7 @@ services:
       VIRTUAL_PORT: 8082
     depends_on:
       - mongo
+      - fullnode
     networks:
       eoslocal:
         aliases:
