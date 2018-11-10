@@ -29,7 +29,7 @@ This project was inspired on MonsterEOS' **EOSIO Dream Stack** architecture that
 EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals, etc.
 
 <p align="center">
-	<img src="https://user-images.githubusercontent.com/5632966/48136073-56764a80-e264-11e8-9a9f-710b92b7f339.png" width="600">
+	<img src="assets/eoslocal-bitmapoverWhte.png" width="600">
 </p>
 
 <p align="center">
