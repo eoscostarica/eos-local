@@ -266,6 +266,10 @@ Know exactly what data you can request from your API without leaving your editor
 
 The GraphiQL instance on EOS Local is available at http://localhost:3030/graphiql
 
+<p align="center">
+	<img src="assets/graphiql.png" width="600">
+</p>
+
 Learn more at https://graphql.org & https://www.howtographql.com
 
 #### PostGraphile 
