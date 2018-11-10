@@ -25,6 +25,12 @@ docker-compose up -d demux
 echo "Initializing admin-mongo!"
 docker-compose up -d admin-mongo
 
+echo "Initializing pgweb!"
+docker-compose up -d pgweb
+
+
 echo "Installing frontend packages"
 cd services/frontend
 yarn install
+
+yarn start
