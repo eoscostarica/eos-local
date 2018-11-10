@@ -24,7 +24,7 @@
 
 EOS Local provides a really quick way to setup and maintain a local development environment for EOS dApps. It is a docker based dev environment that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows, and Linux.
 
-This project was inspired on MonsterEOS' "EOSIO DreamStack" architecture that will allow you to develop EOS applications faster and easily scale as necessary.
+This project was inspired on MonsterEOS' **EOSIO Dream Stack** architecture that will allow you to develop EOS applications faster and easily scale as necessary.
 
 EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals, etc.
 
