@@ -120,6 +120,11 @@ function build_and_deploy_contracts () {
 }
 
 # setup chain, testing users and contracts
+until curl localhost:8888/v1/chain/get_info
+do
+    sleep 1s
+done
+
 create_wallet
 initialize
 create_testing_accounts
