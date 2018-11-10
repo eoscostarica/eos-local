@@ -120,6 +120,15 @@
         "blog",
         "talk"
       ]
+    },
+    {
+      "login": "kesar",
+      "name": "César Rodríguez",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1288106?v=4",
+      "profile": "http://www.kesarito.com",
+      "contributions": [
+        "ideas"
+      ]
     }
   ]
 }
