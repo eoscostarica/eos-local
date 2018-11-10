@@ -115,6 +115,8 @@ services:
     build:
       context: ./services/eos-dev
       dockerfile: Dockerfile
+      args:
+        symbol: EOS
     image: eoslocal/eosiodev
     stop_grace_period: 3m0s
     ports:

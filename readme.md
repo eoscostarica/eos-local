@@ -95,6 +95,8 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 	<img src="assets/EOS-Local-Architecture.png" width="600">
 </p>
 
+The producer node acts as "genesis" node and it is the first nodeos that we start, that will originate the blockchain. All other nodes will derive from the genesis node. By default you EOS Local starts a second node node that exposes the the http API with mongo plugin. More node can be added as desired with docker compose.
+
 ## Advantages
 
 - Get started with EOS DApp development in less than 5 minutes with a single command.

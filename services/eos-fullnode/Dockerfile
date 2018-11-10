@@ -1,7 +1,5 @@
 FROM eosio/eos:v1.4.2
 
-ARG symbol=EOS
-
 RUN apt-get update && apt-get install curl -y
 
 COPY ./ /opt/application
