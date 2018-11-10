@@ -28,6 +28,12 @@ It is a reusable docker based development environment inspired on MonsterEOS' EO
 
 EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals.
 
+
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/5632966/48136073-56764a80-e264-11e8-9a9f-710b92b7f339.png" width="600">
+</p>
+
+
 **Important Disclaimer: This is a Work in Progress** 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -335,7 +341,7 @@ https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 
 AdminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs. adminMongo is fully responsive and should work on a range of devices.
 
-Out-of-the-box it is connected to the fullnode mongodb instance and allows you to explore transactions and other data in that database.
+Out-of-the-box it is connected to the fullnode mongodb instance and allows you to explore transactions and other data in that database. Docker compose exposes it on https://localhost:8082 and thru http://admin-mongo.eoslocal.io with the nginx reverse-proxy.
 
 <p align="center">
 	<img src="assets/admin-mongo.png" width="600">
