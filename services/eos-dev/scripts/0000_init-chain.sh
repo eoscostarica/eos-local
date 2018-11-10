@@ -8,7 +8,7 @@ cleos="cleos -u http://localhost:8888"
 
 # Creates an eos account with 10.0000 EOS
 function create_eos_account () {
-    $cleos create account eoslocaldapp $1 $2 $2
+    $cleos create account eoslocal $1 $2 $2
     $cleos push action eosio.token issue '[ "'$1'", "10.0000 EOS", "initial stake" ]' -p eosio
 }
 
@@ -33,17 +33,17 @@ function initialize () {
     EOSIO_PVTKEY="5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
     EOSIO_PUBKEY="EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV"
 
-    # EOSLOCALDAPP keys
-    EOSLOCALDAPP_OWNER_PVTKEY="5KacG2v3XYrjmxazgriHVo1updD7PKXJMWzcaQmBMMXE9Y69aW9"
-    EOSLOCALDAPP_OWNER_PUBKEY="EOS88bvtAMTwPBQyF8cxFUFXez9zCoebABS3dXngdNphqNtiszLQh"
+    # EOSLOCAL keys
+    EOSLOCAL_OWNER_PVTKEY="5KacG2v3XYrjmxazgriHVo1updD7PKXJMWzcaQmBMMXE9Y69aW9"
+    EOSLOCAL_OWNER_PUBKEY="EOS88bvtAMTwPBQyF8cxFUFXez9zCoebABS3dXngdNphqNtiszLQh"
 
-    EOSLOCALDAPP_ACTIVE_PVTKEY="5Hy5kAujsv4fVWa9xv784Pgy4eLgrrDf3trP49J3FvDpKRfzaNn"
-    EOSLOCALDAPP_ACTIVE_PUBKEY="EOS8G66UbcXKfQ7unJES7BrKHggQMZfHUkTMkMF8nEbsktpjsb9tr"
+    EOSLOCAL_ACTIVE_PVTKEY="5Hy5kAujsv4fVWa9xv784Pgy4eLgrrDf3trP49J3FvDpKRfzaNn"
+    EOSLOCAL_ACTIVE_PUBKEY="EOS8G66UbcXKfQ7unJES7BrKHggQMZfHUkTMkMF8nEbsktpjsb9tr"
 
-    echo "Importing eosio and eoslocaldapp keys"
+    echo "Importing eosio and eoslocal keys"
     $cleos wallet import --private-key $EOSIO_PVTKEY
-    $cleos wallet import --private-key $EOSLOCALDAPP_OWNER_PVTKEY
-    $cleos wallet import --private-key $EOSLOCALDAPP_ACTIVE_PVTKEY
+    $cleos wallet import --private-key $EOSLOCAL_OWNER_PVTKEY
+    $cleos wallet import --private-key $EOSLOCAL_ACTIVE_PVTKEY
     sleep .5
 
     echo "Deploy bios and token..."
@@ -53,9 +53,9 @@ function initialize () {
     $cleos push action eosio.token create '[ "eosio", "1000000000.0000 EOS", 0, 0, 0]' -p eosio.token
     sleep .5
 
-    echo "Creates eoslocaldapp account with stake..."
-    $cleos create account eosio eoslocaldapp $EOSLOCALDAPP_OWNER_PUBKEY $EOSLOCALDAPP_ACTIVE_PUBKEY
-    $cleos push action eosio.token issue '[ "'eoslocaldapp'", "1000.0000 EOS", "initial stake" ]' -p eosio
+    echo "Creates eoslocal account with stake..."
+    $cleos create account eosio eoslocal $EOSLOCAL_OWNER_PUBKEY $EOSLOCAL_ACTIVE_PUBKEY
+    $cleos push action eosio.token issue '[ "'eoslocal'", "1000.0000 EOS", "initial stake" ]' -p eosio
     sleep .5
 }
 
@@ -93,13 +93,13 @@ function create_testing_accounts () {
 function build_and_deploy_contracts () {
   echo "Compiling contract"
 
-  EOSLOCAL_CONTRACT_DIR="/opt/application/contracts/eoslocal"
+  cd /opt/application/contracts/eoslocal
 
-  eosio-cpp -abigen $EOSLOCAL_CONTRACT_DIR/eoslocal.cpp -o $EOSLOCAL_CONTRACT_DIR/eoslocal.wasm
+  eosio-cpp -abigen eoslocal.cpp -o eoslocal.wasm
 
   echo "Deploying contract"
 
-  $cleos set contract eoslocal /opt/application/contracts/eoslocal -p eoslocaldapp@active
+  $cleos set contract eoslocal eoslocal -p eoslocal@active
 
   echo "Verifying contract actions and user wallets work"
 
@@ -112,7 +112,7 @@ function build_and_deploy_contracts () {
 create_wallet
 initialize
 create_testing_accounts
-#build_and_deploy_contracts
+build_and_deploy_contracts
 
 # debugging code
 echo 'Wallet info:'
