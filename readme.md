@@ -32,9 +32,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 	<img src="https://user-images.githubusercontent.com/5632966/48136073-56764a80-e264-11e8-9a9f-710b92b7f339.png" width="600">
 </p>
 
-
-**Important Disclaimer: This is a Work in Progress** 
-
 <p align="center">
 	Watch the EOS Local Introductory Video on YouTube
 </p>
@@ -136,6 +133,8 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - Kubernetes support ( coming soon https://github.com/eoscostarica/eos-local/issues/8 )
 
 *Note: at the moment we are not using a docker container for running the React client due to issues related to hot reloading the app efficiently*
+
+**Important Disclaimer: This is a Work in Progress** 
 
 ## Getting started
 
