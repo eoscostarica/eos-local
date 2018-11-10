@@ -48,6 +48,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - [Commands](#commands)
 - [Chain Initialization and Database Migrations](#chain-initialization-and-database-migrations)
 - [Directory Structure](#directory-structure)
+- [Designing and Developing EOS Smart Contracts](#designing-and-developing-eos-smart-contracts)
 - [Services](#services)
   - [demux](#demux)
   - [graphql](#graphql)
@@ -57,7 +58,9 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - [fullnode](#fullnode)
   - [postgres](#postgres)
   - [flyway](#flyway)
+  - [pgweb](#pgweb)
   - [mongodb](#mongodb)
+  - [admin-mongo](#admin-mongo)
   - [ngnix-proxy](#ngnix-proxy)
   - [reactjs web client](#reactjs-web-client)
     - [components](#components)
@@ -100,13 +103,15 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - Fully virtualized EOS blockchain development environment.
 - Microservices architecture.
 - Out-of-box services: 
-  - Postgres database.
-  - Mongodb database.
+  - EOS node with everything contract development and compilation.
+  - EOS fullnode with history.
   - Demux service.
+  - GraphQL endpoint with GraphiQL.
+  - Postgres database.
+  - MongoDB database.
+  - Admin Mongo instance.
+  - PGWeb instance.
   - Flyway service for Postgres DB migrations.
-  - Eos-dev node for contract dev and compilation.
-  - Eos fullnode with history.
-  - Graphql endpoint.
   - Reactjs client with:
     - Scatter integration.
     - Lynx integration.
@@ -333,6 +338,16 @@ EOS Local leverages Flyway to manage the Postgres database migrations.
 
 Learn more at https://flywaydb.org/documentation/migrations & https://flywaydb.org/documentation/videos
 
+### pgweb
+
+Pgweb is a web-based database browser for PostgreSQL, written in Go and works on OSX, Linux and Windows machines. Main idea behind using Go for backend development is to utilize ability of the compiler to produce zero-dependency binaries for multiple platforms. Pgweb was created as an attempt to build very simple and portable application to work with local or remote PostgreSQL databases.
+
+<p align="center">
+	<img src="assets/graphiql.png" width="600">
+</p>
+
+Docker compose exposes a pgweb instance on https://localhost:8081 and also through http://pgweb.eoslocal.io with the nginx reverse-proxy.
+
 ### mongodb
 
 MongoDB instance for the fullnode. 
@@ -345,7 +360,7 @@ https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 
 AdminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs. adminMongo is fully responsive and should work on a range of devices.
 
-Out-of-the-box it is connected to the fullnode mongodb instance and allows you to explore transactions and other data in that database. Docker compose exposes it on https://localhost:8082 and thru http://admin-mongo.eoslocal.io with the nginx reverse-proxy.
+Out-of-the-box it is connected to the fullnode mongodb instance and allows you to explore transactions and other data in that database. Docker compose exposes it on https://localhost:8082 and also through http://admin-mongo.eoslocal.io with the nginx reverse-proxy.
 
 <p align="center">
 	<img src="assets/admin-mongo.png" width="600">
@@ -368,6 +383,10 @@ See the `docker-compose.yml` for available virtual hosts for easier access witho
 ### reactjs web client
 
 In the services/frontend folder you will find a production ready frontend with Scatter and Lynx libraries ready for you to use. 
+
+<p align="center">
+	<img src="assets/react-client.png" width="600">
+</p>
 
 #### components
 
