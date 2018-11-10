@@ -1,6 +1,5 @@
 import { Rpc } from "eosjs2"
 import massive from "massive"
-import moment from "moment"
 import nodeFetch from "node-fetch"
 
 const BLOCK_SYNC_TOLERANCE = process.env.BLOCK_SYNC_TOLERANCE || 10
@@ -16,12 +15,6 @@ const dbConfig = {
   database: process.env.DB_NAME || "eoslocal",
   schema: process.env.DB_SCHEMA || "pets",
 }
-
-const PENDING_TYPE_PET = -1
-const DESTROYED_TYPE_PET = -2
-const EMPTY_TIMESTAMP = "1970-01-01 00:00:00"
-const EOSLOCAL_ACCOUNT = "eoslocal"
-const IDLE_FEED_DEATH_MILLIS = 72 * 60 * 60000 // TODO: get this amount dynamically
 
 const isChainSync = async (db: any) => {
 

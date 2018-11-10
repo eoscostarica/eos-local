@@ -7,11 +7,11 @@ const storeGreetingMessage = async (db: any, payload: any, blockInfo: BlockInfo)
   console.info("\n\nUpdater Block Info >>> \n", blockInfo)
 
   const data = {
-    greeting: payload.data.owner,
+    greeting: payload.data.msg,
     created_block: blockInfo.blockNumber,
     created_trx: payload.transactionId,
     created_at: blockInfo.timestamp,
-    created_eosacc: payload.authorization[0].actor,
+    created_eosacc: payload.data.user,
   }
 
   console.info("DB Data to Insert >>> ", data)
