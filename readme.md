@@ -119,8 +119,8 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - PGWeb instance.
   - Flyway service for Postgres DB migrations.
   - Reactjs client with:
-    - Scatter integration.
-    - Lynx integration.
+    - Scatter integration. 
+    - Lynx integration. WIP [#21](https://github.com/eoscostarica/eos-local/issues/21)
     - EOS Account profile page.
     - Material UI.
     - GraphQL Apollo client.
