@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { Redux } from 'redux-render'
 import Component from '@reach/component-component'
@@ -28,4 +28,4 @@ Account.propTypes = {
   t: PropTypes.func.isRequired
 }
 
-export default translate('translations')(Account)
+export default withNamespaces('account')(Account)

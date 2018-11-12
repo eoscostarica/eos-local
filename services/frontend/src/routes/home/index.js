@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 import Home from 'components/Home'
@@ -21,4 +21,4 @@ HomeContainer.propTypes = {
   t: PropTypes.func.isRequired
 }
 
-export default translate('translations')(HomeContainer)
+export default withNamespaces('home')(HomeContainer)

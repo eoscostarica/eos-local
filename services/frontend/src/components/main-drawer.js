@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { Link } from '@reach/router'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import routes from 'routes'
 
@@ -155,5 +155,5 @@ MainDrawer.propTypes = {
 }
 
 export default withStyles(styles, { withTheme: true })(
-  translate('translations')(MainDrawer)
+  withNamespaces('global')(MainDrawer)
 )

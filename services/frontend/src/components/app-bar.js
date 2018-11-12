@@ -18,7 +18,7 @@ import {
 } from '@material-ui/icons'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { Link } from '@reach/router'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 const styles = theme => ({
   root: {
@@ -33,6 +33,8 @@ const styles = theme => ({
   },
   title: {
     display: 'none',
+    fontSize: theme.typography.h6.fontSize,
+    fontWeight: 'bold',
     width: 210,
     [theme.breakpoints.up('sm')]: {
       display: 'block'
@@ -98,15 +100,12 @@ const styles = theme => ({
 
 const MainTopBar = ({
   classes,
-  handleDrawerToggle,
-  handleMenu,
-  anchorEl,
   t
 }) => (
   <AppBar position='absolute'>
     <Toolbar>
       <Link to='/' className={classes.link}>
-        <Typography variant='title' color='inherit' className={classes.title}>
+        <Typography variant='h1' color='inherit' className={classes.title}>
             EOS Grettings
         </Typography>
       </Link>
@@ -164,10 +163,7 @@ const MainTopBar = ({
 
 MainTopBar.propTypes = {
   classes: PropTypes.object,
-  handleDrawerToggle: PropTypes.func,
-  handleMenu: PropTypes.func,
-  anchorEl: PropTypes.string,
   t: PropTypes.func
 }
 
-export default withStyles(styles)(translate('translations')(MainTopBar))
+export default withStyles(styles)((withNamespaces('global')(MainTopBar)))
