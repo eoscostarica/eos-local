@@ -565,11 +565,9 @@ Contact the team directly on the #eos-local channel on [EOS Costa Rica's Discord
 
 ## About EOS Costa Rica
 
-EOS Blockchain is aiming to become a decentralized operating system which can support large-scale decentralized applications.
-
-EOS Costa Rica supports the EOSIO community by maintaining and contributing to open source initiatives, meetups and workshops.
-
 We challenge ourselves to provide the EOS platform with a strong geographical and political diversity by running the most robust EOS Block Producer possible from Costa Rica; We pledge to leverage our talent, experience, and sustainable internet resources to meet such an important challenge.
+
+EOS Costa Rica supports the EOS.io community by maintaining and contributing to open source initiatives, meetups and workshops.
 
 [eoscostarica.io](https://eoscostarica.io)
 
