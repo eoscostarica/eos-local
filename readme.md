@@ -58,7 +58,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - [demux](#demux)
   - [graphql](#graphql)
     - [PostGraphile](#postgraphile)
-  - [eosio-cdt (Contract Development Toolkit)  1.3.x](#eosio-cdt-contract-development-toolkit--13x)
+  - [eosio-cdt (Contract Development Toolkit)](#eosio-cdt-contract-development-toolkit)
   - [eos-producer](#eos-producer)
   - [eos-api-node](#eos-api-node)
   - [postgres](#postgres)
@@ -295,7 +295,7 @@ This is what EOS Local uses to provide the GraphQL endpoint.
 
 Learn more at https://www.graphile.org/postgraphile
 
-### eosio-cdt (Contract Development Toolkit)  1.3.x
+### eosio-cdt (Contract Development Toolkit)
 
 EOSIO.CDT is a toolchain for WebAssembly (WASM) and set of tools to facilitate contract writing for the EOSIO platform. In addition to being a general purpose WebAssembly toolchain, EOSIO specific optimizations are available to support building EOSIO smart contracts. This new toolchain is built around Clang 7, which means that EOSIO.CDT has the most currently available optimizations and analyses from LLVM, but as the WASM target is still considered experimental some optimizations are not available or incomplete.
 
