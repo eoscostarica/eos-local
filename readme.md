@@ -58,9 +58,9 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - [demux](#demux)
   - [graphql](#graphql)
     - [PostGraphile](#postgraphile)
-  - [eosiodev](#eosiodev)
+  - [eos-producer](#eos-producer)
     - [EOSIO.CDT (Contract Development Toolkit)  1.3.x](#eosiocdt-contract-development-toolkit--13x)
-  - [fullnode](#fullnode)
+  - [eos-api-node](#eos-api-node)
   - [postgres](#postgres)
   - [flyway](#flyway)
   - [pgweb](#pgweb)
@@ -95,8 +95,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 	<img src="assets/EOS-Local-Architecture.png" width="600">
 </p>
 
-The producer node acts as "genesis" node and it is the first nodeos that we start, that will originate the blockchain. All other nodes will derive from the genesis node. By default you EOS Local starts a second node node that exposes the the http API with mongo plugin. More node can be added as desired with docker compose.
-
 ## Advantages
 
 - Get started with EOS DApp development in less than 5 minutes with a single command.
@@ -120,6 +118,12 @@ The producer node acts as "genesis" node and it is the first nodeos that we star
   - Admin Mongo instance.
   - PGWeb instance.
   - Flyway service for Postgres DB migrations.
+<<<<<<< HEAD
+=======
+  - Eos-dev node for contract dev and compilation.
+  - Eos eos-api-node with history.
+  - Graphql endpoint.
+>>>>>>> refactor: update eos containers config and init script
   - Reactjs client with:
     - Scatter integration. 
     - Lynx integration. WIP [#21](https://github.com/eoscostarica/eos-local/issues/21)
@@ -194,7 +198,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 |   |   ├── tslint.json ................................ code style rules
 |   |   └── package.json ............................... service dependencies manifest
 |   |
-|   ├── eosiodev/ ...................................... eos-dev node for contact development
+|   ├── eos-producer/ .................................. eos producer node
 |   |   ├── utils/ ..................................... general utilities
 |   |   ├── config/ .................................... eos node config
 |   |   ├── contracts/ ................................. smart contracts 
@@ -202,7 +206,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 |   |   ├── Dockerfile ................................. service image spec 
 |   |   └── start.sh ................................... service startup script
 |   |
-|   ├── eos-fullnode/ .................................. eos fullnode
+|   ├── eos-api-node/ .................................. eos eos-api-node
 |   |   ├── utils/ ..................................... general utilities
 |   |   ├── config.ini ................................. eos node configuration file
 |   |   ├── Dockerfile ................................. service image spec 
@@ -295,28 +299,27 @@ This is what EOS Local uses to provide the GraphQL endpoint.
 
 Learn more at https://www.graphile.org/postgraphile
 
-### eosiodev
+### eosio-cdt (Contract Development Toolkit)  1.3.x
 
-This ubuntu server contains everything that's required for contract compilation.
+EOSIO.CDT is a toolchain for WebAssembly (WASM) and set of tools to facilitate contract writing for the EOSIO platform. In addition to being a general purpose WebAssembly toolchain, EOSIO specific optimizations are available to support building EOSIO smart contracts. This new toolchain is built around Clang 7, which means that EOSIO.CDT has the most currently available optimizations and analyses from LLVM, but as the WASM target is still considered experimental some optimizations are not available or incomplete.
 
-The eosio/eos image does not contain the required dependencies for contract development (this is by design, to keep the image size small), we use eosio.cdt for this and the `eosiodev` docker image already has it installed for automated and manual compilation.
-
-__Note:__
-*The eosio/eos-dev image contains both the required binaries and dependencies to build contracts using `eosiocpp`. https://hub.docker.com/r/eosio/eos-dev/ the base image can be found at https://github.com/EOSIO/eos/blob/master/Docker/dev/Dockerfile. However eosiocpp is now deprecated in favor `eosio-cpp` and the lastest `eosio/oes-dev` docker image does not contain `eosio-cpp`, at least not yet* 
-
-Follow up on https://github.com/eoscostarica/eos-local/issues/27
-
-#### EOSIO.CDT (Contract Development Toolkit)  1.3.x
-
-EOSIO.CDT is a toolchain for WebAssembly (WASM) and set of tools to facilitate contract writing for the EOSIO platform. In addition to being a general purpose WebAssembly toolchain, EOSIO specific optimizations are available to support building EOSIO smart contracts. This new toolchain is built around Clang 7, which means that EOSIO.CDT has the most currently available optimizations and analyses from LLVM, but as the WASM target is still considered experimental, some optimizations are not available or incomplete.
+EOS Local uses the docker service for automated contracts compilation.
 
 Learn more at https://github.com/EOSIO/eosio.cdt
 
-### fullnode
+### eos-producer
+
+The producer node acts as "genesis" node and it is the first nodeos that we start, that will originate the blockchain. All other nodes will derive from the genesis node. By default EOS Local starts a second api node (with mongo plugin) that exposes the HTTP RPC API. More node can be added as desired with docker compose.
+
+This ubuntu server contains everything that's required for contract compilation.
+
+The eosio/eos image does not contain the required dependencies for contract development (this is by design, to keep the image size small), we use eosio.cdt for this and the `eos-producer` docker image already has it installed for automated and manual compilation.
+
+### eos-api-node
 
 This is node the provides the RPC API.
 
-See fullnode cofiguration at https://github.com/eoscostarica/eos-local/blob/master/services/eos-fullnode/config.ini
+See eos-api-node cofiguration at https://github.com/eoscostarica/eos-local/blob/master/services/eos-api-node/config.ini
 
 https://hub.docker.com/r/eosio/eos/ the base image source code can be found at https://github.com/EOSIO/eos/blob/master/Docker/Dockerfile.
 
@@ -360,7 +363,7 @@ Docker compose exposes a pgweb instance on https://localhost:8081 and also throu
 
 ### mongodb
 
-MongoDB instance for the fullnode. 
+MongoDB instance for the eos-api-node. 
 
 The eosio::mongo_db_plugin provides archiving of blockchain data into a MongoDB. It is recommended that the plugin be added to a non-producing node as it is designed to shut down on any failed insert into the MongoDB and is resource intensive.
 
@@ -370,7 +373,7 @@ https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 
 AdminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs. adminMongo is fully responsive and should work on a range of devices.
 
-Out-of-the-box it is connected to the fullnode mongodb instance and allows you to explore transactions and other data in that database. Docker compose exposes it on https://localhost:8082 and also through http://admin-mongo.eoslocal.io with the nginx reverse-proxy.
+Out-of-the-box it is connected to the eos-api-node mongodb instance and allows you to explore transactions and other data in that database. Docker compose exposes it on https://localhost:8082 and thru http://admin-mongo.eoslocal.io with the nginx reverse-proxy.
 
 <p align="center">
 	<img src="assets/admin-mongo.png" width="600">
@@ -426,24 +429,24 @@ EOS Local comes with 2 EOS nodes running in separate docker containers, you can 
 You can execute commands on any container from you host machine using the `docker-compose exec` command.
 Eg:
 
-`docker-compose exec eosiodev cleos --url http://localhost:8888/`
+`docker-compose exec eos-producer cleos --url http://localhost:8888/`
 
 We recomend using declaring alias on your shell configuration  Eg (.bashrc or .zshrc) 
 
 ```
-alias cleos_eosiodev='docker-compose exec eosiodev cleos --url http://localhost:8888/'
-alias cleos_fullnode='docker-compose exec fullnode cleos --url http://localhost:8888/'
+alias cleos_producer='docker-compose exec eos-producer cleos --url http://localhost:8888/'
+alias cleos_api_node='docker-compose exec eos-api-node cleos --url http://localhost:8888/'
 ```
 
-After you have added those lines to your config you can open a new terminal window and run `cleos_eosiodev --help` and `cleos_fullnode --help` to test.
+After you have added those lines to your config you can open a new terminal window and run `cleos_eos-producer --help` and `cleos_api_node --help` to test.
 
 #### Handy Yarn scritps
 
 EOS Local provides to handy yarn scripts to accomplish the same functionality mentioned above.
 
--  `yarn cleos` ............. connects to eosiodev node
--  `yarn cleos:eosiodev` .... connects to eosiodev node
--  `yarn cleos:fullnode` .... connects to the eos fullnode
+-  `yarn cleos` ............. connects to eos-producer node
+-  `yarn cleos:eos-producer` .... connects to eos-producer node
+-  `yarn cleos:eos-api-node` .... connects to the eos eos-api-node
 
 __Important note:__  
 *We currently use yarn instead gulp for this because it allows to pass parameters more easily.
@@ -455,13 +458,13 @@ Follow up here https://github.com/eoscostarica/eos-local/issues/17
 
 You can also login into the containers using the following docker-compose command 
 
-`docker-compose exec [service_name] bash`  where `service_name` is either `eosiodev` or `fullnode`
+`docker-compose exec [service_name] bash`  where `service_name` is either `eos-producer` or `eos-api-node`
 
 That will log you in and you will be able to execute cleos directly within the ubuntu server.
 Eg.
 
 ```
-➜  eos-local git:(master) ✗ docker-compose exec eosiodev bash
+➜  eos-local git:(master) ✗ docker-compose exec eos-producer bash
 root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
 {
   "server_version": "f9a3d023",

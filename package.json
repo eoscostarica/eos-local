@@ -1,7 +1,7 @@
 {
   "name": "eos-local",
   "version": "0.1.0",
-  "description": "A docker compose based development environment for EOS DApp Development.",
+  "description": "A docker compose based environment for EOS DApp Development.",
   "main": "index.js",
   "repository": "git@github.com:eoscostarica/eos-local.git",
   "author": "eoscostarica.io",
@@ -12,8 +12,8 @@
     "gulp-shell": "^0.6.5"
   },
   "scripts": {
-    "cleos": "yarn cleos:eosiodev",
-    "cleos:eosiodev": "SERVICE=eosiodev ./scripts/cleos.sh",
-    "cleos:fullnode": "SERVICE=fullnode ./scripts/cleos.sh"
+    "cleos": "yarn cleos:eos-producer",
+    "cleos:eos-producer": "SERVICE=eos-producer ./scripts/cleos.sh",
+    "cleos:eos-api-node": "SERVICE=eos-api-node ./scripts/cleos.sh"
   }
 }

@@ -5,9 +5,9 @@ docker-compose build
 echo "Initializing docker containers"
 docker-compose up -d mongo postgres
 sleep 5s
-docker-compose up -d eosiodev
+docker-compose up -d eos-producer
 sleep 3s
-docker-compose up -d fullnode
+docker-compose up -d eos-api-node
 
 echo "Initializing Postgres"
 docker-compose up flyway
@@ -16,7 +16,7 @@ read -p "Initializing Chain data (y/n)? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  docker-compose run eosiodev /opt/application/scripts/0000_init-chain.sh
+  docker-compose run eos-producer /opt/application/scripts/0000_init-chain.sh
 fi
 
 echo "Initializing demux!"

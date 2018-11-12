@@ -63,61 +63,40 @@ services:
         aliases:
           - mongo.eoslocal.io
 
-
-  admin-mongo:
-    image: mrvautin/adminmongo:latest
-    restart: "always"
-    ports:
-      - '8082:8082'
-    environment:
-      PORT: 8082
-      CONN_NAME: fullnode
-      DB_HOST: mongo.eoslocal.io
-      DB_PORT: 27017
-      VIRTUAL_HOST: admin-mongo.eoslocal.io
-      VIRTUAL_PORT: 8082
-    depends_on:
-      - mongo
-      - fullnode
-    networks:
-      eoslocal:
-        aliases:
-          - admin-mongo.eoslocal.io
-
-  fullnode:
+  eos-api-node:
     build:
-      context: ./services/eos-fullnode
+      context: ./services/eos-api-node
       dockerfile: Dockerfile
-    image: eoslocal/fullnode
+    image: eoslocal/eos-api-node
     stop_grace_period: 3m0s
     ports:
       - '8840:8888'
       - '9840:9876'
     environment:
-      WAIT_HOSTS: mongo:27017, eosiodev:8888
+      WAIT_HOSTS: mongo:27017, eos-producer:8888
       WAIT_HOSTS_TIMEOUT: 60
       DATA_DIR: /opt/eosio/bin/data-dir
-      VIRTUAL_HOST: fullnode.eoslocal.io
+      VIRTUAL_HOST: eos-api-node.eoslocal.io
       VIRTUAL_PORT: 8888
     depends_on:
       - mongo
-      - eosiodev
+      - eos-producer
     volumes:
-      - 'fullnode:/opt/eosio/bin/data-dir'
-      - './services/eos-fullnode/config.ini:/opt/eosio/bin/data-dir/config.ini'
+      - 'eos-api-node:/opt/eosio/bin/data-dir'
+      - './services/eos-api-node/config.ini:/opt/eosio/bin/data-dir/config.ini'
     networks:
       eoslocal:
         aliases:
-          - fullnode.eoslocal.io
+          - api-node.eoslocal.io
 
   # only required for dev
-  eosiodev:
+  eos-producer:
     build:
-      context: ./services/eos-dev
+      context: ./services/eos-producer
       dockerfile: Dockerfile
       args:
         symbol: EOS
-    image: eoslocal/eosiodev
+    image: eoslocal/eos-producer
     stop_grace_period: 3m0s
     ports:
       - '8888:8888'
@@ -125,15 +104,15 @@ services:
     environment:
       DATA_DIR: /root/data-dir
       CONFIG_DIR: /opt/application/config
-      VIRTUAL_HOST: eosiodev.eoslocal.io
+      VIRTUAL_HOST: eos-producer.eoslocal.io
       VIRTUAL_PORT: 8888
     volumes:
-      - eosiodev:/root/data-dir
-      - ./services/eos-dev:/opt/application
+      - eos-producer:/root/data-dir
+      - ./services/eos-producer:/opt/application
     networks:
       eoslocal:
         aliases:
-          - eosiodev.eoslocal.io
+          - eos-producer.eoslocal.io
 
   demux:
     build:
@@ -148,7 +127,7 @@ services:
     depends_on:
       - mongo
       - postgres
-      - eosiodev
+      - eos-producer
     environment:
       DB_USER: user
       DB_PASSWORD: pass
@@ -156,7 +135,7 @@ services:
       DB_NAME: eoslocal
       DB_HOST: postgres
       DB_SCHEMA: public
-      CHAIN_HOST: 'http://eosiodev:8888'
+      CHAIN_HOST: 'http://eos-producer:8888'
       CHAIN_INIT_BLOCK: 10
       MONGO_URI: 'mongodb://mongo:27017'
       MONGO_DB: EOSFN
@@ -170,6 +149,24 @@ services:
       eoslocal:
         aliases:
           - demux.eoslocal.io
+
+  admin-mongo:
+    image: mrvautin/adminmongo:latest
+    ports:
+      - '8082:8082'
+    environment:
+      PORT: 8082
+      CONN_NAME: api-node-mongo
+      DB_HOST: mongo
+      VIRTUAL_HOST: admin-mongo.eoslocal.io
+      VIRTUAL_PORT: 8082
+    depends_on:
+      - mongo
+      - eos-api-node
+    networks:
+      eoslocal:
+        aliases:
+          - admin-mongo.eoslocal.io
 
   # nginx reverse proxy that allows accesing the services directly on the host machine
   # the wildcard *.esolocal.io that points to 127.0.0.1,
@@ -185,8 +182,8 @@ services:
       eoslocal:
 
 volumes:
-  eosiodev:
-  fullnode:
+  eos-producer:
+  eos-api-node:
 
 networks:
   eoslocal:
