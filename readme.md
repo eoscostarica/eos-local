@@ -112,7 +112,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - EOS producer node.
   - EOS api node with mongo plugin.
   - EOSIO.CDT as docker service.
-  - EOS Tracker block explorer. WIP [eos-local/issues/45](https://github.com/eoscostarica/eos-local/issues/45)
+  - EOS block explorer. WIP [eos-local/issues/45](https://github.com/eoscostarica/eos-local/issues/45)
   - Admin Mongo for exploring the api node stored transactions.
   - Demux service for executing side effects and data replication to postgres. 
   - GraphQL endpoint for executing complex data queries with ease.
