@@ -2,7 +2,7 @@ import React from 'react'
 import { Redux } from 'redux-render'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -95,4 +95,4 @@ Settings.propTypes = {
   i18n: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(translate('translations')(Settings))
+export default withStyles(styles)(withNamespaces('settings')(Settings))
