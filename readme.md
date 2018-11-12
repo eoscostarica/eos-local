@@ -109,21 +109,16 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - Fully virtualized EOS blockchain development environment.
 - Microservices architecture.
 - Out-of-box services: 
-  - EOS node with everything contract development and compilation.
-  - EOS fullnode with history.
-  - Demux service.
-  - GraphQL endpoint with GraphiQL.
+  - EOS producer node.
+  - EOS api node with mongo plugin.
+  - EOSIO.CDT as docker service.
+  - EOS Tracker block explorer. WIP [eos-local/issues/45](https://github.com/eoscostarica/eos-local/issues/45)
+  - Admin Mongo for exploring the api node stored transactions.
+  - Demux service for executing side effects and data replication to postgres. 
+  - GraphQL endpoint for executing complex data queries with ease.
   - Postgres database.
-  - MongoDB database.
-  - Admin Mongo instance.
-  - PGWeb instance.
+  - PGWeb instance for exploring the postgres database.
   - Flyway service for Postgres DB migrations.
-<<<<<<< HEAD
-=======
-  - Eos-dev node for contract dev and compilation.
-  - Eos eos-api-node with history.
-  - Graphql endpoint.
->>>>>>> refactor: update eos containers config and init script
   - Reactjs client with:
     - Scatter integration. 
     - Lynx integration. WIP [#21](https://github.com/eoscostarica/eos-local/issues/21)
@@ -136,7 +131,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - Automated code linting and testing.
 - Automated "seeding" of testing accounts and contract compilation.
 - Continuous Integration and Deployment. ( Travis and Netlify )
-- Kubernetes support ( coming soon https://github.com/eoscostarica/eos-local/issues/8 )
+- Kubernetes support - coming soon [#21](https://github.com/eoscostarica/eos-local/issues/8)
 
 *Note: at the moment we are not using a docker container for running the React client due to issues related to hot reloading the app efficiently*
 
@@ -188,6 +183,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 ```
 .
 ├── docs/ .............................................. documentation files and media
+├── contracts/ ......................................... eos smart contracts 
 ├── services/ .......................................... microservices
 |   ├── demux/ ......................................... demux-js service
 |   |   ├── utils/ ..................................... general utilities
@@ -201,7 +197,6 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 |   ├── eos-producer/ .................................. eos producer node
 |   |   ├── utils/ ..................................... general utilities
 |   |   ├── config/ .................................... eos node config
-|   |   ├── contracts/ ................................. smart contracts 
 |   |   ├── scripts/ ................................... chain and wallet init scripts
 |   |   ├── Dockerfile ................................. service image spec 
 |   |   └── start.sh ................................... service startup script
