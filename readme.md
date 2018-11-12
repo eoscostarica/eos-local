@@ -543,7 +543,7 @@ The main communication channels are [github issues](https://github.com/eoscostar
 
 Our weekly sync call is every Monday 1:00 AM UTC. [meet.eoscostarica.io](https:/meet.eoscostarica.io).
 
-Contributing Guidelines https://learn.eoscostarica.io/open-source/.
+Contributing Guidelines https://developers.eoscostarica.io/docs/open-source-guidelines.
 
 Please report bugs big and small by [opening an issue](https://github.com/eoscostarica/eos-local/issues)
 
