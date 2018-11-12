@@ -89,7 +89,6 @@ services:
         aliases:
           - api-node.eoslocal.io
 
-  # only required for dev
   eos-producer:
     build:
       context: ./services/eos-producer
@@ -109,10 +108,17 @@ services:
     volumes:
       - eos-producer:/root/data-dir
       - ./services/eos-producer:/opt/application
+      - ./contracts:/opt/application/contracts
     networks:
       eoslocal:
         aliases:
           - eos-producer.eoslocal.io
+
+  eosiocdt:
+    image: eosio/cdt:v1.4.0
+    volumes:
+      - ./contracts:/opt/eosio/bin/contracts
+    entrypoint: /usr/bin/eosio-cpp
 
   demux:
     build:
