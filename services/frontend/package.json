@@ -5,13 +5,13 @@
   "scripts": {
     "precommit": "lint-staged",
     "lint": "eslint .",
-    "start": "env-cmd .env react-scripts start",
-    "build": "env-cmd .env react-scripts build",
-    "test": "env-cmd .env react-scripts test --env=jsdom",
+    "start": "npm run move:languages && env-cmd .env react-scripts start",
+    "build": "npm run move:languages && env-cmd .env react-scripts build",
+    "test": "npm run move:languages && env-cmd .env react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "rimraf": "rimraf",
-    "cp": "cp",
-    "move:languages": "npm run rimraf -- public/locales && npm run cp -- src/language/ public/locales"
+    "ncp": "ncp",
+    "move:languages": "npm run rimraf -- public/locales && npm run ncp -- src/language/ public/locales"
   },
   "dependencies": {
     "@material-ui/core": "^3.0.1",
@@ -40,14 +40,14 @@
     "scatterjs-core": "^2.3.2",
     "scatterjs-plugin-eosjs2": "^1.1.4"
   },
-  "devDependencies": {
-    "cp": "^0.2.0",
+  "devDependencies": {    
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^1.1.2",
     "lint-staged": "^7.2.2",
+    "ncp": "^2.0.0",
     "prettier": "^1.14.2",
     "pretty-quick": "^1.6.0",
     "react-scripts": "2.0.5",
