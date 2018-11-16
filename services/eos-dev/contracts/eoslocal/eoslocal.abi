@@ -1,0 +1,62 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sat Nov 10 05:06:41 2018",
+    "version": "eosio::abi/1.1",
+    "structs": [
+        {
+            "name": "greet",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "msg",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "greetings_table_struct",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "key",
+                    "type": "name"
+                },
+                {
+                    "name": "msg",
+                    "type": "string"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "greet",
+            "type": "greet",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "greetings",
+            "type": "greetings_table_struct",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "variants": [],
+    "abi_extensions": []
+}

@@ -186,6 +186,18 @@ function build_and_deploy_contracts () {
   $cleos push action eoslocal greet '["2","eoslocalusrb","Hola hola hola from USER B"]' -p eoslocalusrb@active
 }
 
+# build the ricardian clauses for EOSLOCAL contract 
+function build_ricardian_clauses () {
+  echo "Creating templates of ricardian clauses"
+  SCRIPTS_DIR="/opt/application/contracts/scripts/abi_to_rc"
+
+  cd /opt/application/contracts/eoslocal
+
+  python $SCRIPTS_DIR/abi_to_rc.py eoslocal.abi
+ 
+  echo "Templates files Ricardian Clauses created success"
+}
+
 # setup chain, testing users and contracts
 until curl eos-producer:8888/v1/chain/get_info
 do
@@ -199,6 +211,7 @@ deploy_system_contracts
 create_eoslocal_account
 create_testing_accounts
 build_and_deploy_contracts
+build_ricardian_clauses
 
 # debugging code
 echo 'Wallet info:'
