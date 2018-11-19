@@ -341,7 +341,7 @@ Pgweb is a web-based database browser for PostgreSQL, written in Go and works on
 	<img src="assets/graphiql.png" width="600">
 </p>
 
-Docker compose exposes a pgweb instance on https://localhost:8081 and also through http://pgweb.eoslocal.io with the nginx reverse-proxy.
+Docker compose exposes a pgweb instance on http://localhost:8081 and also through http://pgweb.eoslocal.io with the nginx reverse-proxy.
 
 ### mongodb
 
@@ -355,7 +355,7 @@ https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 
 AdminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs. adminMongo is fully responsive and should work on a range of devices.
 
-Out-of-the-box it is connected to the eos-api-node mongodb instance and allows you to explore transactions and other data in that database. Docker compose exposes it on https://localhost:8082 and thru http://admin-mongo.eoslocal.io with the nginx reverse-proxy.
+Out-of-the-box it is connected to the eos-api-node mongodb instance and allows you to explore transactions and other data in that database. Docker compose exposes it on http://localhost:8082 and thru http://admin-mongo.eoslocal.io with the nginx reverse-proxy.
 
 <p align="center">
 	<img src="assets/admin-mongo.png" width="600">
