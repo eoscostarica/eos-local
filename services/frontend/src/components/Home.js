@@ -6,7 +6,11 @@ import {
   Paper
 } from '@material-ui/core'
 
+import { Query } from 'react-apollo'
+
 import CommentBox from './comment-box'
+
+import { getGreetingsQuery } from 'graphql/queries'
 
 const styles = theme => ({
   grow: {
@@ -27,18 +31,30 @@ const Home = ({
   <Grid container>
     <Grid item xs={12}>
       <Paper className={classes.container}>
-        <CommentBox
-          title='12 LETTERNAME'
-          body='is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in'
-          city='New York'
-          hour='3H'
-        />
-        <CommentBox
-          title='12 LETTERNAME'
-          body='is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in'
-          city='New York'
-          hour='3H'
-        />
+        <Query query={getGreetingsQuery}>
+          {
+            ({ data }) => {
+              // need to validate more
+              if (data.allGreetings) {
+                const { edges = [] } = data.allGreetings
+
+                return edges.map(({ node }, index) => {
+                  const { greeting } = node
+
+                  return <CommentBox key={index}
+                    title={greeting}
+                    body='here goes the body'
+                    city='New York'
+                    hour='3H'
+                  />
+                })
+              } else {
+                // need to validite against network
+                return 'loading'
+              }
+            }
+          }
+        </Query>
       </Paper>
     </Grid>
   </Grid>

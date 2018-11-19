@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
+import compose from 'recompose/compose'
+
 import MainTopBar from 'components/app-bar'
+import { withHome } from 'graphql/states/home'
 
 const styles = theme => ({
   root: {
@@ -41,7 +44,13 @@ class Layout extends Component {
   handleClose = () => this.setState({ anchorEl: null })
 
   render () {
-    const { classes, children } = this.props
+    const {
+      classes,
+      children,
+      saveTerm,
+      updateTermMutation
+      // clearTermMutation,
+    } = this.props
     const open = Boolean(this.state.anchorEl)
     return (
       <div className={classes.root}>
@@ -51,6 +60,8 @@ class Layout extends Component {
           anchorEl={this.state.anchorEl}
           open={open}
           onClose={this.handleClose}
+          saveTerm={saveTerm}
+          updateTermMutation={updateTermMutation}
         />
         <main className={classes.content}>
           <div className={classes.toolbar} />
@@ -63,7 +74,13 @@ class Layout extends Component {
 
 Layout.propTypes = {
   children: PropTypes.object,
-  classes: PropTypes.object
+  classes: PropTypes.object,
+  saveTerm: PropTypes.string,
+  updateTermMutation: PropTypes.func
 }
 
-export default withStyles(styles, { withTheme: true })(Layout)
+const HomeC = compose(
+  withHome
+)(withStyles(styles, { withTheme: true })(Layout))
+
+export default HomeC
