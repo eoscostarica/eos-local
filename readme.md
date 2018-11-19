@@ -32,15 +32,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 	<img src="assets/eoslocal-bitmapoverWhte.png" width="600">
 </p>
 
-<p align="center">
-	Watch the EOS Local Introductory Video on YouTube
-</p>
-<p align="center">
-  <a target="_blank" href="https://www.youtube.com/watch?v=wFk2RsT8IAk">
-	  <img src="assets/intro-video.png" width="600">
-  </a>
-</p>
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -72,7 +63,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - [Continuous Integration Process](#continuous-integration-process)
 - [Using Cleos on EOS Local](#using-cleos-on-eos-local)
   - [Invoking cleos through docker-compose exec](#invoking-cleos-through-docker-compose-exec)
-    - [Handy Yarn scritps](#handy-yarn-scritps)
   - [SHH into the containers and use cleos directly](#shh-into-the-containers-and-use-cleos-directly)
 - [EOS Documentation & Resources](#eos-documentation--resources)
 - [Frequently Asked Questions](#frequently-asked-questions)
@@ -127,7 +117,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
     - GraphQL Apollo client.
 - Services accessible through virtual host names both from host machine and within the docker network.
 - Handy scripts for interacting with the local EOS services.
-- Gulp as global task manager.
+- Make as global task manager.
 - Automated code linting and testing.
 - Automated "seeding" of testing accounts and contract compilation.
 - Continuous Integration and Deployment. ( Travis and Netlify )
@@ -148,28 +138,25 @@ Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required.
 
 - Docker https://docs.docker.com/install/.   
 At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
-- Install node.js v10 on your machine. We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
+
+**Optionally**
+- Install node.js v11 on your machine. We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
 - Yarn https://yarnpkg.com/lang/en/docs/install/.
-- Gulp CLI  `yarn global add gulp-cli`.
 
-**NPM packages**
+## Make Commands
 
-- run `yarn` on the root directory to install node packages required by `gulp-cli`
-
-## Commands
-
-- `gulp setup` run chain initialization and database migrations.
-- `gulp start` starts the docker containers.
-- `gulp stop` stops and removes all containers.
-- `gulp restart` restarts all services.
-- `gulp flush` stops all services and remove all blockchain and database data.
-- `gulp logs` displays and follows all services logs.
-- `gulp migrate` executes flywaydb migrations against the postgres database.
-- `gulp psql` connects you to the postgres db instance thru command line.
+- `make setup` run chain initialization and database migrations.
+- `make start` starts the docker containers.
+- `make stop` stops and removes all containers.
+- `make restart` restarts all services.
+- `make flush` stops all services and remove all blockchain and database data.
+- `make logs` displays and follows all services logs.
+- `make migrate` executes flywaydb migrations against the postgres database.
+- `make psql` connects you to the postgres db instance thru command line.
 
 ## Chain Initialization and Database Migrations
 
-When you run `gulp setup` several things will happen:
+When you run `make setup` several things will happen:
 
 - Chain initialization.
 - Testing Users Creation.
@@ -225,8 +212,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 ├── readme.md .......................................... project documentation
 ├── netlify.toml ....................................... netlify config file
 ├── .travis.yml ........................................ travis ci config file
-├── .editorconfig ...................................... common text editor configs
-└── package.json ....................................... dependencies manifest for gulp-cli
+└── .editorconfig ...................................... common text editor configs
 ```
 
 ## Designing and Developing EOS Smart Contracts
@@ -435,20 +421,6 @@ alias cleos_api_node='docker-compose exec eos-api-node cleos --url http://localh
 ```
 
 After you have added those lines to your config you can open a new terminal window and run `cleos_eos-producer --help` and `cleos_api_node --help` to test.
-
-#### Handy Yarn scritps
-
-EOS Local provides to handy yarn scripts to accomplish the same functionality mentioned above.
-
--  `yarn cleos` ............. connects to eos-producer node
--  `yarn cleos:eos-producer` .... connects to eos-producer node
--  `yarn cleos:eos-api-node` .... connects to the eos eos-api-node
-
-__Important note:__  
-*We currently use yarn instead gulp for this because it allows to pass parameters more easily.
-In the future gulp and yarn script at the root level will be replaced with an `eoslocal` cli.*
-
-Follow up here https://github.com/eoscostarica/eos-local/issues/17 
 
 ### SHH into the containers and use cleos directly
 
