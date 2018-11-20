@@ -41,7 +41,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - [Technical Specs](#technical-specs)
 - [Getting started](#getting-started)
   - [Installation](#installation)
-- [Commands](#commands)
+- [Make Commands](#make-commands)
 - [Chain Initialization and Database Migrations](#chain-initialization-and-database-migrations)
 - [Directory Structure](#directory-structure)
 - [Designing and Developing EOS Smart Contracts](#designing-and-developing-eos-smart-contracts)
@@ -112,7 +112,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - Reactjs client with:
     - Scatter integration. 
     - Lynx integration. WIP [eos-local/issues/21](https://github.com/eoscostarica/eos-local/issues/21)
-    - EOS Account profile page.
     - Material UI.
     - GraphQL Apollo client.
 - Services accessible through virtual host names both from host machine and within the docker network.
