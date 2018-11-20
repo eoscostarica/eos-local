@@ -16,7 +16,7 @@
 
 <p align="center">
 	<a href="https://eoscostarica.io">
-		<img src="https://cdn.rawgit.com/eoscostarica/docs/574d20a6/logos/eoscolors-transparent.png" width="300">
+		<img src="https://cdn.rawgit.com/eoscostarica/assets/574d20a6/logos/eoscolors-transparent.png" width="300">
 	</a>
 </p>
 
