@@ -16,7 +16,7 @@
 
 <p align="center">
 	<a href="https://eoscostarica.io">
-		<img src="https://cdn.rawgit.com/eoscostarica/assets/574d20a6/logos/eoscolors-transparent.png" width="300">
+		<img src="https://cdn.rawgit.com/eoscostarica/docs/574d20a6/logos/eoscolors-transparent.png" width="300">
 	</a>
 </p>
 
@@ -29,16 +29,7 @@ This project was inspired on MonsterEOS' **EOSIO Dream Stack** architecture that
 EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals, etc.
 
 <p align="center">
-	<img src="assets/eoslocal-bitmapoverWhte.png" width="600">
-</p>
-
-<p align="center">
-	Watch the EOS Local Introductory Video on YouTube
-</p>
-<p align="center">
-  <a target="_blank" href="https://www.youtube.com/watch?v=wFk2RsT8IAk">
-	  <img src="assets/intro-video.png" width="600">
-  </a>
+	<img src="docs/eoslocal-bitmapoverWhte.png" width="600">
 </p>
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -72,7 +63,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - [Continuous Integration Process](#continuous-integration-process)
 - [Using Cleos on EOS Local](#using-cleos-on-eos-local)
   - [Invoking cleos through docker-compose exec](#invoking-cleos-through-docker-compose-exec)
-    - [Handy Yarn scritps](#handy-yarn-scritps)
   - [SHH into the containers and use cleos directly](#shh-into-the-containers-and-use-cleos-directly)
 - [EOS Documentation & Resources](#eos-documentation--resources)
 - [Frequently Asked Questions](#frequently-asked-questions)
@@ -92,7 +82,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 ## Architecture
 
 <p align="center">
-	<img src="assets/EOS-Local-Architecture.png" width="600">
+	<img src="docs/EOS-Local-Architecture.png" width="600">
 </p>
 
 ## Advantages
@@ -113,7 +103,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - EOS api node with mongo plugin.
   - EOSIO.CDT as docker service.
   - EOS block explorer. WIP [eos-local/issues/45](https://github.com/eoscostarica/eos-local/issues/45)
-  - Admin Mongo for exploring the api node stored transactions.
+  - Admin Mongo for exploring the api node stored transactions.  
   - Demux service for executing side effects and data replication to postgres. 
   - GraphQL endpoint for executing complex data queries with ease.
   - Postgres database.
@@ -127,12 +117,10 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
     - GraphQL Apollo client.
 - Services accessible through virtual host names both from host machine and within the docker network.
 - Handy scripts for interacting with the local EOS services.
-- Gulp as global task manager.
+- Make as global task manager.
 - Automated code linting and testing.
 - Automated "seeding" of testing accounts and contract compilation.
 - Continuous Integration and Deployment. ( Travis and Netlify )
-- Kubernetes support - coming soon [eos-local/issues/8](https://github.com/eoscostarica/eos-local/issues/8)
-- EOS TypeScript support - coming soon [eos-local/issues/47](https://github.com/eoscostarica/eos-local/issues/47)
 
 *Note: at the moment we are not using a docker container for running the React client due to issues related to hot reloading the app efficiently*
 
@@ -148,28 +136,25 @@ Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required.
 
 - Docker https://docs.docker.com/install/.   
 At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
-- Install node.js v10 on your machine. We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
+
+**Optionally**
+- Install node.js v11 on your machine. We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
 - Yarn https://yarnpkg.com/lang/en/docs/install/.
-- Gulp CLI  `yarn global add gulp-cli`.
 
-**NPM packages**
+## Make Commands
 
-- run `yarn` on the root directory to install node packages required by `gulp-cli`
-
-## Commands
-
-- `gulp setup` run chain initialization and database migrations.
-- `gulp start` starts the docker containers.
-- `gulp stop` stops and removes all containers.
-- `gulp restart` restarts all services.
-- `gulp flush` stops all services and remove all blockchain and database data.
-- `gulp logs` displays and follows all services logs.
-- `gulp migrate` executes flywaydb migrations against the postgres database.
-- `gulp psql` connects you to the postgres db instance thru command line.
+- `make setup` run chain initialization and database migrations.
+- `make start` starts the docker containers.
+- `make stop` stops and removes all containers.
+- `make restart` restarts all services.
+- `make flush` stops all services and remove all blockchain and database data.
+- `make logs` displays and follows all services logs.
+- `make migrate` executes flywaydb migrations against the postgres database.
+- `make psql` connects you to the postgres db instance thru command line.
 
 ## Chain Initialization and Database Migrations
 
-When you run `gulp setup` several things will happen:
+When you run `make setup` several things will happen:
 
 - Chain initialization.
 - Testing Users Creation.
@@ -225,8 +210,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 ├── readme.md .......................................... project documentation
 ├── netlify.toml ....................................... netlify config file
 ├── .travis.yml ........................................ travis ci config file
-├── .editorconfig ...................................... common text editor configs
-└── package.json ....................................... dependencies manifest for gulp-cli
+└── .editorconfig ...................................... common text editor configs
 ```
 
 ## Designing and Developing EOS Smart Contracts
@@ -234,7 +218,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 Recommended process for designing EOS Smart Contracts.  
 
 <p align="center">
-	<img src="assets/smart-contracts-process.png" width="300">
+	<img src="docs/smart-contracts-process.png" width="300">
 </p>
 
 Simple use case of equipment rentals that list their equipment for rent and renters who pay rent for those items.
@@ -255,7 +239,7 @@ Taking inspiration from the [Flux Architecture](https://facebook.github.io/flux/
 1. The blockchain as the single source of truth for all application state
 
 <p align="center">
-		<img src="assets/demux.png" width="600">
+		<img src="docs/demux.png" width="600">
 </p>
 
 1. Client sends transaction to blockchain.
@@ -282,7 +266,7 @@ Know exactly what data you can request from your API without leaving your editor
 The GraphiQL instance on EOS Local is available at http://localhost:3030/graphiql
 
 <p align="center">
-	<img src="assets/graphiql.png" width="600">
+	<img src="docs/graphiql.png" width="600">
 </p>
 
 Learn more at https://graphql.org & https://www.howtographql.com
@@ -334,7 +318,7 @@ PostgreSQL is a powerful, open source object-relational database system with ove
 - The newest round of performance comparisons of PostgreSQL and MongoDB produced a near repeat of the results from the first tests that proved PostgreSQL can outperform MongoDB.
 
 <p align="center">
-		<img src="assets/postgres.webp" width="600">
+		<img src="docs/postgres.webp" width="600">
 </p>
 
 Learn more at https://www.postgresql.org
@@ -352,10 +336,10 @@ Learn more at https://flywaydb.org/documentation/migrations & https://flywaydb.o
 Pgweb is a web-based database browser for PostgreSQL, written in Go and works on OSX, Linux and Windows machines. Main idea behind using Go for backend development is to utilize ability of the compiler to produce zero-dependency binaries for multiple platforms. Pgweb was created as an attempt to build very simple and portable application to work with local or remote PostgreSQL databases.
 
 <p align="center">
-	<img src="assets/graphiql.png" width="600">
+	<img src="docs/graphiql.png" width="600">
 </p>
 
-Docker compose exposes a pgweb instance on https://localhost:8081 and also through http://pgweb.eoslocal.io with the nginx reverse-proxy.
+Docker compose exposes a pgweb instance on http://localhost:8081 and also through http://pgweb.eoslocal.io with the nginx reverse-proxy.
 
 ### mongodb
 
@@ -369,10 +353,10 @@ https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
 
 AdminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs. adminMongo is fully responsive and should work on a range of devices.
 
-Out-of-the-box it is connected to the eos-api-node mongodb instance and allows you to explore transactions and other data in that database. Docker compose exposes it on https://localhost:8082 and thru http://admin-mongo.eoslocal.io with the nginx reverse-proxy.
+Out-of-the-box it is connected to the eos-api-node mongodb instance and allows you to explore transactions and other data in that database. Docker compose exposes it on http://localhost:8082 and thru http://admin-mongo.eoslocal.io with the nginx reverse-proxy.
 
 <p align="center">
-	<img src="assets/admin-mongo.png" width="600">
+	<img src="docs/admin-mongo.png" width="600">
 </p>
 
 _adminMongo connection information (including username/password) is stored unencrypted in a config file, it is not recommended to run this application on a production or public facing server without proper security considerations._
@@ -394,7 +378,7 @@ See the `docker-compose.yml` for available virtual hosts for easier access witho
 In the services/frontend folder you will find a production ready frontend with Scatter and Lynx libraries ready for you to use. 
 
 <p align="center">
-	<img src="assets/react-client.png" width="600">
+	<img src="docs/react-client.png" width="600">
 </p>
 
 #### components
@@ -435,20 +419,6 @@ alias cleos_api_node='docker-compose exec eos-api-node cleos --url http://localh
 ```
 
 After you have added those lines to your config you can open a new terminal window and run `cleos_eos-producer --help` and `cleos_api_node --help` to test.
-
-#### Handy Yarn scritps
-
-EOS Local provides to handy yarn scripts to accomplish the same functionality mentioned above.
-
--  `yarn cleos` ............. connects to eos-producer node
--  `yarn cleos:eos-producer` .... connects to eos-producer node
--  `yarn cleos:eos-api-node` .... connects to the eos eos-api-node
-
-__Important note:__  
-*We currently use yarn instead gulp for this because it allows to pass parameters more easily.
-In the future gulp and yarn script at the root level will be replaced with an `eoslocal` cli.*
-
-Follow up here https://github.com/eoscostarica/eos-local/issues/17 
 
 ### SHH into the containers and use cleos directly
 
@@ -508,7 +478,7 @@ Containers offer a logical packaging mechanism in which applications can be abst
 For those coming from virtualized environments, containers are often compared with virtual machines (VMs). You might already be familiar with VMs: a guest operating system such as Linux or Windows runs on top of a host operating system with virtualized access to the underlying hardware. Like virtual machines, containers allow you to package your application together with libraries and other dependencies, providing isolated environments for running your software services. As you’ll see below however, the similarities end here as containers offer a far more lightweight unit for developers and IT Ops teams to work with, carrying a myriad of benefits.
 
 <p align="center">
-		<img src="assets/containers.png" width="600">
+		<img src="docs/containers.png" width="600">
 </p>
 
 Learn more at https://cloud.google.com/containers/
@@ -536,7 +506,7 @@ Learn more at https://dev.to/pesse/one-does-not-simply-update-a-database--migrat
 We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
 
 <p align="center">
-	<img src="assets/project-board.png" width="600">
+	<img src="docs/project-board.png" width="600">
 </p>
 
 The main communication channels are [github issues](https://github.com/eoscostarica/eos-local/issues) and [EOS Costa Rica's Discord server](https://eoscostarica.io/discord). Feel to join and ask as many questions you may have.

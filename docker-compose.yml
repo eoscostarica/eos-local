@@ -156,6 +156,26 @@ services:
         aliases:
           - demux.eoslocal.io
 
+  graphql-engine:
+    image: hasura/graphql-engine
+    ports:
+    - '8088:8080'
+    depends_on:
+    - postgres
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://user:pass@postgres:5432/eoslocal?sslmode=disable
+      VIRTUAL_HOST: graphql-engine.eoslocal.io
+      VIRTUAL_PORT: 8088
+    command:
+      - graphql-engine
+      - serve
+      - --enable-console
+    networks:
+      eoslocal:
+        aliases:
+          - graphql-engine.eoslocal.io
+
   admin-mongo:
     image: mrvautin/adminmongo:latest
     ports:
