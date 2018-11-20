@@ -119,7 +119,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - Make as global task manager.
 - Automated code linting and testing.
 - Automated "seeding" of testing accounts and contract compilation.
-- Continuous Integration and Deployment. ( Travis and Netlify )
+- Continuous Integration and Deployment. ( Travis and Netlify ) - CircleCI soon [eos-local/issues/26)](https://github.com/eoscostarica/eos-local/issues/26)
 
 *Note: at the moment we are not using a docker container for running the React client due to issues related to hot reloading the app efficiently*
 
