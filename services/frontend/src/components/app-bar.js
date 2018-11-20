@@ -100,7 +100,9 @@ const styles = theme => ({
 
 const MainTopBar = ({
   classes,
-  t
+  t,
+  updateTermMutation
+  // clearTermMutation,
 }) => (
   <AppBar position='absolute'>
     <Toolbar>
@@ -143,6 +145,9 @@ const MainTopBar = ({
           InputLabelProps={{
             className: classes.textFieldFormLabel
           }}
+          onChange={(e) => {
+            updateTermMutation({ variables: { text: e.target.value } })
+          }}
         />
       </Grid>
       <Grid item xs={2} style={{ justifyContent: 'center', display: 'flex' }}>
@@ -163,7 +168,8 @@ const MainTopBar = ({
 
 MainTopBar.propTypes = {
   classes: PropTypes.object,
-  t: PropTypes.func
+  t: PropTypes.func,
+  updateTermMutation: PropTypes.func
 }
 
 export default withStyles(styles)((withNamespaces('global')(MainTopBar)))
