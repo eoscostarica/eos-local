@@ -82,7 +82,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 ## Architecture
 
 <p align="center">
-	<img src="docs/EOS-Local-Architecture.png" width="600">
+	<img src="docs/EOS-Local-Architecture2.png" width="600">
 </p>
 
 ## Advantages
