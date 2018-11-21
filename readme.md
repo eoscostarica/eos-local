@@ -137,7 +137,7 @@ Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required.
 At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
 
 **Optionally**
-- Install node.js v11 on your machine. We recommend using [nvm](https://github.com/creationix/nvm) and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
+- Install node.js v11 on your machine. We recommend using [n](https://github.com/tj/n) or [nvm](https://github.com/creationix/nvm), and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
 - Yarn https://yarnpkg.com/lang/en/docs/install/.
 
 ## Make Commands

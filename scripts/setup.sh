@@ -28,8 +28,8 @@ docker-compose up -d admin-mongo
 echo "Initializing pgweb!"
 docker-compose up -d pgweb
 
-echo "Initializing graphql-engine!"
-docker-compose up -d graphql-engine
+echo "Initializing hasura graphql!"
+docker-compose up -d hasura
 
 echo "Installing frontend packages"
 cd services/frontend
