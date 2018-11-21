@@ -48,7 +48,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - [Services](#services)
   - [demux](#demux)
   - [graphql](#graphql)
-    - [PostGraphile](#postgraphile)
+    - [hasura](#hasura)
   - [eosio-cdt (Contract Development Toolkit)](#eosio-cdt-contract-development-toolkit)
   - [eos-producer](#eos-producer)
   - [eos-api-node](#eos-api-node)
