@@ -192,8 +192,11 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 |   |   ├── Dockerfile ................................. service image spec 
 |   |   └── start.sh ................................... service startup script
 |   |
-|   ├── postgres/ ...................................... postgres db related files
+|   ├── postgres/ ...................................... postgres db service
 |   |   └── migrations/ ................................ flyway migrations
+|   |
+|   ├── hasura/ ........................................ graphql endpoint service
+|   |   └── migrations/ ................................ hasura migrations
 |   |
 |   └── frontend/ ...................................... reactjs frontend
 |       ├── public/ .................................... static and public files
@@ -206,6 +209,7 @@ See [services/eos-dev/scripts/0000_init_chain.sh](https://github.com/eoscostaric
 ├── docker-compose.yaml ................................ docker compose for local dev
 ├── contributing.md .................................... contributing guidelines
 ├── license ............................................ project license
+├── makefile ........................................... make tasks manifest
 ├── readme.md .......................................... project documentation
 ├── netlify.toml ....................................... netlify config file
 ├── .travis.yml ........................................ travis ci config file
@@ -262,7 +266,7 @@ __Move faster with powerful developer tools__
 
 Know exactly what data you can request from your API without leaving your editor, highlight potential issues before sending a query, and take advantage of improved code intelligence. GraphQL makes it easy to build powerful tools like [GraphiQL](https://github.com/graphql/graphiql) by leveraging your API’s type system.
 
-The GraphiQL instance on EOS Local is available at http://localhost:3030/graphiql
+The GraphiQL instance on EOS Local is available at http://localhost:8088/console/api-explorer
 
 <p align="center">
 	<img src="docs/graphiql.png" width="600">
@@ -270,13 +274,16 @@ The GraphiQL instance on EOS Local is available at http://localhost:3030/graphiq
 
 Learn more at https://graphql.org & https://www.howtographql.com
 
-#### PostGraphile 
+#### hasura 
 
-PostGraphile is an open-source tool to help you rapidly design and serve a high-performance, secure, client-facing GraphQL API backed primarily by your PostgreSQL database. Delight your customers with incredible performance whilst maintaining full control over your data and your database. Use our powerful plugin system to customise every facet of your GraphQL API to your liking.
+Hasura GraphQL engine automatically generates your GraphQL schema and resolvers based on your tables/views in Postgres. You don’t need to write a GraphQL schema or resolvers.
 
-This is what EOS Local uses to provide the GraphQL endpoint.
+The Hasura console gives you UI tools that speed up your data-modeling process, or working with your existing database. The console also automatically generates migrations or metadata files that you can edit directly and check into your version control.
 
-Learn more at https://www.graphile.org/postgraphile
+Hasura GraphQL engine lets you do anything you would usually do with Postgres by giving you GraphQL over native Postgres constructs.
+
+Learn more at https://hasura.io
+
 
 ### eosio-cdt (Contract Development Toolkit)
 

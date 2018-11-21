@@ -35,17 +35,12 @@ const Home = ({
           {
             ({ data }) => {
               // need to validate more
-              if (data.allGreetings) {
-                const { edges = [] } = data.allGreetings
-
-                return edges.map(({ node }, index) => {
-                  const { greeting } = node
-
+              if (data.greetings) {
+                return data.greetings.map((g, index) => {
                   return <CommentBox key={index}
-                    title={greeting}
-                    body='here goes the body'
-                    city='New York'
-                    hour='3H'
+                    title={g.created_eosacc}
+                    body={g.greeting}
+                    hour={g.created_at}
                   />
                 })
               } else {

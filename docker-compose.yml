@@ -156,8 +156,8 @@ services:
         aliases:
           - demux.eoslocal.io
 
-  graphql-engine:
-    image: hasura/graphql-engine
+  hasura:
+    image: hasura/graphql-engine:v1.0.0-alpha29.cli-migrations
     ports:
     - '8088:8080'
     depends_on:
@@ -165,8 +165,10 @@ services:
     restart: always
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://user:pass@postgres:5432/eoslocal?sslmode=disable
-      VIRTUAL_HOST: graphql-engine.eoslocal.io
-      VIRTUAL_PORT: 8088
+      HASURA_GRAPHQL_MIGRATIONS_DIR: /hasura-migrations
+      VIRTUAL_HOST: hasura.eoslocal.io
+    volumes:
+      - ./services/hasura/migrations:/hasura-migrations  #  mount hasura migrations folder
     command:
       - graphql-engine
       - serve
@@ -174,7 +176,7 @@ services:
     networks:
       eoslocal:
         aliases:
-          - graphql-engine.eoslocal.io
+          - hasura.eoslocal.io
 
   admin-mongo:
     image: mrvautin/adminmongo:latest
