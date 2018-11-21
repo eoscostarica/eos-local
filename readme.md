@@ -49,7 +49,6 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - [demux](#demux)
   - [graphql](#graphql)
     - [hasura](#hasura)
-  - [eosio-cdt (Contract Development Toolkit)](#eosio-cdt-contract-development-toolkit)
   - [eos-producer](#eos-producer)
   - [eos-api-node](#eos-api-node)
   - [postgres](#postgres)
@@ -99,9 +98,8 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - Fully virtualized EOS blockchain development environment.
 - Microservices architecture.
 - Out-of-box services: 
-  - EOS producer node.
+  - EOS producer node with eosio.cdt for automated contracts compilation.
   - EOS api node with mongo plugin.
-  - EOSIO.CDT as docker service.
   - EOS block explorer. WIP [eos-local/issues/45](https://github.com/eoscostarica/eos-local/issues/45)
   - Admin Mongo for exploring the api node stored transactions.  
   - Demux service for executing side effects and data replication to postgres. 
@@ -284,18 +282,15 @@ Hasura GraphQL engine lets you do anything you would usually do with Postgres by
 
 Learn more at https://hasura.io
 
+### eos-producer
 
-### eosio-cdt (Contract Development Toolkit)
+The producer node acts as "genesis" node and we use this server for contract compilation with eosio.cdt.
 
 EOSIO.CDT is a toolchain for WebAssembly (WASM) and set of tools to facilitate contract writing for the EOSIO platform. In addition to being a general purpose WebAssembly toolchain, EOSIO specific optimizations are available to support building EOSIO smart contracts. This new toolchain is built around Clang 7, which means that EOSIO.CDT has the most currently available optimizations and analyses from LLVM, but as the WASM target is still considered experimental some optimizations are not available or incomplete.
 
 EOS Local uses the docker service for automated contracts compilation.
 
 Learn more at https://github.com/EOSIO/eosio.cdt
-
-### eos-producer
-
-The producer node acts as "genesis" node and we currently use this server for contract compilation, however are migrating are going to use the eosio.cdt docker image very soon. [Use eosio.cdt docker image for contract compilation](https://github.com/eoscostarica/eos-local/issues/64).
 
 ### eos-api-node
 

@@ -114,12 +114,6 @@ services:
         aliases:
           - eos-producer.eoslocal.io
 
-  eosiocdt:
-    image: eosio/cdt:v1.4.0
-    volumes:
-      - ./contracts:/opt/eosio/bin/contracts
-    entrypoint: /usr/bin/eosio-cpp
-
   demux:
     build:
       context: ./services/demux
