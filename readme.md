@@ -295,23 +295,17 @@ Learn more at https://github.com/EOSIO/eosio.cdt
 
 ### eos-producer
 
-The producer node acts as "genesis" node and it is the first nodeos that we start, that will originate the blockchain. All other nodes will derive from the genesis node. By default EOS Local starts a second api node (with mongo plugin) that exposes the HTTP RPC API. More node can be added as desired with docker compose.
-
-This ubuntu server contains everything that's required for contract compilation.
-
-The eosio/eos image does not contain the required dependencies for contract development (this is by design, to keep the image size small), we use eosio.cdt for this and the `eos-producer` docker image already has it installed for automated and manual compilation.
+The producer node acts as "genesis" node and we currently use this server for contract compilation, however are migrating are going to use the eosio.cdt docker image very soon. [Use eosio.cdt docker image for contract compilation](https://github.com/eoscostarica/eos-local/issues/64).
 
 ### eos-api-node
 
-This is node the provides the RPC API.
+This is node has the mongodb plugin and provides the RPC API endpoint.
 
-See eos-api-node cofiguration at https://github.com/eoscostarica/eos-local/blob/master/services/eos-api-node/config.ini
+The config file is located at https://github.com/eoscostarica/eos-local/blob/master/services/eos-api-node/config.ini
 
-https://hub.docker.com/r/eosio/eos/ the base image source code can be found at https://github.com/EOSIO/eos/blob/master/Docker/Dockerfile.
+The docker image source code can be found at https://github.com/EOSIO/eos/blob/master/Docker/Dockerfile.
 
 ### postgres
-
-Postgres database instance for the demux and graphql service.
 
 PostgreSQL is a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
 
