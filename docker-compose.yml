@@ -114,6 +114,23 @@ services:
         aliases:
           - eos-producer.eoslocal.io
 
+  eos-wallet:
+    container_name: eos-wallet
+    image: eosio/eos:v1.2.6
+    command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=0.0.0.0:8900 --http-alias=eos-wallet.eoslocal:8900 --http-validate-host 0 --verbose-http-errors
+    hostname: eos-wallet
+    expose:
+      - 8900
+    links:
+      - eos-producer
+      - eos-api-node
+    volumes:
+      - keosd-data-volume:/opt/eosio/bin/data-dir
+    networks:
+      eoslocal:
+        aliases:
+          - eos-wallet.eoslocal.io
+
   demux:
     build:
       context: ./services/demux
@@ -206,6 +223,8 @@ services:
 volumes:
   eos-producer:
   eos-api-node:
+  keosd-data-volume:
+    external: true
 
 networks:
   eoslocal:
