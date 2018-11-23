@@ -1,13 +1,14 @@
 #!/bin/bash
+echo "Building eos wallet external docker volume"
+docker volume create --name=keosd-data-volume
+
 echo "Building images"
 docker-compose build
 
 echo "Initializing docker containers"
 docker-compose up -d mongo postgres
 sleep 5s
-docker-compose up -d eos-producer
-sleep 3s
-docker-compose up -d eos-api-node
+docker-compose up -d eosio
 
 echo "Initializing Postgres"
 docker-compose up flyway
@@ -16,7 +17,7 @@ read -p "Initializing Chain data (y/n)? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  docker-compose run eos-producer /opt/application/scripts/0000_init-chain.sh
+  docker-compose run eosio /opt/application/scripts/0000_init-chain.sh
 fi
 
 echo "Initializing demux!"

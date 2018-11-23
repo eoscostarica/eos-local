@@ -63,39 +63,13 @@ services:
         aliases:
           - mongo.eoslocal.io
 
-  eos-api-node:
+  eosio:
     build:
-      context: ./services/eos-api-node
-      dockerfile: Dockerfile
-    image: eoslocal/eos-api-node
-    stop_grace_period: 3m0s
-    ports:
-      - '8840:8888'
-      - '9840:9876'
-    environment:
-      WAIT_HOSTS: mongo:27017, eos-producer:8888
-      WAIT_HOSTS_TIMEOUT: 60
-      DATA_DIR: /opt/eosio/bin/data-dir
-      VIRTUAL_HOST: eos-api-node.eoslocal.io
-      VIRTUAL_PORT: 8888
-    depends_on:
-      - mongo
-      - eos-producer
-    volumes:
-      - 'eos-api-node:/opt/eosio/bin/data-dir'
-      - './services/eos-api-node/config.ini:/opt/eosio/bin/data-dir/config.ini'
-    networks:
-      eoslocal:
-        aliases:
-          - api-node.eoslocal.io
-
-  eos-producer:
-    build:
-      context: ./services/eos-producer
+      context: ./services/eosio
       dockerfile: Dockerfile
       args:
         symbol: EOS
-    image: eoslocal/eos-producer
+    image: eoslocal/eosio
     stop_grace_period: 3m0s
     ports:
       - '8888:8888'
@@ -103,16 +77,16 @@ services:
     environment:
       DATA_DIR: /root/data-dir
       CONFIG_DIR: /opt/application/config
-      VIRTUAL_HOST: eos-producer.eoslocal.io
+      VIRTUAL_HOST: eosio.eoslocal.io
       VIRTUAL_PORT: 8888
     volumes:
-      - eos-producer:/root/data-dir
-      - ./services/eos-producer:/opt/application
+      - eosio-data-volume:/root/data-dir
+      - ./services/eosio:/opt/application
       - ./contracts:/opt/application/contracts
     networks:
       eoslocal:
         aliases:
-          - eos-producer.eoslocal.io
+          - eosio.eoslocal.io
 
   eos-wallet:
     container_name: eos-wallet
@@ -122,10 +96,12 @@ services:
     expose:
       - 8900
     links:
-      - eos-producer
-      - eos-api-node
+      - eosio
     volumes:
       - keosd-data-volume:/opt/eosio/bin/data-dir
+    environment:
+      VIRTUAL_HOST: eos-wallet.eoslocal.io
+      VIRTUAL_PORT: 8900
     networks:
       eoslocal:
         aliases:
@@ -144,7 +120,7 @@ services:
     depends_on:
       - mongo
       - postgres
-      - eos-producer
+      - eosio
     environment:
       DB_USER: user
       DB_PASSWORD: pass
@@ -152,7 +128,7 @@ services:
       DB_NAME: eoslocal
       DB_HOST: postgres
       DB_SCHEMA: public
-      CHAIN_HOST: 'http://eos-producer:8888'
+      CHAIN_HOST: 'http://eosio:8888'
       CHAIN_INIT_BLOCK: 10
       MONGO_URI: 'mongodb://mongo:27017'
       MONGO_DB: EOSFN
@@ -168,7 +144,7 @@ services:
           - demux.eoslocal.io
 
   hasura:
-    image: hasura/graphql-engine:v1.0.0-alpha29.cli-migrations
+    image: hasura/graphql-engine:v1.0.0-alpha30.cli-migrations
     ports:
     - '8088:8080'
     depends_on:
@@ -178,6 +154,7 @@ services:
       HASURA_GRAPHQL_DATABASE_URL: postgres://user:pass@postgres:5432/eoslocal?sslmode=disable
       HASURA_GRAPHQL_MIGRATIONS_DIR: /hasura-migrations
       VIRTUAL_HOST: hasura.eoslocal.io
+      VIRTUAL_PORT: 8080
     volumes:
       - ./services/hasura/migrations:/hasura-migrations  #  mount hasura migrations folder
     command:
@@ -201,7 +178,7 @@ services:
       VIRTUAL_PORT: 8082
     depends_on:
       - mongo
-      - eos-api-node
+      - eosio
     networks:
       eoslocal:
         aliases:
@@ -221,8 +198,7 @@ services:
       eoslocal:
 
 volumes:
-  eos-producer:
-  eos-api-node:
+  eosio-data-volume:
   keosd-data-volume:
     external: true
 

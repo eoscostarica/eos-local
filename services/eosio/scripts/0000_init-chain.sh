@@ -5,7 +5,7 @@ set -ux
 
 # Alias cleos with endpoint param to avoid repetition
 # We use as host here because that service name configured in docker-compose.yml
-cleos="cleos -u http://eos-producer:8888"
+cleos="cleos -u http://eosio:8888"
 
 # Creates an eos account with 10.0000 EOS
 function create_eos_account () {
@@ -187,7 +187,7 @@ function build_and_deploy_contracts () {
 }
 
 # setup chain, testing users and contracts
-until curl eos-producer:8888/v1/chain/get_info
+until curl eosio:8888/v1/chain/get_info
 do
   sleep 1s
 done
