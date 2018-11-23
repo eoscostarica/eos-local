@@ -18,7 +18,7 @@
 	<img src="docs/eoslocal-bitmapoverWhte.png" width="600">
 </p>
 
-# EOS Local dApp development environment
+# EOS local dApp development environment
 
 EOS Local provides a really quick way to setup and maintain a local development environment for EOS dApps. It is a docker based dev environment that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows, and Linux.
 
