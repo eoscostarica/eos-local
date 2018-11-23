@@ -15,22 +15,16 @@
 </p>
 
 <p align="center">
-	<a href="https://eoscostarica.io">
-		<img src="https://cdn.rawgit.com/eoscostarica/assets/574d20a6/logos/eoscolors-transparent.png" width="300">
-	</a>
+	<img src="docs/eoslocal-bitmapoverWhte.png" width="600">
 </p>
 
-# EOS Local 
+# EOS Local dApp development environment
 
 EOS Local provides a really quick way to setup and maintain a local development environment for EOS dApps. It is a docker based dev environment that is guaranteed to work out-of-the-box across the different host operating systems: Mac OS, Windows, and Linux.
 
 This project was inspired on MonsterEOS' **EOSIO Dream Stack** architecture that will allow you to develop EOS applications faster and easily scale as necessary.
 
 EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals, etc.
-
-<p align="center">
-	<img src="docs/eoslocal-bitmapoverWhte.png" width="600">
-</p>
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -529,6 +523,11 @@ Please report bugs big and small by [opening an issue](https://github.com/eoscos
 Contact the team directly on the #eos-local channel on [EOS Costa Rica's Discord server](https://eoscostarica.io/discord), we will assist you as soon as possible.
 
 ## About EOS Costa Rica
+<p align="center">
+	<a href="https://eoscostarica.io">
+		<img src="https://cdn.rawgit.com/eoscostarica/assets/574d20a6/logos/eoscolors-transparent.png" width="300">
+	</a>
+</p>
 
 We challenge ourselves to provide the EOS platform with a strong geographical and political diversity by running the most robust EOS Block Producer possible from Costa Rica; We pledge to leverage our talent, experience, and sustainable internet resources to meet such an important challenge.
 
