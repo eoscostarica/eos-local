@@ -2,67 +2,6 @@ version: '3.5'
 
 services:
 
-  postgres:
-    image: postgres:10.4
-    volumes:
-      - ./.dbdata/.pgsql-data:/var/lib/postgresql/data
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      DB_NAME: eoslocal
-      DB_USER: user
-      DB_PASSWORD: pass
-      POSTGRES_DB: eoslocal
-      VIRTUAL_HOST: postgres.eoslocal.io
-      VIRTUAL_PORT: 5432
-    networks:
-      eoslocal:
-        aliases:
-          - postgres.eoslocal.io
-
-  pgweb:
-    image: sosedoff/pgweb:latest
-    restart: always
-    ports:
-      - "8081:8081"
-    environment:
-      DATABASE_URL: postgres://user:pass@postgres:5432/eoslocal?sslmode=disable
-      VIRTUAL_HOST: pgweb.eoslocal.io
-      VIRTUAL_PORT: 8081
-    depends_on:
-      - postgres
-    networks:
-      eoslocal:
-        aliases:
-          - pgweb.eoslocal.io
-
-  flyway:
-    image: boxfuse/flyway:5.2.1
-    command: -url=jdbc:postgresql://postgres:5432/eoslocal -user=user -password=pass -connectRetries=60 migrate
-    volumes:
-      - ./services/postgres/migrations:/flyway/sql
-    depends_on:
-      - postgres
-    networks:
-      eoslocal:
-
-  mongo:
-    image: mongo
-    restart: always
-    volumes:
-      - ./.dbdata/.mongo-data:/data/db
-    ports:
-      - '27017:27017'
-    environment:
-      VIRTUAL_HOST: mongo.eoslocal.io
-      VIRTUAL_PORT: 27017
-    networks:
-      eoslocal:
-        aliases:
-          - mongo.eoslocal.io
-
   eosio:
     build:
       context: ./services/eosio
@@ -83,6 +22,8 @@ services:
       - eosio-data-volume:/root/data-dir
       - ./services/eosio:/opt/application
       - ./contracts:/opt/application/contracts
+    depends_on:
+      - mongo
     networks:
       eoslocal:
         aliases:
@@ -90,7 +31,7 @@ services:
 
   eos-wallet:
     container_name: eos-wallet
-    image: eosio/eos:v1.2.6
+    image: eosio/eos:v1.4.4
     command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=0.0.0.0:8900 --http-alias=eos-wallet.eoslocal:8900 --http-validate-host 0 --verbose-http-errors
     hostname: eos-wallet
     expose:
@@ -105,84 +46,32 @@ services:
     networks:
       eoslocal:
         aliases:
-          - eos-wallet.eoslocal.io
+          - keosd.eoslocal.io
 
-  demux:
-    build:
-      context: ./services/demux
-      dockerfile: ./Dockerfile
-      args:
-        SERVICE: 'demux'
-    image: eoslocal/demux
-    volumes:
-      - ./services/demux:/opt/application  # mount demux service folder
-      - /opt/application/node_modules # prevents host/container conflicts
-    depends_on:
-      - mongo
-      - postgres
-      - eosio
-    environment:
-      DB_USER: user
-      DB_PASSWORD: pass
-      DB_PORT: 5432
-      DB_NAME: eoslocal
-      DB_HOST: postgres
-      DB_SCHEMA: public
-      CHAIN_HOST: 'http://eosio:8888'
-      CHAIN_INIT_BLOCK: 10
-      MONGO_URI: 'mongodb://mongo:27017'
-      MONGO_DB: EOSFN
-      WAIT_HOSTS: postgres:5432, mongo:27017
-      WAIT_HOSTS_TIMEOUT: 60
-      VIRTUAL_HOST: demux.eoslocal.io
-      VIRTUAL_PORT: 3030
-    ports:
-      - '3030:3030'
-    networks:
-      eoslocal:
-        aliases:
-          - demux.eoslocal.io
-
-  hasura:
-    image: hasura/graphql-engine:v1.0.0-alpha30.cli-migrations
-    ports:
-    - '8088:8080'
-    depends_on:
-    - postgres
+  mongo:
+    image: mongo
     restart: always
-    environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://user:pass@postgres:5432/eoslocal?sslmode=disable
-      HASURA_GRAPHQL_MIGRATIONS_DIR: /hasura-migrations
-      VIRTUAL_HOST: hasura.eoslocal.io
-      VIRTUAL_PORT: 8080
     volumes:
-      - ./services/hasura/migrations:/hasura-migrations  #  mount hasura migrations folder
-    command:
-      - graphql-engine
-      - serve
-      - --enable-console
-    networks:
-      eoslocal:
-        aliases:
-          - hasura.eoslocal.io
-
-  admin-mongo:
-    image: mrvautin/adminmongo:latest
+      - ./services/mongo/.dbdata/.mongo-data:/data/db
     ports:
-      - '8082:8082'
+      - '27017:27017'
     environment:
-      PORT: 8082
-      CONN_NAME: api-node-mongo
-      DB_HOST: mongo
-      VIRTUAL_HOST: admin-mongo.eoslocal.io
-      VIRTUAL_PORT: 8082
-    depends_on:
-      - mongo
-      - eosio
+      VIRTUAL_HOST: mongo.eoslocal.io
+      VIRTUAL_PORT: 27017
     networks:
       eoslocal:
         aliases:
-          - admin-mongo.eoslocal.io
+          - mongo.eoslocal.io
+
+  ipfs:
+    image: jbenet/go-ipfs:latest
+    restart: always
+    ports:
+          - "4001:4001"
+          - "5001:5001"
+          - "8081:8080"
+    volumes:
+      - ./services/ipfs:/data/ipfs/
 
   # nginx reverse proxy that allows accesing the services directly on the host machine
   # the wildcard *.esolocal.io that points to 127.0.0.1,

@@ -10,7 +10,7 @@ cleos="cleos -u http://eosio:8888"
 # Creates an eos account with 10.0000 EOS
 function create_eos_account () {
   # $cleos system newaccount eosio --transfer $1 $2 $2 --stake-net '1 EOS' --stake-cpu '1 EOS' --buy-ram '1 EOS'
-  $cleos create account eoslocal $1 $2 $2
+  $cleos create account eosio $1 $2 $2
   $cleos push action eosio.token issue '[ "'$1'", "10.0000 EOS", "initial stake - free tokens" ]' -p eosio
 }
 
@@ -114,24 +114,6 @@ function deploy_system_contracts () {
   $cleos push action eosio setpriv '["eosio.msig", 1]' -p eosio@active
 }
 
-# Create eoslocal priveledged account
-function create_eoslocal_account () {
-  EOSLOCAL_OWNER_PVTKEY="5KacG2v3XYrjmxazgriHVo1updD7PKXJMWzcaQmBMMXE9Y69aW9"
-  EOSLOCAL_OWNER_PUBKEY="EOS88bvtAMTwPBQyF8cxFUFXez9zCoebABS3dXngdNphqNtiszLQh"
-
-  EOSLOCAL_ACTIVE_PVTKEY="5Hy5kAujsv4fVWa9xv784Pgy4eLgrrDf3trP49J3FvDpKRfzaNn"
-  EOSLOCAL_ACTIVE_PUBKEY="EOS8G66UbcXKfQ7unJES7BrKHggQMZfHUkTMkMF8nEbsktpjsb9tr"
-
-  echo "Importing eosio and eoslocal keys"
-  import_private_key $EOSLOCAL_OWNER_PVTKEY
-  import_private_key $EOSLOCAL_ACTIVE_PVTKEY
-
-  echo "Creates eoslocal account with stake..."
-  # $cleos system newaccount eosio --transfer eoslocal $EOSLOCAL_OWNER_PUBKEY $EOSLOCAL_ACTIVE_PUBKEY --stake-net '1 EOS' --stake-cpu '1 EOS' --buy-ram '1 EOS'
-  $cleos create account eosio eoslocal $EOSLOCAL_OWNER_PUBKEY $EOSLOCAL_ACTIVE_PUBKEY
-  $cleos push action eosio.token issue '[ "'eoslocal'", "1000.0000 EOS", "initial stake" ]' -p eosio
-  sleep .5
-}
 
 # Create testing user accounts, use these key configure scatter, lynx and other wallets
 function create_testing_accounts () {
@@ -170,39 +152,15 @@ function create_testing_accounts () {
   create_eos_account $USER_E_ACCOUNT $USER_E_PUBKEY
 }
 
-# build and deploy eoslocal demo contract
-function build_and_deploy_contracts () {
-  echo "Compiling contract"
-
-  cd /opt/application/contracts/eoslocal
-
-  eosio-cpp -abigen eoslocal.cpp -o eoslocal.wasm
-
-  echo "Deploying contract"
-  $cleos set contract eoslocal /opt/application/contracts/eoslocal -p eoslocal@active
-
-  echo "Verifying contract actions and user wallets work"
-  $cleos push action eoslocal greet '["1","eoslocalusra","Hello form USER A"]' -p eoslocalusra@active
-  $cleos push action eoslocal greet '["2","eoslocalusrb","Hola hola hola from USER B"]' -p eoslocalusrb@active
-}
-
-# setup chain, testing users and contracts
+sleep 5s
 until curl eosio:8888/v1/chain/get_info
 do
   sleep 1s
 done
 
+# setup chain, testing users and contracts
 create_wallet
 import_private_key 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3 # eosio producer key
 create_eosio_accounts
 deploy_system_contracts
-create_eoslocal_account
 create_testing_accounts
-build_and_deploy_contracts
-
-# debugging code
-echo 'Wallet info:'
-$cleos wallet list
-find / -type f -name "*.wallet"
-
-# $cleos get abi eosio
