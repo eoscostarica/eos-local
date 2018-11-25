@@ -127,10 +127,10 @@ Execute `make setup` for:
 
 ## Recommended aliases
 
-It is useful to have aliases for the `docker` ad `docker-compose` and `cleos` commands since they are use very often.
+It is useful to have aliases for the `docker`, `docker-compose` and `cleos` commands since they are use very often in other dapps like [eos-dapp-boilerplate](https://github.com/eoscostarica/eos-dapp-boilerplate).
 
 ```
-alias cleos='docker exec eosio cleos --url http://localhost:8888/'
+alias cleos='docker exec -i eoslocal_eosio cleos --url http://localhost:8888/'
 alias dk='docker'
 alias dc='docker-compose'
 ```
@@ -217,15 +217,15 @@ EOS Local comes with 2 EOS nodes running in separate docker containers, you can 
 
 ### Invoking cleos through docker-compose exec
 
-You can execute commands on any container from you host machine using the `docker-compose exec` command.
+You can execute commands on any container from you host machine using the `docker exec` command.
 Eg:
 
-`docker exec eosio cleos --url http://localhost:8888/`
+`docker exec -i eoslocal_eosio cleos --url http://localhost:8888/`
 
 We recomend using declaring alias on your shell configuration  Eg (.bashrc or .zshrc) 
 
 ```
-alias cleos='docker exec eosio cleos --url http://localhost:8888/'
+alias cleos='docker exec -i eoslocal_eosio cleos --url http://localhost:8888/'
 ```
 
 Notice it uses docker directly thru the `container_name` insted of docker compose, this allows you to invoke it from any path in your computer, you don't have to be a the root dir of eoslocal.
@@ -236,13 +236,13 @@ After you have added those lines to your config you can open a new terminal wind
 
 You can also login into the containers using the following docker-compose command 
 
-`docker exec eosio bash`
+`docker exec -i eoslocal_eosio bash`
 
 That will log you in and you will be able to execute cleos directly within the ubuntu server.
 Eg.
 
 ```
-➜  eos-local git:(master) ✗ docker-compose exec eosio bash
+➜  eos-local git:(master) ✗ docker exec -i eoslocal_eosio bash
 root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
 {
   "server_version": "f9a3d023",
