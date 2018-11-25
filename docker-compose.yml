@@ -3,7 +3,7 @@ version: '3.5'
 services:
 
   eosio:
-    container_name: eosio
+    container_name: eoslocal_eosio
     build:
       context: ./services/eosio
       dockerfile: Dockerfile
@@ -31,7 +31,7 @@ services:
           - eosio.eoslocal.io
 
   eos-wallet:
-    container_name: eos-wallet
+    container_name: eoslocal_eos-wallet
     image: eosio/eos:v1.4.4
     command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=0.0.0.0:8900 --http-alias=eos-wallet.eoslocal:8900 --http-validate-host 0 --verbose-http-errors
     hostname: eos-wallet
@@ -50,7 +50,7 @@ services:
           - keosd.eoslocal.io
 
   mongo:
-    container_name: mongo
+    container_name: eoslocal_mongo
     image: mongo
     restart: always
     volumes:
@@ -66,7 +66,7 @@ services:
           - mongo.eoslocal.io
 
   ipfs:
-    container_name: ipfs
+    container_name: eoslocal_ipfs
     image: jbenet/go-ipfs:latest
     restart: always
     ports:
@@ -81,6 +81,7 @@ services:
   # therefore as long as you can hit the dns server it will redirect all requests to your machine
   # and nginx-proxy does the internal docker network routing to the right service
   nginx-proxy:
+    container_name: eoslocal_nginx-proxy
     image: jwilder/nginx-proxy:alpine
     ports:
       - '80:80'
