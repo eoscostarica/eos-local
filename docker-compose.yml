@@ -3,6 +3,7 @@ version: '3.5'
 services:
 
   eosio:
+    container_name: eosio
     build:
       context: ./services/eosio
       dockerfile: Dockerfile
@@ -49,6 +50,7 @@ services:
           - keosd.eoslocal.io
 
   mongo:
+    container_name: mongo
     image: mongo
     restart: always
     volumes:
@@ -64,6 +66,7 @@ services:
           - mongo.eoslocal.io
 
   ipfs:
+    container_name: ipfs
     image: jbenet/go-ipfs:latest
     restart: always
     ports:
