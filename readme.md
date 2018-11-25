@@ -27,6 +27,7 @@ EOS local exposes all APIs provided by EOS Costa Rica and other BPs on the TestN
 It allows you to develop your application running the same APIs services you will use in production in your computer.
 
 It has a companion project that serves as a starter boilerplate your dApp.
+https://github.com/eoscostarica/eos-dapp-boilerplate 
 
 
 EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals, etc.
@@ -64,7 +65,16 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 ## Architecture
 
 <p align="center">
+   Every service/process runs on a separate container.
+</p>
+
+<p align="center">
 	<img src="docs/EOS-Local-Architecture-2.0.png" width="600">
+</p>
+
+
+<p align="center">
+   You can develop multiple dApps using the same EOS Local Network, sharing testing users and machine resources.
 </p>
 
 <p align="center">
@@ -91,14 +101,12 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 
 Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required.
 
+-  Video tutorial [Docker Containers | Learn Docker Basics in 30 Mins](https://www.youtube.com/watch?v=0kwXLcwUw0Q)
+
 **Global Dependencies**
 
 - Docker https://docs.docker.com/install/.   
 At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
-
-**Optionally**
-- Install node.js v11 on your machine. We recommend using [n](https://github.com/tj/n) or [nvm](https://github.com/creationix/nvm), and [avn](https://github.com/wbyoung/avn) to manage multiple node.js versions on your computer.
-- Yarn https://yarnpkg.com/lang/en/docs/install/.
 
 ## Chain Initialization
 
@@ -117,6 +125,16 @@ Execute `make setup` for:
 - `docker-compose down` stops and removes all containers.
 - `docker-compose restart` restarts all services.
 
+## Recommended aliases
+
+It is useful to have aliases for the `docker` ad `docker-compose` and `cleos` commands since they are use very often.
+
+```
+alias cleos='docker exec eosio cleos --url http://localhost:8888/'
+alias dk='docker'
+alias dc='docker-compose'
+```
+
 ## Directory Structure
 
 ```
@@ -130,7 +148,7 @@ Execute `make setup` for:
 |   |
 |   ├── ngnix/ ......................................... nginx service for routing
 |   |
-|   ├── mongodb/ ....................................... mongodb data
+|   ├── mongo/ ......................................... mongodb data
 |   |
 |   └── eosio/ ......................................... eos node | nodeos
 |       ├── utils/ ..................................... service utilities
@@ -157,26 +175,27 @@ The docker image source code can be found at https://github.com/EOSIO/eos/blob/m
 
 Learn more at https://developers.eos.io/eosio-nodeos/docs/
 
-The eos api is accesible through http://localhost:8888
-
 ### rpc api
 
 https://developers.eos.io/eosio-nodeos/reference
 
-### graphql 
+The eos rpc api is accesible through http://localhost:8888
 
-https://github.com/EOS-BP-Developers/eosio-graphql
-
-### api 
-
-https://github.com/EOS-BP-Developers/eosio-graphql
-
-### mongodb
+### mongo
 
 MongoDB instance for to story hisotry. 
 The eosio::mongo_db_plugin provides archiving of blockchain data into a MongoDB. 
 
 https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
+
+### graphql 
+
+https://github.com/EOS-BP-Developers/eosio-graphql
+
+### history api 
+
+https://github.com/CryptoLions/EOS-mongo-history-API
+
 
 ### ngnix
 
@@ -201,13 +220,15 @@ EOS Local comes with 2 EOS nodes running in separate docker containers, you can 
 You can execute commands on any container from you host machine using the `docker-compose exec` command.
 Eg:
 
-`docker-compose exec eosio cleos --url http://localhost:8888/`
+`docker exec eosio cleos --url http://localhost:8888/`
 
 We recomend using declaring alias on your shell configuration  Eg (.bashrc or .zshrc) 
 
 ```
-alias cleos='docker-compose exec eosio cleos --url http://localhost:8888/'
+alias cleos='docker exec eosio cleos --url http://localhost:8888/'
 ```
+
+Notice it uses docker directly thru the `container_name` insted of docker compose, this allows you to invoke it from any path in your computer, you don't have to be a the root dir of eoslocal.
 
 After you have added those lines to your config you can open a new terminal window and run `cleos --help` to test.
 
@@ -215,7 +236,7 @@ After you have added those lines to your config you can open a new terminal wind
 
 You can also login into the containers using the following docker-compose command 
 
-`docker-compose exec eosio bash`
+`docker exec eosio bash`
 
 That will log you in and you will be able to execute cleos directly within the ubuntu server.
 Eg.
