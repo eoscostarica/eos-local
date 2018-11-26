@@ -56,7 +56,7 @@ services:
     image: mongo
     restart: always
     volumes:
-      - ./services/mongo/.dbdata/.mongo-data:/data/db
+      - mongo-data-volume:/data/db
     ports:
       - '27017:27017'
     environment:
@@ -96,6 +96,7 @@ volumes:
   eosio-data-volume:
   keosd-data-volume:
     external: true # set false to delete wallet
+  mongo-data-volume:
 
 networks:
   eoslocal:
