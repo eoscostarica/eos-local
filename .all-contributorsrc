@@ -139,6 +139,17 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "GMory",
+      "name": "Alex Gomory",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/17969875?v=4",
+      "profile": "https://github.com/GMory",
+      "contributions": [
+        "code",
+        "ideas",
+        "talk"
+      ]
     }
   ]
 }
