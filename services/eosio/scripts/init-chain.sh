@@ -159,7 +159,7 @@ do
 done
 
 # setup chain, testing users and contracts
-# create_wallet
+create_wallet
 import_private_key 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3 # eosio producer key
 create_eosio_accounts
 deploy_system_contracts
