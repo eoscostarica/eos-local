@@ -51,7 +51,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - [history api](#history-api)
   - [ngnix](#ngnix)
 - [Using Cleos on EOS Local](#using-cleos-on-eos-local)
-  - [Invoking cleos through docker-compose exec](#invoking-cleos-through-docker-compose-exec)
+  - [Invoking cleos through docker exec](#invoking-cleos-through-docker-exec)
   - [Open a shell window on the containers and use cleos directly](#open-a-shell-window-on-the-containers-and-use-cleos-directly)
 - [Frequently Asked Questions](#frequently-asked-questions)
   - [Why Containers ?](#why-containers-)
@@ -215,7 +215,7 @@ More at https://developers.eos.io/eosio-nodeos/docs/cleos-overview
 
 EOS Local comes with 2 EOS nodes running in separate docker containers, you can interact with these nodes using `cleos` in several ways:
 
-### Invoking cleos through docker-compose exec
+### Invoking cleos through docker exec
 
 You can execute commands on any container from you host machine using the `docker exec` command.
 Eg:
