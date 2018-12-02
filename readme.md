@@ -115,6 +115,8 @@ Execute `make setup` for:
 - Chain initialization.
 - Testing Users Creation.
 
+Run `docker ps` afterwards to see the list of running containers.
+
 ## Commands
 
 - `make setup` run chain initialization.
@@ -220,7 +222,7 @@ EOS Local comes with 2 EOS nodes running in separate docker containers, you can 
 You can execute commands on any container from you host machine using the `docker exec` command.
 Eg:
 
-`docker exec -i eoslocal_eosio cleos --url http://localhost:8888/`
+`docker exec -i eoslocal_eosio cleos --url http://localhost:8888/ get info`
 
 We recomend using declaring alias on your shell configuration  Eg (.bashrc or .zshrc) 
 
@@ -261,6 +263,12 @@ root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
 }
 ```
 
+## Docker Tips
+
+- `docker ps`  displays the list of docker containers currently running.
+- `docker network ls` displays the list of currently running networks.
+- `docker --help` is your friend.
+
 ## Frequently Asked Questions
 
 ### Why Containers ?
@@ -285,9 +293,6 @@ Learn more at https://cloud.google.com/containers/
 
 We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
 
-<p align="center">
-	<img src="docs/project-board.png" width="600">
-</p>
 
 The main communication channels are [github issues](https://github.com/eoscostarica/eos-local/issues) and [EOS Costa Rica's Discord server](https://eoscostarica.io/discord). Feel to join and ask as many questions you may have.
 
