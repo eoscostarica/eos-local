@@ -25,8 +25,7 @@ services:
       - ./contracts:/opt/application/contracts
     depends_on:
       - mongo
-    links:
-      - 'eos-wallet:eos-wallet'
+      - eos-wallet
     networks:
       eoslocal:
         aliases:
@@ -95,7 +94,7 @@ services:
 volumes:
   eosio-data-volume:
   keosd-data-volume:
-    external: true # set false to delete wallet
+    external: true
   mongo-data-volume:
 
 networks:
