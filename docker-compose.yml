@@ -22,7 +22,6 @@ services:
     volumes:
       - eosio-data-volume:/root/data-dir
       - ./services/eosio:/opt/application
-      - ./contracts:/opt/application/contracts
     depends_on:
       - mongo
       - wallet

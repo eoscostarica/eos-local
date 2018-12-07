@@ -19,4 +19,4 @@ ENV CONFIG_DIR /opt/application/config
 ENV NODEOS_BIN_DIR /opt/eosio/bin
 
 ## Launch the wait tool and then start nodeos ( see docker compose, we are waiting for mongo)
-CMD /wait && /opt/application/start.sh
+CMD /wait && /opt/application/scripts/start.sh

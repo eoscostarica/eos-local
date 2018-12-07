@@ -26,9 +26,6 @@ temp
 # wallet keys
 keys
 
-# netlify cli
-.netlify/
-
 # docs for development
 __docs
 

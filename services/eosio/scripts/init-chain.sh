@@ -14,27 +14,27 @@ function create_eos_account () {
   $cleos push action eosio.token issue '[ "'$1'", "10.0000 EOS", "initial stake - free tokens" ]' -p eosio
 }
 
-# Unlocks the default wallet and waits .5 seconds
+# Unlocks the eoslocal wallet and waits .5 seconds
 function unlock_wallet () {
-  echo "unlocking default wallet..."
-  $cleos wallet unlock --password $(cat $CONFIG_DIR/keys/default_wallet_password.txt)
+  echo "unlocking eoslocal wallet..."
+  $cleos wallet unlock --name eoslocal --password $(cat $CONFIG_DIR/keys/eoslocal_wallet_password.txt)
   sleep .5
 }
 
-# Create the default wallet and stores the password on a file
+# Create the eoslocal wallet and stores the password on a file
 function create_wallet () {
   echo "Creating wallet"
-  WALLET_PASSWORD=$($cleos wallet create --to-console | awk 'FNR > 3 { print $1 }' | tr -d '"')
-  echo $WALLET_PASSWORD > "$CONFIG_DIR"/keys/default_wallet_password.txt
+  WALLET_PASSWORD=$($cleos wallet create --name eoslocal --to-console | awk 'FNR > 3 { print $1 }' | tr -d '"')
+  echo $WALLET_PASSWORD > "$CONFIG_DIR"/keys/eoslocal_wallet_password.txt
   sleep .5
 }
 
-# Helper funciton to import private key into the default wallet
+# Helper function to import private key into the eoslocal wallet
 function import_private_key () {
-  $cleos wallet import --private-key $1
+  $cleos wallet import --name eoslocal --private-key $1
 }
 
-# Helper funciton to create system accounts
+# Helper function to create system accounts
 function create_system_account () {
   $cleos create account eosio $1 $2
 }
@@ -42,51 +42,20 @@ function create_system_account () {
 # Creates eosio system accounts
 # https://developers.eos.io/eosio-nodeos/docs/bios-boot-sequence#section-step-3-create-important-system-accounts
 function create_eosio_accounts () {
-  # eosio.bpay
-  BPAY_PVTKEY="5KAVVPzPZnbAx8dHz6UWVPFDVFtU1P5ncUzwHGQFuTxnEbdHJL4"
-  BPAY_PUBKEY="EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG"
-  import_private_key $BPAY_PVTKEY
-   eosio.bpay $BPAY_PUBKEY
-  # eosio.msig
-  MSIG_PVTKEY="5JweNBD7uWcysVW9M5GMgvuHCcUhoxopACrK8egMX31WDGQF3qv"
-  MSIG_PUBKEY="EOS7pvbQJxNQMEMBizL6WCCroqQkpYogUNoS3NmETy6XK73dXQsBT"
-  import_private_key $MSIG_PVTKEY
-  create_system_account eosio.msig $MSIG_PUBKEY
-  # eosio.names
-  NAMES_PVTKEY="5J173EL5Wvp9tWW38DpTtbesuE3CpbT8B3C62ub3eFYKLZnVokr"
-  NAMES_PUBKEY="EOS7C9UXs3fZCCxDW8dhLZWtcpoDRW3A9j9qaRj9euLFQDWaGADHJ"
-  import_private_key $NAMES_PVTKEY
-  create_system_account eosio.names $NAMES_PUBKEY
-  # eosio.ram
-  RAM_PVTKEY="5JY6ES262GV87BHufZ6ktu57FGuDThHEEu3xE5kxNZfYJmHqCJo"
-  RAM_PUBKEY="EOS8jj53UWtbdacA8WGpzKN88Y6F6W4AQNHHwR4Upy1F8ewVG2crD"
-  import_private_key $RAM_PVTKEY
-  create_system_account eosio.ram $RAM_PUBKEY
-  # eosio.ramfee
-  RAMFEE_PVTKEY="5JrzFNaKmcnxu5qQupVEqVSaF7SRknRFrjXFo5wLShUL8WJUkL8"
-  RAMFEE_PUBKEY="EOS6u1SNetnKtpi5xzxgcUz9Hn9MC3kUhBeiXMiQzKYuzVcr9j8ft"
-  import_private_key $RAMFEE_PVTKEY
-  create_system_account eosio.ramfee $RAMFEE_PUBKEY
-  # eosio.saving
-  SAVING_PVTKEY="5KeBzreGmgw4FX9zYswvBDMiVQvSTK1UGRuQgj14ZrqbtsdPk7z"
-  SAVING_PUBKEY="EOS7Zt4QsM5bb8PR9TERKDphJ6AxefX8oLngEcc3h5kQtrMQY7b5g"
-  import_private_key $SAVING_PVTKEY
-  create_system_account eosio.saving $SAVING_PUBKEY
-  # eosio.stake
-  STAKE_PVTKEY="5KejNGA7WUFhNVztXa7WBvbWBa7kvcXMWAhtDw9NS6FNG5XU6HT"
-  STAKE_PUBKEY="EOS8TSTK5Tuw3LGyw1KZsWeJGGidUsd5UfKKyUro27xyopu2gE5T1"
-  import_private_key $STAKE_PVTKEY
-  create_system_account eosio.stake $STAKE_PUBKEY
-  # eosio.token
-  TOKEN_PVTKEY="5JnpLZYZoaeWhfda8fT5RjSFQ533EGobUMDbc84uGTJEqYyTsNJ"
-  TOKEN_PUBKEY="EOS6vzfJTSUM51MEWXDyuh2fDDfs5FdRX5hn3teMdroTwaNv6ptAE"
-  import_private_key $TOKEN_PVTKEY
-  create_system_account eosio.token $TOKEN_PUBKEY
-  # eosio.vpay
-  VPAY_PVTKEY="5JtpC9zNRZccTsMSJhNEGru5oqqrXjT2Qz5mBQKDASSLScmjP3i"
-  VPAY_PUBKEY="EOS5A3ZChGL2tL1oJvhN7KScmGUAT4DsxZFEywRShGQHLeN2ndp8W"
-  import_private_key $VPAY_PVTKEY
-  create_system_account eosio.vpay $VPAY_PUBKEY
+
+  EOSIO_PVTKEY="5KAVVPzPZnbAx8dHz6UWVPFDVFtU1P5ncUzwHGQFuTxnEbdHJL4"
+  EOSIO_PUBKEY="EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG"
+  import_private_key $EOSIO_PVTKEY
+
+  create_system_account eosio.bpay $EOSIO_PUBKEY
+  create_system_account eosio.msig $EOSIO_PUBKEY
+  create_system_account eosio.names $EOSIO_PUBKEY
+  create_system_account eosio.ram $EOSIO_PUBKEY
+  create_system_account eosio.ramfee $EOSIO_PUBKEY
+  create_system_account eosio.saving $EOSIO_PUBKEY
+  create_system_account eosio.stake $EOSIO_PUBKEY
+  create_system_account eosio.token $EOSIO_PUBKEY
+  create_system_account eosio.vpay $EOSIO_PUBKEY
 }
 
 function deploy_system_contracts () {

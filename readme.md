@@ -39,9 +39,9 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - [Architecture](#architecture)
 - [Technical Specs](#technical-specs)
 - [Getting started](#getting-started)
+- [Aliases](#aliases)
 - [Chain Initialization](#chain-initialization)
 - [Commands](#commands)
-- [Recommended aliases](#recommended-aliases)
 - [Directory Structure](#directory-structure)
 - [Services](#services)
   - [eosio](#eosio)
@@ -87,8 +87,8 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - Virtualized local network with docker.
 - Microservices architecture.
 - Out-of-box services: 
-  - Nodeos deamon / eosio node.
-  - HTTP RPC API with history.
+  - EOSIO Nodeos deamon.
+  - HTTP RPC API with history db.
   - Keosd wallet service.
   - GraphQL API for complex data queries.
   - Ngnix proxy.
@@ -114,6 +114,7 @@ It is useful to have aliases for the `docker`, `docker-compose` and `cleos` comm
 
 ```
 alias cleos='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
+alias eosio='docker exec -i eoslocal_eosio bash'
 alias dk='docker'
 alias dc='docker-compose'
 ```
@@ -257,7 +258,6 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
 ```
 .
 ├── docs/ .............................................. documentation files and media
-├── contracts/ ......................................... eos smart contracts 
 ├── services/ .......................................... microservices
 |   ├── graphql/ ....................................... graphql service
 |   |
@@ -267,12 +267,12 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
 |   |
 |   ├── mongo/ ......................................... mongodb data
 |   |
-|   └── eosio/ ......................................... eos node | nodeos
+|   └── eosio/ ......................................... nodeos service
 |       ├── utils/ ..................................... service utilities
-|       ├── config/ .................................... eos node configuration
-|       ├── scripts/ ................................... chain init scripts
-|       ├── Dockerfile ................................. service image specification 
-|       └── start.sh ................................... service startup script
+|       ├── config/ .................................... eosio node configuration
+|       ├── scripts/ ................................... eosio scripts
+|       ├── contracts/ ................................. smart contracts 
+|       └── Dockerfile ................................. service image specification 
 |    
 ├── docker-compose.yaml ................................ docker compose for local dev
 ├── contributing.md .................................... contributing guidelines
