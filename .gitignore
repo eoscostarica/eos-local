@@ -34,3 +34,6 @@ __docs
 
 # ipfs
 services/ipfs/*
+
+# custom contracts
+contracts/*
