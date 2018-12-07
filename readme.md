@@ -108,28 +108,9 @@ Basic knowledge about Docker, Docker Compose, EOS and NodeJS is required.
 - Docker https://docs.docker.com/install/.   
 At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
 
-## Chain Initialization
+## Aliases
 
-Execute `make setup` for:
-
-- Chain initialization.
-- Testing Users Creation.
-
-Run `docker ps` afterwards to see the list of running containers.
-
-## Commands
-
-- `make setup` run chain initialization.
-- `make flush` stops all services and removes all data.
-- `docker-compose start` starts all containers.
-- `docker-compose exec [service_name] [bash | sh]` open bash or sh in a container.
-- `docker-compose stop` stops all containers.
-- `docker-compose down` stops and removes all containers.
-- `docker-compose restart` restarts all services.
-
-## Recommended aliases
-
-It is useful to have aliases for the `docker`, `docker-compose` and `cleos` commands since they are use very often in other dapps like [eos-dapp-boilerplate](https://github.com/eoscostarica/eos-dapp-boilerplate).
+It is useful to have aliases for the `docker`, `docker-compose` and `cleos` commands since they are used.
 
 ```
 alias cleos='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://eos-wallet:8901'
@@ -137,6 +118,122 @@ alias dk='docker'
 alias dc='docker-compose'
 ```
 
+## Chain Initialization
+
+Execute `make setup` for:
+
+- Docker volumes creation.
+- Chain initialization.
+- Testing accounts creation.
+
+Run the following command to verify afterwards
+
+```terminal
+➜  eos-local git:(master) cleos wallet keys
+[
+  "EOS5A3ZChGL2tL1oJvhN7KScmGUAT4DsxZFEywRShGQHLeN2ndp8W",
+  "EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy",
+  "EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL",
+  "EOS6Jv4RykLZQQopCBdBHSwaGoMyFxyaxFNXimqFPdEXNWqgWbG1a",
+  "EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
+  "EOS6TVQ6EmphCWavUuYiZMmDNYMRgbb96wgqWDncjrkvFPcpokgdD",
+  "EOS6u1SNetnKtpi5xzxgcUz9Hn9MC3kUhBeiXMiQzKYuzVcr9j8ft",
+  "EOS6vzfJTSUM51MEWXDyuh2fDDfs5FdRX5hn3teMdroTwaNv6ptAE",
+  "EOS7C9UXs3fZCCxDW8dhLZWtcpoDRW3A9j9qaRj9euLFQDWaGADHJ",
+  "EOS7CB47VMLWp49QhajE3uTuHuf9qoSeR6scUHMKGCD6LXYufRUDc",
+  "EOS7Zt4QsM5bb8PR9TERKDphJ6AxefX8oLngEcc3h5kQtrMQY7b5g",
+  "EOS7pvbQJxNQMEMBizL6WCCroqQkpYogUNoS3NmETy6XK73dXQsBT",
+  "EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG",
+  "EOS8TSTK5Tuw3LGyw1KZsWeJGGidUsd5UfKKyUro27xyopu2gE5T1",
+  "EOS8jj53UWtbdacA8WGpzKN88Y6F6W4AQNHHwR4Upy1F8ewVG2crD"
+]
+
+➜  eos-local git:(master) cleos get info
+{
+  "server_version": "59626f1e",
+  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
+  "head_block_num": 675,
+  "last_irreversible_block_num": 674,
+  "last_irreversible_block_id": "000002a2a6228780c7facc225ff53609ed072d57e7b6abb9a0ba92ab63b5d160",
+  "head_block_id": "000002a3b39afb5f16ac7a59f747e21ef6bcc060a856237016af48ad677c7f52",
+  "head_block_time": "2018-12-07T18:03:08.500",
+  "head_block_producer": "eosio",
+  "virtual_block_cpu_limit": 392064,
+  "virtual_block_net_limit": 2057598,
+  "block_cpu_limit": 199900,
+  "block_net_limit": 1048576,
+  "server_version_string": "v1.4.4"
+}
+
+➜  eos-local git:(master) cleos get info
+{
+  "server_version": "59626f1e",
+  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
+  "head_block_num": 675,
+  "last_irreversible_block_num": 674,
+  "last_irreversible_block_id": "000002a2a6228780c7facc225ff53609ed072d57e7b6abb9a0ba92ab63b5d160",
+  "head_block_id": "000002a3b39afb5f16ac7a59f747e21ef6bcc060a856237016af48ad677c7f52",
+  "head_block_time": "2018-12-07T18:03:08.500",
+  "head_block_producer": "eosio",
+  "virtual_block_cpu_limit": 392064,
+  "virtual_block_net_limit": 2057598,
+  "block_cpu_limit": 199900,
+  "block_net_limit": 1048576,
+  "server_version_string": "v1.4.4"
+}
+
+➜  eos-local git:(master)  curl http://eosio.eoslocal.io/v1/chain/get_info | jq
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   566  100   566    0     0  72554      0 --:--:-- --:--:-- --:--:-- 80857
+{
+  "server_version": "59626f1e",
+  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
+  "head_block_num": 970,
+  "last_irreversible_block_num": 969,
+  "last_irreversible_block_id": "000003c9846265cddc9133024d9bd2adb1531378da8172318fe2a142b843c02a",
+  "head_block_id": "000003ca6e3448f540c36f70a176f5cc4769514f8018b07fbbf32b27f532fb6b",
+  "head_block_time": "2018-12-07T18:05:36.000",
+  "head_block_producer": "eosio",
+  "virtual_block_cpu_limit": 526492,
+  "virtual_block_net_limit": 2763849,
+  "block_cpu_limit": 199900,
+  "block_net_limit": 1048576,
+  "server_version_string": "v1.4.4"
+}
+
+➜  eos-local git:(master) curl http://localhost:8888/v1/chain/get_info | jq
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   568  100   568    0     0  78172      0 --:--:-- --:--:-- --:--:-- 81142
+{
+  "server_version": "59626f1e",
+  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
+  "head_block_num": 1167,
+  "last_irreversible_block_num": 1166,
+  "last_irreversible_block_id": "0000048e64aedcb65234739ac489fe81f7b7d68e5c7ccb4c28bd8083b0e33213",
+  "head_block_id": "0000048ff0dcc3c4e65ec0de14f9d4ae9c8823bddad2bb19f73b0245514b138c",
+  "head_block_time": "2018-12-07T18:07:14.500",
+  "head_block_producer": "eosio",
+  "virtual_block_cpu_limit": 641088,
+  "virtual_block_net_limit": 3365893,
+  "block_cpu_limit": 199900,
+  "block_net_limit": 1048576,
+  "server_version_string": "v1.4.4"
+}
+```
+
+
+## Commands
+
+- `make setup` run chain initialization.
+- `make flush` stops all services and removes all data.
+- `make fresh` stops all services and removes all data and run chain initialization again.
+- `docker-compose start` starts all containers.
+- `docker-compose exec [service_name] [bash | sh]` open bash or sh in a container.
+- `docker-compose stop` stops all containers.
+- `docker-compose down` stops and removes all containers.
+- `docker-compose restart` restarts all services.
 ## Directory Structure
 
 ```
