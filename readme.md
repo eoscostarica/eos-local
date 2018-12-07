@@ -129,6 +129,23 @@ Execute `make setup` for:
 Run the following command to verify afterwards
 
 ```terminal
+➜  eos-local git:(master) docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+f72523603a2d        bridge              bridge              local
+113510307ce3        eoslocal            bridge              local
+886afbf5db1a        host                host                local
+53d0d3f8d910        none                null                local
+
+➜  eos-local git:(master) ✗ docker-compose ps
+     Name                    Command               State                                        Ports
+--------------------------------------------------------------------------------------------------------------
+eoslocal_eosio    /bin/sh -c /wait && /opt/a ...   Up      0.0.0.0:8888->8888/tcp, 0.0.0.0:9830->9876/tcp
+eoslocal_ipfs     /sbin/tini -- /usr/local/b ...   Up      0.0.0.0:4001->4001/tcp, 0.0.0.0:5001->5001/tcp,     0.0.0.0:8081->8080/tcp, 8081/tcp
+eoslocal_mongo    docker-entrypoint.sh mongod      Up      0.0.0.0:27017->27017/tcp
+eoslocal_nginx    /app/docker-entrypoint.sh  ...   Up      0.0.0.0:80->80/tcp
+eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tcp
+
+
 ➜  eos-local git:(master) cleos wallet keys
 [
   "EOS5A3ZChGL2tL1oJvhN7KScmGUAT4DsxZFEywRShGQHLeN2ndp8W",
@@ -234,6 +251,7 @@ Run the following command to verify afterwards
 - `docker-compose stop` stops all containers.
 - `docker-compose down` stops and removes all containers.
 - `docker-compose restart` restarts all services.
+
 ## Directory Structure
 
 ```
@@ -359,12 +377,6 @@ root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
   "server_version_string": "v1.4.1"
 }
 ```
-
-## Docker Tips
-
-- `docker ps`  displays the list of docker containers currently running.
-- `docker network ls` displays the list of currently running networks.
-- `docker --help` is your friend.
 
 ## Frequently Asked Questions
 

@@ -27,7 +27,7 @@ services:
       - mongo
       - wallet
     networks:
-      eoslocal:
+      default:
         aliases:
           - eosio.eoslocal.io
 
@@ -46,9 +46,9 @@ services:
       VIRTUAL_HOST: wallet.eoslocal.io
       VIRTUAL_PORT: 8901
     networks:
-      eoslocal:
+      default:
         aliases:
-          - keosd.eoslocal.io
+          - wallet.eoslocal.io
 
   mongo:
     container_name: eoslocal_mongo
@@ -62,7 +62,7 @@ services:
       VIRTUAL_HOST: mongo.eoslocal.io
       VIRTUAL_PORT: 27017
     networks:
-      eoslocal:
+      default:
         aliases:
           - mongo.eoslocal.io
 
@@ -81,15 +81,13 @@ services:
   # the wildcard *.esolocal.io that points to 127.0.0.1,
   # therefore as long as you can hit the dns server it will redirect all requests to your machine
   # and nginx-proxy does the internal docker network routing to the right service
-  nginx-proxy:
-    container_name: eoslocal_nginx-proxy
+  nginx:
+    container_name: eoslocal_nginx
     image: jwilder/nginx-proxy:alpine
     ports:
       - '80:80'
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-    networks:
-      eoslocal:
 
 volumes:
   eosio-data-volume:
@@ -98,5 +96,5 @@ volumes:
   mongo-data-volume:
 
 networks:
-  eoslocal:
+  default:
     name: eoslocal
