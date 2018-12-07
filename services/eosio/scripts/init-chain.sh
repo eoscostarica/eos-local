@@ -5,7 +5,7 @@ set -ux
 
 # Alias cleos with endpoint param to avoid repetition
 # We use as host here because that service name configured in docker-compose.yml
-cleos="cleos -u http://eosio:8888 --wallet-url http://eos-wallet:8901"
+cleos="cleos -u http://eosio:8888 --wallet-url http://wallet:8901"
 
 # Creates an eos account with 10.0000 EOS
 function create_eos_account () {

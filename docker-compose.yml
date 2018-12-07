@@ -25,17 +25,17 @@ services:
       - ./contracts:/opt/application/contracts
     depends_on:
       - mongo
-      - eos-wallet
+      - wallet
     networks:
       eoslocal:
         aliases:
           - eosio.eoslocal.io
 
-  eos-wallet:
-    container_name: eoslocal_eos-wallet
+  wallet:
+    container_name: eoslocal_wallet
     image: eosio/eos:v1.4.4
-    command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=0.0.0.0:8901 --http-alias=eos-wallet.eoslocal:8901 --http-validate-host 0 --verbose-http-errors
-    hostname: eos-wallet
+    command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=0.0.0.0:8901 --http-alias=wallet.eoslocal:8901 --http-validate-host 0 --verbose-http-errors
+    hostname: wallet
     expose:
       - 8901
     ports:
@@ -43,7 +43,7 @@ services:
     volumes:
       - keosd-data-volume:/opt/eosio/bin/data-dir
     environment:
-      VIRTUAL_HOST: eos-wallet.eoslocal.io
+      VIRTUAL_HOST: wallet.eoslocal.io
       VIRTUAL_PORT: 8901
     networks:
       eoslocal:

@@ -113,7 +113,7 @@ At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
 It is useful to have aliases for the `docker`, `docker-compose` and `cleos` commands since they are used.
 
 ```
-alias cleos='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://eos-wallet:8901'
+alias cleos='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
 alias dk='docker'
 alias dc='docker-compose'
 ```
@@ -324,7 +324,7 @@ Eg:
 We recomend using declaring alias on your shell configuration  Eg (.bashrc or .zshrc) 
 
 ```
-alias cleos='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://eos-wallet:8901'
+alias cleos='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
 ```
 
 Notice it uses docker directly thru the `container_name` insted of docker compose, this allows you to invoke it from any path in your computer, you don't have to be a the root dir of eoslocal.

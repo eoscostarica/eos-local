@@ -5,7 +5,7 @@ set -ux
 
 # Alias cleos with endpoint param to avoid repetition
 # Host name is the service name configured in docker-compose.yml
-cleos="cleos -u http://eosio:8888 --wallet-url http://eos-wallet:8901"
+cleos="cleos -u http://eosio:8888 --wallet-url http://wallet:8901"
 
 # Unlocks the default wallet and waits .5 seconds
 function unlock_wallet () {
