@@ -2,6 +2,8 @@
 build/
 dist/
 *.wast
+*.abi
+*.wasm
 
 # IDE's
 .vscode
@@ -31,6 +33,3 @@ __docs
 
 # ipfs
 services/ipfs/*
-
-# custom contracts
-services/eosio/contracts/*
