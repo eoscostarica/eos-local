@@ -183,23 +183,6 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
   "server_version_string": "v1.4.4"
 }
 
-➜  eos-local git:(master) cleos get info
-{
-  "server_version": "59626f1e",
-  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
-  "head_block_num": 675,
-  "last_irreversible_block_num": 674,
-  "last_irreversible_block_id": "000002a2a6228780c7facc225ff53609ed072d57e7b6abb9a0ba92ab63b5d160",
-  "head_block_id": "000002a3b39afb5f16ac7a59f747e21ef6bcc060a856237016af48ad677c7f52",
-  "head_block_time": "2018-12-07T18:03:08.500",
-  "head_block_producer": "eosio",
-  "virtual_block_cpu_limit": 392064,
-  "virtual_block_net_limit": 2057598,
-  "block_cpu_limit": 199900,
-  "block_net_limit": 1048576,
-  "server_version_string": "v1.4.4"
-}
-
 ➜  eos-local git:(master)  curl http://eosio.eoslocal.io/v1/chain/get_info | jq
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
