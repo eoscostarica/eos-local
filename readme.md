@@ -149,39 +149,14 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
 
 ➜  eos-local git:(master) cleos wallet keys
 [
-  "EOS5A3ZChGL2tL1oJvhN7KScmGUAT4DsxZFEywRShGQHLeN2ndp8W",
   "EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy",
   "EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL",
   "EOS6Jv4RykLZQQopCBdBHSwaGoMyFxyaxFNXimqFPdEXNWqgWbG1a",
   "EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
   "EOS6TVQ6EmphCWavUuYiZMmDNYMRgbb96wgqWDncjrkvFPcpokgdD",
-  "EOS6u1SNetnKtpi5xzxgcUz9Hn9MC3kUhBeiXMiQzKYuzVcr9j8ft",
-  "EOS6vzfJTSUM51MEWXDyuh2fDDfs5FdRX5hn3teMdroTwaNv6ptAE",
-  "EOS7C9UXs3fZCCxDW8dhLZWtcpoDRW3A9j9qaRj9euLFQDWaGADHJ",
   "EOS7CB47VMLWp49QhajE3uTuHuf9qoSeR6scUHMKGCD6LXYufRUDc",
-  "EOS7Zt4QsM5bb8PR9TERKDphJ6AxefX8oLngEcc3h5kQtrMQY7b5g",
-  "EOS7pvbQJxNQMEMBizL6WCCroqQkpYogUNoS3NmETy6XK73dXQsBT",
-  "EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG",
-  "EOS8TSTK5Tuw3LGyw1KZsWeJGGidUsd5UfKKyUro27xyopu2gE5T1",
-  "EOS8jj53UWtbdacA8WGpzKN88Y6F6W4AQNHHwR4Upy1F8ewVG2crD"
+  "EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG"
 ]
-
-➜  eos-local git:(master) cleos get info
-{
-  "server_version": "59626f1e",
-  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
-  "head_block_num": 675,
-  "last_irreversible_block_num": 674,
-  "last_irreversible_block_id": "000002a2a6228780c7facc225ff53609ed072d57e7b6abb9a0ba92ab63b5d160",
-  "head_block_id": "000002a3b39afb5f16ac7a59f747e21ef6bcc060a856237016af48ad677c7f52",
-  "head_block_time": "2018-12-07T18:03:08.500",
-  "head_block_producer": "eosio",
-  "virtual_block_cpu_limit": 392064,
-  "virtual_block_net_limit": 2057598,
-  "block_cpu_limit": 199900,
-  "block_net_limit": 1048576,
-  "server_version_string": "v1.4.4"
-}
 
 ➜  eos-local git:(master) cleos get info
 {
@@ -247,6 +222,7 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
 - `make setup` run chain initialization.
 - `make flush` stops all services and removes all data.
 - `make fresh` stops all services and removes all data and run chain initialization again.
+- `make unlock` unlocks the eoslocal wallet.
 - `docker-compose start` starts all containers.
 - `docker-compose exec [service_name] [bash | sh]` open bash or sh in a container.
 - `docker-compose stop` stops all containers.

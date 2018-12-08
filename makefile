@@ -7,4 +7,7 @@ flush: scripts/flush.sh
 fresh: scripts/fresh.sh
 	./scripts/fresh.sh
 
+unlock: scripts/unlock.sh
+	./scripts/unlock.sh
+
 FORCE:

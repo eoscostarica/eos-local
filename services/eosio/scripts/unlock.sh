@@ -10,7 +10,7 @@ cleos="cleos -u http://eosio:8888 --wallet-url http://wallet:8901"
 # Unlocks the default wallet and waits .5 seconds
 function unlock_wallet () {
   echo "unlocking default wallet..."
-  $cleos wallet unlock --name eoslocal --password $(cat $CONFIG_DIR/keys/default_wallet_password.txt)
+  $cleos wallet unlock --name eoslocal --password $(cat $CONFIG_DIR/keys/eoslocal_wallet_password.txt)
   sleep .5
 }
 
