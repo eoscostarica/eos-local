@@ -33,4 +33,4 @@ __docs
 services/ipfs/*
 
 # custom contracts
-contracts/*
+services/eosio/contracts/*
