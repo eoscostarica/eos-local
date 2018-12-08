@@ -363,6 +363,15 @@ root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
 The default folder for smart contracts is the `services/eosio/contract` folder.
 This folder is mounted to the ubuntu / eosio 1.4 container which also has the eosio.cdt for contract compilation on it. This means you can either compile from host machine or the within the container using `eosio-cpp` command.
 
+If you are starting off with eos contracts development make sure you read the official documentation at https://developers.eos.io.  You can follow all instructions using EOS Local as alternative to the development environment proposed there.
+
+This projects aims to be easily replicated across different operating systems with all the advantanges of containerized software and good practices for version control, so this is good fit for teams.
+
+There other options:
+
+- Installing eosio directly on your machine or a virtual machine https://developers.eos.io/eosio-home/docs/introduction.
+- Using the simple boilerplate provide by Block One https://github.com/EOSIO/eosio-project-boilerplate-simple.
+
 ### Compiling and deploying contracts
 
 There 2 ways you can do this.
