@@ -53,6 +53,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - [Using Cleos on EOS Local](#using-cleos-on-eos-local)
   - [Invoking cleos through docker exec](#invoking-cleos-through-docker-exec)
   - [Open a shell window on the containers and use cleos directly](#open-a-shell-window-on-the-containers-and-use-cleos-directly)
+- [Testing accounts](#testing-accounts)
 - [Contract Development](#contract-development)
   - [Compiling and deploying contracts](#compiling-and-deploying-contracts)
       - [from host machine](#from-host-machine)
@@ -356,6 +357,41 @@ root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
   "block_net_limit": 1048576,
   "server_version_string": "v1.4.1"
 }
+```
+
+## Testing accounts
+
+The following accounts created automatically
+
+```
+account: eoslocalusra
+private key: 5K4MHQN7sPdEURaxzjCnbynUwkEKRJzs8zVUf24ofaFiZNK815J
+public key: EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL
+
+account: eoslocalusrb
+private key: 5JHCQDi7jsbnQnWdyxteRjT2DdNZHePiEG1DTaPQQDDP2X6aor6
+public key: EOS6TVQ6EmphCWavUuYiZMmDNYMRgbb96wgqWDncjrkvFPcpokgdD
+
+account: eoslocalusrc
+private key: 5JXCt633pzYaUysn7exDHeVXwhwMjX2L231b37CdsSb7y1uvDH7
+public key: EOS7CB47VMLWp49QhajE3uTuHuf9qoSeR6scUHMKGCD6LXYufRUDc
+
+account: eoslocalusrd
+private key: 5JdRgeRBriBDdxb3r76sLJaQmwGgXkMU8GReTAmy8xYppMSAAoZ
+USER_D_PUBKEY="EOS6Jv4RykLZQQopCBdBHSwaGoMyFxyaxFNXimqFPdEXNWqgWbG1a
+
+account: eoslocalusre
+private key: 5Jdwjwto9wxy5ZNPnWSn965eb8ZtSrK1uRKUxhviLpr9gK79hmM
+public key: EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy
+```
+
+All system accounts use the following keys
+
+```
+accounts: eosio.bpay, eosio.msig, eosio.names, eosio.ram, eosio.ramfee,
+          eosio.saving, eosio.stake, eosio.token, eosio.vpay
+private key: 5KAVVPzPZnbAx8dHz6UWVPFDVFtU1P5ncUzwHGQFuTxnEbdHJL4
+public key: OS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG
 ```
 
 ## Contract Development
