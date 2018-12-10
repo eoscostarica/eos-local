@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install curl -y
 
 COPY ./ /opt/application
 # install EOS Contract Development Toolkit
-RUN apt install /opt/application/utils/eosio.cdt-1.4.0.x86_64.deb
+RUN apt install /opt/application/utils/eosio.cdt-1.4.1.x86_64.deb
 
 VOLUME /opt/application
 WORKDIR /opt/application
@@ -19,4 +19,4 @@ ENV CONFIG_DIR /opt/application/config
 ENV NODEOS_BIN_DIR /opt/eosio/bin
 
 ## Launch the wait tool and then start nodeos ( see docker compose, we are waiting for mongo)
-CMD /wait && /opt/application/start.sh
+CMD /wait && /opt/application/scripts/start.sh

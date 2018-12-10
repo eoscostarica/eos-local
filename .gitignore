@@ -2,6 +2,8 @@
 build/
 dist/
 *.wast
+*.abi
+*.wasm
 
 # IDE's
 .vscode
@@ -25,9 +27,6 @@ temp
 
 # wallet keys
 keys
-
-# netlify cli
-.netlify/
 
 # docs for development
 __docs

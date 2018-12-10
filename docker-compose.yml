@@ -22,21 +22,19 @@ services:
     volumes:
       - eosio-data-volume:/root/data-dir
       - ./services/eosio:/opt/application
-      - ./contracts:/opt/application/contracts
     depends_on:
       - mongo
-    links:
-      - 'eos-wallet:eos-wallet'
+      - wallet
     networks:
-      eoslocal:
+      default:
         aliases:
           - eosio.eoslocal.io
 
-  eos-wallet:
-    container_name: eoslocal_eos-wallet
+  wallet:
+    container_name: eoslocal_wallet
     image: eosio/eos:v1.4.4
-    command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=0.0.0.0:8901 --http-alias=eos-wallet.eoslocal:8901 --http-validate-host 0 --verbose-http-errors
-    hostname: eos-wallet
+    command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=0.0.0.0:8901 --http-alias=wallet.eoslocal:8901 --http-validate-host 0 --verbose-http-errors
+    hostname: wallet
     expose:
       - 8901
     ports:
@@ -44,12 +42,12 @@ services:
     volumes:
       - keosd-data-volume:/opt/eosio/bin/data-dir
     environment:
-      VIRTUAL_HOST: eos-wallet.eoslocal.io
+      VIRTUAL_HOST: wallet.eoslocal.io
       VIRTUAL_PORT: 8901
     networks:
-      eoslocal:
+      default:
         aliases:
-          - keosd.eoslocal.io
+          - wallet.eoslocal.io
 
   mongo:
     container_name: eoslocal_mongo
@@ -63,7 +61,7 @@ services:
       VIRTUAL_HOST: mongo.eoslocal.io
       VIRTUAL_PORT: 27017
     networks:
-      eoslocal:
+      default:
         aliases:
           - mongo.eoslocal.io
 
@@ -82,22 +80,20 @@ services:
   # the wildcard *.esolocal.io that points to 127.0.0.1,
   # therefore as long as you can hit the dns server it will redirect all requests to your machine
   # and nginx-proxy does the internal docker network routing to the right service
-  nginx-proxy:
-    container_name: eoslocal_nginx-proxy
+  nginx:
+    container_name: eoslocal_nginx
     image: jwilder/nginx-proxy:alpine
     ports:
       - '80:80'
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-    networks:
-      eoslocal:
 
 volumes:
   eosio-data-volume:
   keosd-data-volume:
-    external: true # set false to delete wallet
+    external: true
   mongo-data-volume:
 
 networks:
-  eoslocal:
+  default:
     name: eoslocal
