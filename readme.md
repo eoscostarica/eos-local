@@ -118,8 +118,9 @@ At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
 It is useful to have aliases for the `docker`, `docker-compose` and `cleos` commands since they are used.
 
 ```
-alias cleos='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
-alias eosio='docker exec -i eoslocal_eosio bash'
+alias cleos='docker exec -i eoslocal_eosio cleos'
+alias cleos_local='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
+alias eosio='docker exec -it eoslocal_eosio bash'
 alias unlock_eoslocal='docker exec -i eoslocal_eosio ./scripts/unlock.sh'
 alias dk='docker'
 alias dc='docker-compose'
@@ -152,8 +153,7 @@ eoslocal_mongo    docker-entrypoint.sh mongod      Up      0.0.0.0:27017->27017/
 eoslocal_nginx    /app/docker-entrypoint.sh  ...   Up      0.0.0.0:80->80/tcp
 eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tcp
 
-
-➜  cleos wallet keys
+➜  cleos_local wallet keys
 [
   "EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy",
   "EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL",
@@ -164,7 +164,7 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
   "EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG"
 ]
 
-➜  cleos get info
+➜  cleos_local get info
 {
   "server_version": "59626f1e",
   "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
@@ -220,8 +220,24 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
   "block_net_limit": 1048576,
   "server_version_string": "v1.4.4"
 }
-```
 
+➜  cleos -u https://jungle.eosio.cr get info | jq
+{
+  "server_version": "3186ddba",
+  "chain_id": "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473",
+  "head_block_num": 4449822,
+  "last_irreversible_block_num": 4449491,
+  "last_irreversible_block_id": "0043e4d376d81351be541f1811e452e52146c981cd21c5d6cd3737b74c17491f",
+  "head_block_id": "0043e61e89622b3406123a25071a8bfb93d4072db96f32ca0195ccace01f6812",
+  "head_block_time": "2018-12-19T22:10:21.000",
+  "head_block_producer": "eos42panther",
+  "virtual_block_cpu_limit": 200000000,
+  "virtual_block_net_limit": 1048576000,
+  "block_cpu_limit": 199920,
+  "block_net_limit": 1048576,
+  "server_version_string": "v1.6.0-rc1-dirty"
+}
+```
 
 ## Commands
 
@@ -439,7 +455,7 @@ unlocking default wallet...
 Unlocked: eoslocal
 + sleep .5
 
-➜  cleos wallet keys
+➜  cleos_local wallet keys
 [
   "EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy",
   "EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL",
@@ -450,12 +466,12 @@ Unlocked: eoslocal
   "EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG"
 ]
 
-➜  cleos create account eosio hello EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy -p eosio@active
+➜  cleos_local create account eosio hello EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy -p eosio@active
 executed transaction: 1b9a9b7d323542d4151ab9c8b6242c85272bc7ce7144772bb65b8633f7349389  200 bytes  517 us
 warning: transaction executed locally, but may not be confirmed by the network yet         ]
 #         eosio <= eosio::newaccount            {"creator":"eosio","name":"hello","owner":{"threshold":1,"keys":[{"key":"EOS5VdFvRRTtVQAPUJZQCYvpBek...
 
-➜ cleos set contract hello contracts/hello -p hello@active
+➜ cleos_local set contract hello contracts/hello -p hello@active
 Reading WASM from contracts/hello/hello.wasm...
 Publishing contract...
 executed transaction: 0af66be6acf1a40d5925ac95ac6673e87cde20b7d9dc07b355900d9a9f77ce11  1432 bytes  1133 us
@@ -463,7 +479,7 @@ warning: transaction executed locally, but may not be confirmed by the network y
 #         eosio <= eosio::setcode               {"account":"hello","vmtype":0,"vmversion":0,"code":"0061736d0100000001390b60027f7e006000017f60027f7f...
 #         eosio <= eosio::setabi                {"account":"hello","abi":"0e656f73696f3a3a6162692f312e31000102686900010475736572046e616d650100000000...
 
-➜ cleos push action hello hi '["eoslocalusra"]' -p eoslocalusra@active
+➜ cleos_local push action hello hi '["eoslocalusra"]' -p eoslocalusra@active
 executed transaction: a4c094be2ee7d614c3932dfd626e43c18eb0be5c8a70512bfbc9658e9ebbd030  104 bytes  3072 us
 #         hello <= hello::hi                    {"user":"eoslocalusra"}
 >> Hello, eoslocalusra
@@ -526,7 +542,6 @@ executed transaction: a4c094be2ee7d614c3932dfd626e43c18eb0be5c8a70512bfbc9658e9e
 >> Hello, eoslocalusra
 warning: transaction executed locally, but may not be confirmed by the network yet         ]
 ```
-
 
 ## Frequently Asked Questions
 
