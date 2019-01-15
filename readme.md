@@ -22,13 +22,10 @@
 
 EOS Local provides a really quick way to setup an EOS local network. 
 
-EOS local exposes all APIs provided by EOS Costa Rica and other BPs on the TestNet and MainNet.
-
 It allows you to develop your application running the same APIs services you will use in production in your computer.
 
 It has a companion project that serves as a starter boilerplate your dApp.
 https://github.com/eoscostarica/eos-dapp-boilerplate 
-
 
 EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals, etc.
 
@@ -89,10 +86,11 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 
 ## Technical Specs
 
-- Virtualized local network with docker.
+- Virtualized EOSIO local network with docker.
+- Chain initialization script.
 - Microservices architecture.
 - Out-of-box services: 
-  - EOSIO Nodeos deamon.
+  - Nodeos service.
   - HTTP RPC API with history db.
   - Keosd wallet service.
   - GraphQL API for complex data queries.
@@ -115,7 +113,7 @@ At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
 
 ## Aliases
 
-It is useful to have aliases for the `docker`, `docker-compose` and `cleos` commands since they are used.
+It is useful to have aliases for the `docker`, `docker-compose` and `cleos`.
 
 ```
 alias cleos_local='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
@@ -129,8 +127,8 @@ alias dc='docker-compose'
 
 Execute `make setup` for:
 
-- Docker volumes creation.
-- Chain initialization.
+- Docker volumes creation and containers startup.
+- EOSIO local chain initialization.
 - Testing accounts creation.
 
 Run the following command to verify afterwards
