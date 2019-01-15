@@ -118,12 +118,8 @@ At least 10GB RAM (Docker -> Preferences -> Advanced -> Memory -> 10GB or above)
 It is useful to have aliases for the `docker`, `docker-compose` and `cleos` commands since they are used.
 
 ```
-alias cleos='docker exec -i eoslocal_eosio cleos'
 alias cleos_local='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
-alias cleos_wallet='docker exec -i eoslocal_eosio cleos --wallet-url http://wallet:8901'
-alias cleos_jungle='docker exec -i eoslocal_eosio cleos -u https://jungle.eosio.cr --wallet-url http://wallet:8901'
-alias cleos_mainnet='docker exec -i eoslocal_eosio cleos -u https://api.eosio.cr --wallet-url http://wallet:8901'
-alias eosio='docker exec -it eoslocal_eosio bash'
+alias eosio_local='docker exec -it eoslocal_eosio bash'
 alias unlock_eoslocal='docker exec -i eoslocal_eosio ./scripts/unlock.sh'
 alias dk='docker'
 alias dc='docker-compose'
@@ -342,7 +338,7 @@ Eg:
 We recomend using declaring alias on your shell configuration  Eg (.bashrc or .zshrc) 
 
 ```
-alias cleos='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
+alias cleos_local='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
 ```
 
 Notice it uses docker directly thru the `container_name` insted of docker compose, this allows you to invoke it from any path in your computer, you don't have to be a the root dir of eoslocal.
@@ -421,11 +417,6 @@ This folder is mounted to the ubuntu / eosio 1.4 container which also has the eo
 If you are starting off with eos contracts development make sure you read the official documentation at https://developers.eos.io.  You can follow all instructions using EOS Local as alternative to the development environment proposed there.
 
 This projects aims to be easily replicated across different operating systems with all the advantanges of containerized software and good practices for version control, so this is good fit for teams.
-
-There other options:
-
-- Installing eosio directly on your machine or a virtual machine https://developers.eos.io/eosio-home/docs/introduction.
-- Using the simple boilerplate provide by Block One https://github.com/EOSIO/eosio-project-boilerplate-simple.
 
 ### Compiling and deploying contracts
 
@@ -586,9 +577,7 @@ Please report bugs big and small by [opening an issue](https://github.com/eoscos
 	</a>
 </p>
 
-We challenge ourselves to provide the EOS platform with a strong geographical and political diversity by running the most robust EOS Block Producer possible from Costa Rica; We pledge to leverage our talent, experience, and sustainable internet resources to meet such an important challenge.
-
-EOS Costa Rica supports the EOS.io community by maintaining and contributing to open source initiatives, meetups and workshops.
+EOS Costa Rica is an independently-owned, self-funded, bare-metal genesis block producer that provides stable and secure infrastructure for EOSIO blockchains.  We support open source software for our community while offering enterprise solutions and custom smart contract development for our clients.
 
 [eoscostarica.io](https://eoscostarica.io)
 
