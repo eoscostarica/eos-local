@@ -32,7 +32,7 @@ services:
 
   wallet:
     container_name: eoslocal_wallet
-    image: eosio/eos:v1.4.4
+    image: eosio/eos:v1.5.2
     command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=0.0.0.0:8901 --http-alias=wallet.eoslocal:8901 --http-validate-host 0 --verbose-http-errors
     hostname: wallet
     expose:

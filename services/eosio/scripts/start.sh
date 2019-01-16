@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+source $(dirname $0)/stop.sh
+
 echo "Starting eosio service ..."
 
 LOGFILE=/opt/application/logs/nodeos.log

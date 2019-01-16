@@ -1,10 +1,8 @@
-FROM eosio/eos:v1.4.4
+FROM eosio/eos-dev:v1.5.2
 
-RUN apt-get update && apt-get install curl -y
+RUN apt-get update && apt-get install curl git -y
 
 COPY ./ /opt/application
-# install EOS Contract Development Toolkit
-RUN apt install /opt/application/utils/eosio.cdt-1.4.1.x86_64.deb
 
 VOLUME /opt/application
 WORKDIR /opt/application
