@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-	<img src="docs/eoslocal-bitmapoverWhte.png" width="600">
+	<img src="docs/eoslocal.png" width="600">
 </p>
 
 # EOS Local Network
@@ -33,12 +33,14 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Architecture](#architecture)
-- [Technical Specs](#technical-specs)
+- [Features](#features)
+- [Containers](#containers)
 - [Getting started](#getting-started)
 - [Aliases](#aliases)
 - [Chain Initialization](#chain-initialization)
 - [Commands](#commands)
+- [Cleos through docker exec](#cleos-through-docker-exec)
+- [Accesing the container](#accesing-the-container)
 - [Directory Structure](#directory-structure)
 - [Services](#services)
   - [eosio](#eosio)
@@ -47,14 +49,9 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
   - [graphql](#graphql)
   - [history api](#history-api)
   - [ngnix](#ngnix)
-- [Using Cleos on EOS Local](#using-cleos-on-eos-local)
-  - [Invoking cleos through docker exec](#invoking-cleos-through-docker-exec)
-  - [Open a shell window on the containers and use cleos directly](#open-a-shell-window-on-the-containers-and-use-cleos-directly)
-- [Testing accounts](#testing-accounts)
-- [Contract Development](#contract-development)
-  - [Compiling and deploying contracts](#compiling-and-deploying-contracts)
-      - [from host machine](#from-host-machine)
-      - [from within the eosio container](#from-within-the-eosio-container)
+- [Compiling and deploying contracts](#compiling-and-deploying-contracts)
+  - [from host machine](#from-host-machine)
+  - [from within the eosio container](#from-within-the-eosio-container)
 - [Frequently Asked Questions](#frequently-asked-questions)
   - [Why Containers ?](#why-containers-)
 - [Contributing](#contributing)
@@ -64,41 +61,28 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Architecture
+## Features
+
+- Virtualized EOSIO local network with docker.
+- Chain initialization automation.
+- Out-of-box services: 
+  - Nodeos service.
+  - HTTP RPC API with history db.
+  - Keosd wallet service.
+  - GraphQL API for complex data queries.  (wip)
+  - Ngnix proxy.
+- Services accessible through virtual host names both from host machine and within the docker network.
+- Handy scripts.
+
+## Containers
 
 <p align="center">
    Every service/process runs on a separate container.
 </p>
 
 <p align="center">
-	<img src="docs/EOS-Local-Architecture-2.0.png" width="600">
+	<img src="docs/eos_local_containers.png" width="600">
 </p>
-
-
-<p align="center">
-   You can develop multiple dApps using the same EOS Local Network, sharing testing users and machine resources.
-</p>
-
-<p align="center">
-	<img src="docs/EOS-Local-2.0.png" width="600">
-</p>
-
-
-## Technical Specs
-
-- Virtualized EOSIO local network with docker.
-- Chain initialization script.
-- Microservices architecture.
-- Out-of-box services: 
-  - Nodeos service.
-  - HTTP RPC API with history db.
-  - Keosd wallet service.
-  - GraphQL API for complex data queries.
-  - Ngnix proxy.
-- Services accessible through virtual host names both from host machine and within the docker network.
-- Handy scripts for interacting with the local EOS services.
-
-**Important Disclaimer: This is a Work in Progress** 
 
 ## Getting started
 
@@ -194,13 +178,13 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
 
 ➜  cleos_local wallet keys
 [
-  "EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy",
-  "EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL",
-  "EOS6Jv4RykLZQQopCBdBHSwaGoMyFxyaxFNXimqFPdEXNWqgWbG1a",
-  "EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
+  "EOS6kYgMTCh1iqpq9XGNQbEi8Q6k5GujefN9DSs55dcjVyFAq7B6b",
+  "EOS78RuuHNgtmDv9jwAzhxZ9LmC6F295snyQ9eUDQ5YtVHJ1udE6p",
+  "EOS5yd9aufDv7MqMquGcQdD6Bfmv6umqSuh9ru3kheDBqbi6vtJ58",
+  "EOS7XPiPuL3jbgpfS3FFmjtXK62Th9n2WZdvJb6XLygAghfx1W7Nb",
   "EOS6TVQ6EmphCWavUuYiZMmDNYMRgbb96wgqWDncjrkvFPcpokgdD",
-  "EOS7CB47VMLWp49QhajE3uTuHuf9qoSeR6scUHMKGCD6LXYufRUDc",
-  "EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG"
+  "EOS5btzHW33f9zbhkwjJTYsoyRzXUNstx1Da9X2nTzk8BQztxoP3H",
+  "EOS8Du668rSVDE3KkmhwKkmAyxdBd73B51FKE7SjkKe5YERBULMrw"
 ]
 
 ➜  cleos_local get info
@@ -220,7 +204,9 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
   "server_version_string": "v1.4.4"
 }
 
-➜   curl http://eosio.eoslocal.io/v1/chain/get_info | jq
+➜  curl http://eosio.eoslocal.io/v1/chain/get_info | jq
+or 
+➜  curl http://localhost:8888/v1/chain/get_info | jq
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   566  100   566    0     0  72554      0 --:--:-- --:--:-- --:--:-- 80857
@@ -239,38 +225,38 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
   "block_net_limit": 1048576,
   "server_version_string": "v1.4.4"
 }
-
-➜  curl http://localhost:8888/v1/chain/get_info | jq
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   568  100   568    0     0  78172      0 --:--:-- --:--:-- --:--:-- 81142
-{
-  "server_version": "59626f1e",
-  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
-  "head_block_num": 1167,
-  "last_irreversible_block_num": 1166,
-  "last_irreversible_block_id": "0000048e64aedcb65234739ac489fe81f7b7d68e5c7ccb4c28bd8083b0e33213",
-  "head_block_id": "0000048ff0dcc3c4e65ec0de14f9d4ae9c8823bddad2bb19f73b0245514b138c",
-  "head_block_time": "2018-12-07T18:07:14.500",
-  "head_block_producer": "eosio",
-  "virtual_block_cpu_limit": 641088,
-  "virtual_block_net_limit": 3365893,
-  "block_cpu_limit": 199900,
-  "block_net_limit": 1048576,
-  "server_version_string": "v1.4.4"
-}
 ```
 
 ## Commands
 
 - `make setup` run chain initialization.
+- `make start` starts all services.
+- `make stop` stops all services.
 - `make flush` stops all services and removes all data.
 - `make fresh` stops all services and removes all data and run chain initialization again.
+
 - `docker-compose start` starts all containers.
 - `docker-compose exec [service_name] [bash | sh]` open bash or sh in a container.
 - `docker-compose stop` stops all containers.
 - `docker-compose down` stops and removes all containers.
 - `docker-compose restart` restarts all services.
+
+## Cleos through docker exec
+
+You can execute commands on any container from you host machine using the `docker exec` command.
+Eg:
+
+`docker exec -i eoslocal_eosio cleos --url http://localhost:8888/ get info`
+
+Notice it uses docker directly through the `container_name` insted of docker compose, this allows you to invoke it from any path in your computer, you don't have to be a the root dir of eoslocal.
+
+## Accesing the container
+
+You can also login into the containers using the following docker-compose command 
+
+`docker exec -it eoslocal_eosio bash`
+
+That will log you in and you will be able to execute cleos directly within the ubuntu server.
 
 ## Directory Structure
 
@@ -343,71 +329,16 @@ Optionally you can avoid the round trip and work offline maintaining virtual hos
 
 See the `docker-compose.yml` for available virtual hosts for easier access without port shenanigans.
 
-### Invoking cleos through docker exec
-
-You can execute commands on any container from you host machine using the `docker exec` command.
-Eg:
-
-`docker exec -i eoslocal_eosio cleos --url http://localhost:8888/ get info`
-
-We recomend using declaring alias on your shell configuration  Eg (.bashrc or .zshrc) 
-
-```
-alias cleos_local='docker exec -i eoslocal_eosio cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
-```
-
-Notice it uses docker directly thru the `container_name` insted of docker compose, this allows you to invoke it from any path in your computer, you don't have to be a the root dir of eoslocal.
-
-After you have added those lines to your config you can open a new terminal window and run `cleos --help` to test.
-
-### Open a shell window on the containers and use cleos directly
-
-You can also login into the containers using the following docker-compose command 
-
-`docker exec -it eoslocal_eosio bash`
-
-That will log you in and you will be able to execute cleos directly within the ubuntu server.
-Eg.
-
-```
-➜  docker exec -it eoslocal_eosio bash
-root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
-{
-  "server_version": "f9a3d023",
-  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
-  "head_block_num": 4900,
-  "last_irreversible_block_num": 4899,
-  "last_irreversible_block_id": "000013232f7193f86a4edc59b6aa2b2a8ccd6c2060d24eb0e5c497beb97b76e5",
-  "head_block_id": "000013249772e5af12592d7d3eeb401276c09f781e3ed76faa75a49f53b481bd",
-  "head_block_time": "2018-11-05T20:27:45.000",
-  "head_block_producer": "eosio",
-  "virtual_block_cpu_limit": 26829884,
-  "virtual_block_net_limit": 140951435,
-  "block_cpu_limit": 199900,
-  "block_net_limit": 1048576,
-  "server_version_string": "v1.4.1"
-}
-```
-
-## Contract Development
-
-The default folder for smart contracts is the `services/eosio/contract` folder.
-This folder is mounted to the ubuntu / eosio 1.4 container which also has the eosio.cdt for contract compilation on it. This means you can either compile from host machine or the within the container using `eosio-cpp` command.
-
-If you are starting off with eos contracts development make sure you read the official documentation at https://developers.eos.io.  You can follow all instructions using EOS Local as alternative to the development environment proposed there.
-
-This projects aims to be easily replicated across different operating systems with all the advantanges of containerized software and good practices for version control, so this is good fit for teams.
-
-### Compiling and deploying contracts
+## Compiling and deploying contracts
 
 There 2 ways you can do this.
 
 We'll use the hello world contract as example 
 https://developers.eos.io/eosio-home/docs/your-first-contract
 
-##### from host machine
+### from host machine
 
-Make sure you install https://github.com/EOSIO/eosio.cdt.
+You need https://github.com/EOSIO/eosio.cdt.
 
 ```
 ➜  eosio-cpp --version
@@ -429,17 +360,6 @@ unlocking default wallet...
 Unlocked: eoslocal
 + sleep .5
 
-➜  cleos_local wallet keys
-[
-  "EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy",
-  "EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL",
-  "EOS6Jv4RykLZQQopCBdBHSwaGoMyFxyaxFNXimqFPdEXNWqgWbG1a",
-  "EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
-  "EOS6TVQ6EmphCWavUuYiZMmDNYMRgbb96wgqWDncjrkvFPcpokgdD",
-  "EOS7CB47VMLWp49QhajE3uTuHuf9qoSeR6scUHMKGCD6LXYufRUDc",
-  "EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG"
-]
-
 ➜  cleos_local create account eosio hello EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy -p eosio@active
 executed transaction: 1b9a9b7d323542d4151ab9c8b6242c85272bc7ce7144772bb65b8633f7349389  200 bytes  517 us
 warning: transaction executed locally, but may not be confirmed by the network yet         ]
@@ -453,16 +373,16 @@ warning: transaction executed locally, but may not be confirmed by the network y
 #         eosio <= eosio::setcode               {"account":"hello","vmtype":0,"vmversion":0,"code":"0061736d0100000001390b60027f7e006000017f60027f7f...
 #         eosio <= eosio::setabi                {"account":"hello","abi":"0e656f73696f3a3a6162692f312e31000102686900010475736572046e616d650100000000...
 
-➜ cleos_local push action hello hi '["eoslocalusra"]' -p eoslocalusra@active
+➜ cleos_local push action hello hi '["eostestusera"]' -p eostestusera@active
 executed transaction: a4c094be2ee7d614c3932dfd626e43c18eb0be5c8a70512bfbc9658e9ebbd030  104 bytes  3072 us
-#         hello <= hello::hi                    {"user":"eoslocalusra"}
->> Hello, eoslocalusra
+#         hello <= hello::hi                    {"user":"eostestusera"}
+>> Hello, eostestusera
 warning: transaction executed locally, but may not be confirmed by the network yet         ]
 ```
 
 **Important note:** notice the contract folder path is actually the within the container, we're just invoking the command from the host machine `contracts/hello` is relative to the container working directory which is `/opt/application`.  so the absolute path in the container would also work `/opt/applicationcontracts/hello`.
 
-##### from within the eosio container
+### from within the eosio container
 
 ```
 # first get into the container, eosio is an alias of docker exec -i eoslocal_eosio bash
@@ -482,18 +402,6 @@ Error Details:
 Wallet is already unlocked: eoslocal
 + sleep .5
 
-# get the keys listed and copy one of the those for the contract account
-root@cb008277a194:/opt/application# ./scripts/cleos.sh  wallet keys
-[
-  "EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy",
-  "EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL",
-  "EOS6Jv4RykLZQQopCBdBHSwaGoMyFxyaxFNXimqFPdEXNWqgWbG1a",
-  "EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
-  "EOS6TVQ6EmphCWavUuYiZMmDNYMRgbb96wgqWDncjrkvFPcpokgdD",
-  "EOS7CB47VMLWp49QhajE3uTuHuf9qoSeR6scUHMKGCD6LXYufRUDc",
-  "EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG"
-]
-
 # create the account for the contract
 root@cb008277a194:/opt/application# ./scripts/cleos.sh create account eosio hello EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy -p eosio@active
 executed transaction: 17fec7f4557ab2bf9d1625dfe226de24c12cbb82c64e100fca6f7d5d11a32b1c  200 bytes  305 us
@@ -510,10 +418,10 @@ executed transaction: 937f6fd6a4cfc8bc264ede7e43eb1a1ced9ffd20cd59c7c33adde66557
 warning: transaction executed locally, but may not be confirmed by the network yet         ]
 
 # test the action
-root@cb008277a194:/opt/application# ./scripts/cleos.sh push action hello hi '["eoslocalusra"]' -p eoslocalusra@active
+root@cb008277a194:/opt/application# ./scripts/cleos.sh push action hello hi '["eostestusera"]' -p eostestusera@active
 executed transaction: a4c094be2ee7d614c3932dfd626e43c18eb0be5c8a70512bfbc9658e9ebbd030  104 bytes  3072 us
-#         hello <= hello::hi                    {"user":"eoslocalusra"}
->> Hello, eoslocalusra
+#         hello <= hello::hi                    {"user":"eostestusera"}
+>> Hello, eostestusera
 warning: transaction executed locally, but may not be confirmed by the network yet         ]
 ```
 
