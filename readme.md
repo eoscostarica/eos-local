@@ -44,9 +44,8 @@ https://github.com/eoscostarica/eos-dapp-boilerplate
 - [Chain Initialization](#chain-initialization)
 - [Commands](#commands)
 - [Cleos through docker exec](#cleos-through-docker-exec)
-- [Accesing the container](#accesing-the-container)
+- [Accessing the container](#accessing-the-container)
 - [Directory Structure](#directory-structure)
-- [Compiling and deploying contracts](#compiling-and-deploying-contracts)
 - [Contributing](#contributing)
 - [About EOS Costa Rica](#about-eos-costa-rica)
 - [License](#license)
@@ -218,7 +217,7 @@ Eg:
 
 Notice it uses docker directly through the `container_name` insted of docker compose, this allows you to invoke it from any path in your computer, you don't have to be a the root dir of eoslocal.
 
-## Accesing the container
+## Accessing the container
 
 You can also login into the containers using the following docker-compose command 
 
