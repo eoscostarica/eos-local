@@ -20,21 +20,25 @@
 
 # EOS Local Network
 
-EOS Local provides a really quick way to setup an EOS local network. 
+EOS Local provides a really quick way to setup an EOS local network with history api.
 
-It allows you to develop your application running the same APIs services you will use in production in your computer.
+The primary benefits of containers are efficiency, agility and consistency accross different environments.
 
 It has a companion project that serves as a starter boilerplate your dApp.
 https://github.com/eoscostarica/eos-dapp-boilerplate 
 
-EOS Local is a community-driven project led by EOS Costa Rica. We welcome contributions of all sorts. There are many ways to help, from reporting issues, proposing features, improving documentation, contributing code, design/ux proposals, etc.
+*This is a work in progress...*
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Features](#features)
-- [Containers](#containers)
+- [Services](#services)
+  - [eosio](#eosio)
+  - [mongo](#mongo)
+  - [graphql](#graphql)
+  - [history api](#history-api)
+  - [ngnix](#ngnix)
 - [Getting started](#getting-started)
 - [Aliases](#aliases)
 - [Chain Initialization](#chain-initialization)
@@ -42,18 +46,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 - [Cleos through docker exec](#cleos-through-docker-exec)
 - [Accesing the container](#accesing-the-container)
 - [Directory Structure](#directory-structure)
-- [Services](#services)
-  - [eosio](#eosio)
-  - [rpc api](#rpc-api)
-  - [mongo](#mongo)
-  - [graphql](#graphql)
-  - [history api](#history-api)
-  - [ngnix](#ngnix)
 - [Compiling and deploying contracts](#compiling-and-deploying-contracts)
-  - [from host machine](#from-host-machine)
-  - [from within the eosio container](#from-within-the-eosio-container)
-- [Frequently Asked Questions](#frequently-asked-questions)
-  - [Why Containers ?](#why-containers-)
 - [Contributing](#contributing)
 - [About EOS Costa Rica](#about-eos-costa-rica)
 - [License](#license)
@@ -61,20 +54,7 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Features
-
-- Virtualized EOSIO local network with docker.
-- Chain initialization automation.
-- Out-of-box services: 
-  - Nodeos service.
-  - HTTP RPC API with history db.
-  - Keosd wallet service.
-  - GraphQL API for complex data queries.  (wip)
-  - Ngnix proxy.
-- Services accessible through virtual host names both from host machine and within the docker network.
-- Handy scripts.
-
-## Containers
+## Services
 
 <p align="center">
    Every service/process runs on a separate container.
@@ -83,6 +63,31 @@ EOS Local is a community-driven project led by EOS Costa Rica. We welcome contri
 <p align="center">
 	<img src="docs/eos_local_containers.png" width="600">
 </p>
+
+### eosio
+
+The eosio node acts as producer and history api node, this configuration is just for development. 
+
+### mongo
+
+MongoDB instance for to story hisotry. 
+The eosio::mongo_db_plugin provides archiving of blockchain data into a MongoDB. 
+
+https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
+
+### graphql 
+
+https://github.com/EOS-BP-Developers/eosio-graphql
+
+### history api 
+
+https://github.com/CryptoLions/EOS-mongo-history-API
+
+### ngnix
+
+Nginx reverse proxy that allows accesing the services directly on the host machine the wildcard `*.esolocal.io` that points to `127.0.0.1`, therefore as long as you can hit the dns server it will redirect all requests to your machine and nginx-proxy does the internal docker network routing to the right service. 
+
+Run `ping {whatever}.eoslocal.io` to verify.
 
 ## Getting started
 
@@ -120,40 +125,6 @@ Execute `make setup` for:
 - Docker volumes creation and containers startup.
 - EOSIO local chain initialization.
 - Testing accounts creation.
-
-**Testing Accounts**
-
-```
--
-  name: eostestusera
-  privateKey: 5K7mtrinTFrVTduSxizUc5hjXJEtTjVTsqSHeBHes1Viep86FP5
-  publicKey: EOS6kYgMTCh1iqpq9XGNQbEi8Q6k5GujefN9DSs55dcjVyFAq7B6b
--
-  name: eostestuserb
-  privateKey: 5KLqT1UFxVnKRWkjvhFur4sECrPhciuUqsYRihc1p9rxhXQMZBg
-  publicKey: EOS78RuuHNgtmDv9jwAzhxZ9LmC6F295snyQ9eUDQ5YtVHJ1udE6p
--
-  name: eostestuserc
-  privateKey: 5K2jun7wohStgiCDSDYjk3eteRH1KaxUQsZTEmTGPH4GS9vVFb7
-  publicKey: EOS5yd9aufDv7MqMquGcQdD6Bfmv6umqSuh9ru3kheDBqbi6vtJ58
--
-  name: eostestuserd
-  privateKey: 5KNm1BgaopP9n5NqJDo9rbr49zJFWJTMJheLoLM5b7gjdhqAwCx
-  publicKey: EOS8LoJJUU3dhiFyJ5HmsMiAuNLGc6HMkxF4Etx6pxLRG7FU89x6X
--
-  name: eostestusere
-  privateKey: 5KE2UNPCZX5QepKcLpLXVCLdAw7dBfJFJnuCHhXUf61hPRMtUZg
-  publicKey: EOS7XPiPuL3jbgpfS3FFmjtXK62Th9n2WZdvJb6XLygAghfx1W7Nb
--
-  name: eostestuserf
-  privateKey: 5KaqYiQzKsXXXxVvrG8Q3ECZdQAj2hNcvCgGEubRvvq7CU3LySK
-  publicKey: EOS5btzHW33f9zbhkwjJTYsoyRzXUNstx1Da9X2nTzk8BQztxoP3H
--
-  name: eostestuserg
-  privateKey: 5KFyaxQW8L6uXFB6wSgC44EsAbzC7ideyhhQ68tiYfdKQp69xKo
-  publicKey: EOS8Du668rSVDE3KkmhwKkmAyxdBd73B51FKE7SjkKe5YERBULMrw
-
-```
 
 **Verify Setup**
 
@@ -234,10 +205,7 @@ or
 - `make stop` stops all services.
 - `make flush` stops all services and removes all data.
 - `make fresh` stops all services and removes all data and run chain initialization again.
-
-- `docker-compose start` starts all containers.
 - `docker-compose exec [service_name] [bash | sh]` open bash or sh in a container.
-- `docker-compose stop` stops all containers.
 - `docker-compose down` stops and removes all containers.
 - `docker-compose restart` restarts all services.
 
@@ -257,6 +225,41 @@ You can also login into the containers using the following docker-compose comman
 `docker exec -it eoslocal_eosio bash`
 
 That will log you in and you will be able to execute cleos directly within the ubuntu server.
+
+
+**Testing Accounts**
+
+```
+-
+  name: eostestusera
+  privateKey: 5K7mtrinTFrVTduSxizUc5hjXJEtTjVTsqSHeBHes1Viep86FP5
+  publicKey: EOS6kYgMTCh1iqpq9XGNQbEi8Q6k5GujefN9DSs55dcjVyFAq7B6b
+-
+  name: eostestuserb
+  privateKey: 5KLqT1UFxVnKRWkjvhFur4sECrPhciuUqsYRihc1p9rxhXQMZBg
+  publicKey: EOS78RuuHNgtmDv9jwAzhxZ9LmC6F295snyQ9eUDQ5YtVHJ1udE6p
+-
+  name: eostestuserc
+  privateKey: 5K2jun7wohStgiCDSDYjk3eteRH1KaxUQsZTEmTGPH4GS9vVFb7
+  publicKey: EOS5yd9aufDv7MqMquGcQdD6Bfmv6umqSuh9ru3kheDBqbi6vtJ58
+-
+  name: eostestuserd
+  privateKey: 5KNm1BgaopP9n5NqJDo9rbr49zJFWJTMJheLoLM5b7gjdhqAwCx
+  publicKey: EOS8LoJJUU3dhiFyJ5HmsMiAuNLGc6HMkxF4Etx6pxLRG7FU89x6X
+-
+  name: eostestusere
+  privateKey: 5KE2UNPCZX5QepKcLpLXVCLdAw7dBfJFJnuCHhXUf61hPRMtUZg
+  publicKey: EOS7XPiPuL3jbgpfS3FFmjtXK62Th9n2WZdvJb6XLygAghfx1W7Nb
+-
+  name: eostestuserf
+  privateKey: 5KaqYiQzKsXXXxVvrG8Q3ECZdQAj2hNcvCgGEubRvvq7CU3LySK
+  publicKey: EOS5btzHW33f9zbhkwjJTYsoyRzXUNstx1Da9X2nTzk8BQztxoP3H
+-
+  name: eostestuserg
+  privateKey: 5KFyaxQW8L6uXFB6wSgC44EsAbzC7ideyhhQ68tiYfdKQp69xKo
+  publicKey: EOS8Du668rSVDE3KkmhwKkmAyxdBd73B51FKE7SjkKe5YERBULMrw
+
+```
 
 ## Directory Structure
 
@@ -287,172 +290,9 @@ That will log you in and you will be able to execute cleos directly within the u
 └── .editorconfig ...................................... common text editor configs
 ```
 
-## Services
-
-### eosio
-
-The eosio node acts as block producer and history api node, this configuration is just for development. It's not recommended to for production. In production it's recommended to devide nodes responsibilities, you may want to configure a dedicate api node that stores you contracts data only or use one of the network block producers node as a service. 
-
-The docker image source code can be found at https://github.com/EOSIO/eos/blob/master/Docker/Dockerfile.
-
-Learn more at https://developers.eos.io/eosio-nodeos/docs/
-
-### rpc api
-
-https://developers.eos.io/eosio-nodeos/reference
-
-The eos rpc api is accesible through http://localhost:8888
-
-### mongo
-
-MongoDB instance for to story hisotry. 
-The eosio::mongo_db_plugin provides archiving of blockchain data into a MongoDB. 
-
-https://developers.eos.io/eosio-nodeos/docs/mongo_db_plugin
-
-### graphql 
-
-https://github.com/EOS-BP-Developers/eosio-graphql
-
-### history api 
-
-https://github.com/CryptoLions/EOS-mongo-history-API
-
-
-### ngnix
-
-Nginx reverse proxy that allows accesing the services directly on the host machine the wildcard `*.esolocal.io` that points to `127.0.0.1`, therefore as long as you can hit the dns server it will redirect all requests to your machine and nginx-proxy does the internal docker network routing to the right service. 
-
-Run `ping {whatever}.eoslocal.io` to verify.
-
-Optionally you can avoid the round trip and work offline maintaining virtual hosts by manually adding your dns to your `hosts` file. https://en.wikipedia.org/wiki/Hosts_(file)
-
-See the `docker-compose.yml` for available virtual hosts for easier access without port shenanigans.
-
-## Compiling and deploying contracts
-
-There 2 ways you can do this.
-
-We'll use the hello world contract as example 
-https://developers.eos.io/eosio-home/docs/your-first-contract
-
-### from host machine
-
-You need https://github.com/EOSIO/eosio.cdt.
-
-```
-➜  eosio-cpp --version
-eosio-cpp version 1.4.1
-
-➜  cd services/eosio/contracts/hello
-
-➜  eosio-cpp -o hello.wasm hello.cpp --abigen
-Warning, empty ricardian clause file
-Warning, empty ricardian clause file
-Warning, action <hi> does not have a ricardian contract
-➜  docker exec -i eoslocal_eosio ./scripts/unlock.sh
-+ cleos='cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
-+ unlock_wallet
-+ echo 'unlocking default wallet...'
-unlocking default wallet...
-++ cat /opt/application/config/keys/eoslocal_wallet_password.txt
-+ cleos -u http://eosio:8888 --wallet-url http://wallet:8901 wallet unlock --name eoslocal --password PW5JWU79n8sXuNSrd92mNG7TR69K7q1Ax3a37x1FfFSAQE9MgXosh
-Unlocked: eoslocal
-+ sleep .5
-
-➜  cleos_local create account eosio hello EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy -p eosio@active
-executed transaction: 1b9a9b7d323542d4151ab9c8b6242c85272bc7ce7144772bb65b8633f7349389  200 bytes  517 us
-warning: transaction executed locally, but may not be confirmed by the network yet         ]
-#         eosio <= eosio::newaccount            {"creator":"eosio","name":"hello","owner":{"threshold":1,"keys":[{"key":"EOS5VdFvRRTtVQAPUJZQCYvpBek...
-
-➜ cleos_local set contract hello contracts/hello -p hello@active
-Reading WASM from contracts/hello/hello.wasm...
-Publishing contract...
-executed transaction: 0af66be6acf1a40d5925ac95ac6673e87cde20b7d9dc07b355900d9a9f77ce11  1432 bytes  1133 us
-warning: transaction executed locally, but may not be confirmed by the network yet         ]
-#         eosio <= eosio::setcode               {"account":"hello","vmtype":0,"vmversion":0,"code":"0061736d0100000001390b60027f7e006000017f60027f7f...
-#         eosio <= eosio::setabi                {"account":"hello","abi":"0e656f73696f3a3a6162692f312e31000102686900010475736572046e616d650100000000...
-
-➜ cleos_local push action hello hi '["eostestusera"]' -p eostestusera@active
-executed transaction: a4c094be2ee7d614c3932dfd626e43c18eb0be5c8a70512bfbc9658e9ebbd030  104 bytes  3072 us
-#         hello <= hello::hi                    {"user":"eostestusera"}
->> Hello, eostestusera
-warning: transaction executed locally, but may not be confirmed by the network yet         ]
-```
-
-**Important note:** notice the contract folder path is actually the within the container, we're just invoking the command from the host machine `contracts/hello` is relative to the container working directory which is `/opt/application`.  so the absolute path in the container would also work `/opt/applicationcontracts/hello`.
-
-### from within the eosio container
-
-```
-# first get into the container, eosio is an alias of docker exec -i eoslocal_eosio bash
-➜  eosio
-root@cb008277a194:/opt/application#
-
-# make sure the eoslocal wallet is unlocked
-root@cb008277a194:/opt/application# ./scripts/unlock.sh
-+ cleos='cleos -u http://eosio:8888 --wallet-url http://wallet:8901'
-+ unlock_wallet
-+ echo 'unlocking default wallet...'
-unlocking default wallet...
-++ cat /opt/application/config/keys/eoslocal_wallet_password.txt
-+ cleos -u http://eosio:8888 --wallet-url http://wallet:8901 wallet unlock --name eoslocal --password PW5KjU3AFWFip8TqiJQHS3LnNupLnCCCDSi2ZHfaY3JHTVn7p3cah
-Error 3120007: Already unlocked
-Error Details:
-Wallet is already unlocked: eoslocal
-+ sleep .5
-
-# create the account for the contract
-root@cb008277a194:/opt/application# ./scripts/cleos.sh create account eosio hello EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy -p eosio@active
-executed transaction: 17fec7f4557ab2bf9d1625dfe226de24c12cbb82c64e100fca6f7d5d11a32b1c  200 bytes  305 us
-#         eosio <= eosio::newaccount            {"creator":"eosio","name":"hello","owner":{"threshold":1,"keys":[{"key":"EOS5VdFvRRTtVQAPUJZQCYvpBek...
-warning: transaction executed locally, but may not be confirmed by the network yet         ]
-
-# deploy the contract
-root@cb008277a194:/opt/application# ./scripts/cleos.sh set contract hello contracts/hello -p hello@active
-Reading WASM from contracts/hello/hello.wasm...
-Publishing contract...
-executed transaction: 937f6fd6a4cfc8bc264ede7e43eb1a1ced9ffd20cd59c7c33adde665578c4de1  1432 bytes  495 us
-#         eosio <= eosio::setcode               {"account":"hello","vmtype":0,"vmversion":0,"code":"0061736d0100000001390b60027f7e006000017f60027f7f...
-#         eosio <= eosio::setabi                {"account":"hello","abi":"0e656f73696f3a3a6162692f312e31000102686900010475736572046e616d650100000000...
-warning: transaction executed locally, but may not be confirmed by the network yet         ]
-
-# test the action
-root@cb008277a194:/opt/application# ./scripts/cleos.sh push action hello hi '["eostestusera"]' -p eostestusera@active
-executed transaction: a4c094be2ee7d614c3932dfd626e43c18eb0be5c8a70512bfbc9658e9ebbd030  104 bytes  3072 us
-#         hello <= hello::hi                    {"user":"eostestusera"}
->> Hello, eostestusera
-warning: transaction executed locally, but may not be confirmed by the network yet         ]
-```
-
-## Frequently Asked Questions
-
-### Why Containers ?
-
-The primary benefits of containers are efficiency and agility. Containers are orders of magnitude faster to provision, and much lighter-weight to build and define versus methods like omnibus software builds and full Virtual Machine images. Containers in a single OS are also more efficient at resource utilization than running a Hypervisor and guest OSs.
-
-Efficiency and agility are good for everyone, but they become game-changers at scale. 
-
-It also gives the ability to run distint versions of the different services like EOSIO on your laptop without conflicts.
-
-Containers offer a logical packaging mechanism in which applications can be abstracted from the environment in which they actually run. This decoupling allows container-based applications to be deployed easily and consistently, regardless of whether the target environment is a private data center, the public cloud, or even a developer’s personal laptop. Containerization provides a clean separation of concerns, as developers focus on their application logic and dependencies, while IT operations teams can focus on deployment and management without bothering with application details such as specific software versions and configurations specific to the app.
-
-For those coming from virtualized environments, containers are often compared with virtual machines (VMs). You might already be familiar with VMs: a guest operating system such as Linux or Windows runs on top of a host operating system with virtualized access to the underlying hardware. Like virtual machines, containers allow you to package your application together with libraries and other dependencies, providing isolated environments for running your software services. As you’ll see below however, the similarities end here as containers offer a far more lightweight unit for developers and IT Ops teams to work with, carrying a myriad of benefits.
-
-<p align="center">
-		<img src="docs/containers.png" width="600">
-</p>
-
-Learn more at https://cloud.google.com/containers/
-
 ## Contributing
 
 We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
-
-
-The main communication channels are [github issues](https://github.com/eoscostarica/eos-local/issues) and [EOS Costa Rica's Discord server](https://eoscostarica.io/discord). Feel to join and ask as many questions you may have.
-
-Our weekly sync call is every Monday 1:00 AM UTC. [meet.eoscostarica.io](https:/meet.eoscostarica.io).
 
 Contributing Guidelines https://developers.eoscostarica.io/docs/open-source-guidelines.
 
