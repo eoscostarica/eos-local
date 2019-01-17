@@ -125,6 +125,12 @@ alias dc='docker-compose'
 
 ## Chain Initialization
 
+Make sure the following ports are available on your host machine.
+
+`8888, 9830, 8901, 27017, 4001, 5001, 8081, 80`
+
+See `docker-compose.yml` port mapping for details.
+
 Execute `make setup` for:
 
 - Docker volumes creation and containers startup.
