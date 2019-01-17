@@ -131,6 +131,42 @@ Execute `make setup` for:
 - EOSIO local chain initialization.
 - Testing accounts creation.
 
+**Testing Accounts**
+
+```
+-
+  name: eostestusera
+  privateKey: 5K7mtrinTFrVTduSxizUc5hjXJEtTjVTsqSHeBHes1Viep86FP5
+  publicKey: EOS6kYgMTCh1iqpq9XGNQbEi8Q6k5GujefN9DSs55dcjVyFAq7B6b
+-
+  name: eostestuserb
+  privateKey: 5KLqT1UFxVnKRWkjvhFur4sECrPhciuUqsYRihc1p9rxhXQMZBg
+  publicKey: EOS78RuuHNgtmDv9jwAzhxZ9LmC6F295snyQ9eUDQ5YtVHJ1udE6p
+-
+  name: eostestuserc
+  privateKey: 5K2jun7wohStgiCDSDYjk3eteRH1KaxUQsZTEmTGPH4GS9vVFb7
+  publicKey: EOS5yd9aufDv7MqMquGcQdD6Bfmv6umqSuh9ru3kheDBqbi6vtJ58
+-
+  name: eostestuserd
+  privateKey: 5KNm1BgaopP9n5NqJDo9rbr49zJFWJTMJheLoLM5b7gjdhqAwCx
+  publicKey: EOS8LoJJUU3dhiFyJ5HmsMiAuNLGc6HMkxF4Etx6pxLRG7FU89x6X
+-
+  name: eostestusere
+  privateKey: 5KE2UNPCZX5QepKcLpLXVCLdAw7dBfJFJnuCHhXUf61hPRMtUZg
+  publicKey: EOS7XPiPuL3jbgpfS3FFmjtXK62Th9n2WZdvJb6XLygAghfx1W7Nb
+-
+  name: eostestuserf
+  privateKey: 5KaqYiQzKsXXXxVvrG8Q3ECZdQAj2hNcvCgGEubRvvq7CU3LySK
+  publicKey: EOS5btzHW33f9zbhkwjJTYsoyRzXUNstx1Da9X2nTzk8BQztxoP3H
+-
+  name: eostestuserg
+  privateKey: 5KFyaxQW8L6uXFB6wSgC44EsAbzC7ideyhhQ68tiYfdKQp69xKo
+  publicKey: EOS8Du668rSVDE3KkmhwKkmAyxdBd73B51FKE7SjkKe5YERBULMrw
+
+```
+
+**Verify Setup**
+
 Run the following command to verify afterwards
 
 ```terminal
@@ -217,23 +253,6 @@ eoslocal_wallet   /opt/eosio/bin/keosd --wal ...   Up      0.0.0.0:8901->8901/tc
   "block_net_limit": 1048576,
   "server_version_string": "v1.4.4"
 }
-
-➜  cleos -u https://jungle.eosio.cr get info | jq
-{
-  "server_version": "3186ddba",
-  "chain_id": "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473",
-  "head_block_num": 4449822,
-  "last_irreversible_block_num": 4449491,
-  "last_irreversible_block_id": "0043e4d376d81351be541f1811e452e52146c981cd21c5d6cd3737b74c17491f",
-  "head_block_id": "0043e61e89622b3406123a25071a8bfb93d4072db96f32ca0195ccace01f6812",
-  "head_block_time": "2018-12-19T22:10:21.000",
-  "head_block_producer": "eos42panther",
-  "virtual_block_cpu_limit": 200000000,
-  "virtual_block_net_limit": 1048576000,
-  "block_cpu_limit": 199920,
-  "block_net_limit": 1048576,
-  "server_version_string": "v1.6.0-rc1-dirty"
-}
 ```
 
 ## Commands
@@ -318,14 +337,6 @@ Optionally you can avoid the round trip and work offline maintaining virtual hos
 
 See the `docker-compose.yml` for available virtual hosts for easier access without port shenanigans.
 
-## Using Cleos on EOS Local
-
-Cleos is a command line tool that interfaces with the API exposed by nodeos. In order to use cleos you will need to have the endpoint (IP address and port number) to a nodeos instance and also configure nodeos to load the 'eosio::chain_api_plugin'. `cleos` contains documentation for all of its commands. 
-
-More at https://developers.eos.io/eosio-nodeos/docs/cleos-overview 
-
-EOS Local comes with 2 EOS nodes running in separate docker containers, you can interact with these nodes using `cleos` in several ways:
-
 ### Invoking cleos through docker exec
 
 You can execute commands on any container from you host machine using the `docker exec` command.
@@ -370,41 +381,6 @@ root@b39ffe3c43c0:/opt/eosio/bin# cleos get info
   "block_net_limit": 1048576,
   "server_version_string": "v1.4.1"
 }
-```
-
-## Testing accounts
-
-The following accounts created automatically
-
-```
-account: eoslocalusra
-private key: 5K4MHQN7sPdEURaxzjCnbynUwkEKRJzs8zVUf24ofaFiZNK815J
-public key: EOS5k6Jht1epqZ2mnRLFVDXDTosaTneR6xFhvenVLiFfz5Ue125dL
-
-account: eoslocalusrb
-private key: 5JHCQDi7jsbnQnWdyxteRjT2DdNZHePiEG1DTaPQQDDP2X6aor6
-public key: EOS6TVQ6EmphCWavUuYiZMmDNYMRgbb96wgqWDncjrkvFPcpokgdD
-
-account: eoslocalusrc
-private key: 5JXCt633pzYaUysn7exDHeVXwhwMjX2L231b37CdsSb7y1uvDH7
-public key: EOS7CB47VMLWp49QhajE3uTuHuf9qoSeR6scUHMKGCD6LXYufRUDc
-
-account: eoslocalusrd
-private key: 5JdRgeRBriBDdxb3r76sLJaQmwGgXkMU8GReTAmy8xYppMSAAoZ
-USER_D_PUBKEY="EOS6Jv4RykLZQQopCBdBHSwaGoMyFxyaxFNXimqFPdEXNWqgWbG1a
-
-account: eoslocalusre
-private key: 5Jdwjwto9wxy5ZNPnWSn965eb8ZtSrK1uRKUxhviLpr9gK79hmM
-public key: EOS5VdFvRRTtVQAPUJZQCYvpBekYV4nc1cFe7og9aYPTBMXZ38Koy
-```
-
-All system accounts use the following keys
-
-```
-accounts: eosio.bpay, eosio.msig, eosio.names, eosio.ram, eosio.ramfee,
-          eosio.saving, eosio.stake, eosio.token, eosio.vpay
-private key: 5KAVVPzPZnbAx8dHz6UWVPFDVFtU1P5ncUzwHGQFuTxnEbdHJL4
-public key: OS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG
 ```
 
 ## Contract Development
