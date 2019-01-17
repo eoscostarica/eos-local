@@ -7,8 +7,6 @@ services:
     build:
       context: ./services/eosio
       dockerfile: Dockerfile
-      args:
-        symbol: EOS
     image: eoslocal/eosio
     stop_grace_period: 3m0s
     ports:
@@ -22,6 +20,7 @@ services:
     volumes:
       - eosio-data-volume:/root/data-dir
       - ./services/eosio:/opt/application
+      - ./contracts:/opt/contracts
     depends_on:
       - mongo
       - wallet

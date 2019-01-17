@@ -1,7 +1,4 @@
 #!/bin/bash
-
-echo "Stopping eosio service ..."
-
 if [ -f $DATA_DIR"/nodeos.pid" ]; then
 	pid=`cat $DATA_DIR"/nodeos.pid"`
 	echo $pid

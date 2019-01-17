@@ -26,3 +26,10 @@ function create_wallet () {
 function import_private_key () {
   $cleos wallet import --private-key $1
 }
+
+# Creates an eos account with 100 EOS
+function create_eos_account () {
+  # $cleos system newaccount eosio --transfer $1 $2 $2 --stake-net '1 EOS' --stake-cpu '1 EOS' --buy-ram '1 EOS'
+  $cleos create account eosio $1 $2 $2
+  $cleos transfer eosio $1 '100 EOS' -p eosio
+}
