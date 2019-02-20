@@ -32,7 +32,7 @@ function create_eosio_accounts () {
 
 
 function compile_system_contracts () {
-  git clone https://github.com/EOSIO/eosio.contracts.git /opt/eosio.contracts
+  git clone --branch v1.5.2 https://github.com/EOSIO/eosio.contracts.git /opt/eosio.contracts
   cd /opt/eosio.contracts/
   ./build.sh
 }
