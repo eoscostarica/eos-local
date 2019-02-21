@@ -20,14 +20,14 @@
 
 # EOS Local Network
 
-EOS Local provides a really quick way to setup an EOS local network with history api.
+EOS Local provides a really quick way to setup an EOS local network for development.
 
-The primary benefits of containers are efficiency, agility and consistency accross different environments.
+The primary benefits of containers are consistency accross different environments and deployment ease.
 
-It has a companion project that serves as a starter boilerplate your dApp.
+This project has a companion boilerplate for your dApp.
 https://github.com/eoscostarica/eos-dapp-boilerplate 
 
-*This is a work in progress...*
+*Disclaimer: It works, but it's still a work in progress...*
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
