@@ -3,9 +3,6 @@
 	<a href="https://git.io/col">
 		<img src="https://img.shields.io/badge/%E2%9C%93-collaborative_etiquette-brightgreen.svg" alt="Collaborative Etiquette">
 	</a>
-	<a href="https://discord.gg/bBpQHym">
-		<img src="https://img.shields.io/discord/447118387118735380.svg?logo=discord" alt="chat on Discord">
-	</a>
 	<a href="https://twitter.com/intent/follow?screen_name=puravidadac">
 		<img src="https://img.shields.io/twitter/follow/puravidadac.svg?style=social&logo=twitter" alt="follow on Twitter">
 	</a>
@@ -293,10 +290,6 @@ That will log you in and you will be able to execute cleos directly within the u
 We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/puravidadac/eos-local/projects/3).
 
 Please report bugs big and small by [opening an issue](https://github.com/puravidadac/eos-local/issues)
-
-## Pura Vida DAC
-
-[puravidadac.one](https://puravidadac.one)
 
 ## Contributors
 
