@@ -6,8 +6,8 @@
 	<a href="https://discord.gg/bBpQHym">
 		<img src="https://img.shields.io/discord/447118387118735380.svg?logo=discord" alt="chat on Discord">
 	</a>
-	<a href="https://twitter.com/intent/follow?screen_name=eoscostarica">
-		<img src="https://img.shields.io/twitter/follow/eoscostarica.svg?style=social&logo=twitter" alt="follow on Twitter">
+	<a href="https://twitter.com/intent/follow?screen_name=puravidadac">
+		<img src="https://img.shields.io/twitter/follow/puravidadac.svg?style=social&logo=twitter" alt="follow on Twitter">
 	</a>
 	<a href="#">
 		<img src="https://img.shields.io/dub/l/vibe-d.svg" alt="MIT">
@@ -47,7 +47,6 @@ https://github.com/eoscostarica/eos-dapp-boilerplate
 - [Accessing the container](#accessing-the-container)
 - [Directory Structure](#directory-structure)
 - [Contributing](#contributing)
-- [About EOS Costa Rica](#about-eos-costa-rica)
 - [License](#license)
 - [Contributors](#contributors)
 
@@ -291,26 +290,13 @@ That will log you in and you will be able to execute cleos directly within the u
 
 ## Contributing
 
-We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/eoscostarica/eos-local/projects/3).
+We use a Kanban-style board. That's were we prioritize the work. [Go to Project Board](https://github.com/puravidadac/eos-local/projects/3).
 
-Contributing Guidelines https://developers.eoscostarica.io/docs/open-source-guidelines.
+Please report bugs big and small by [opening an issue](https://github.com/puravidadac/eos-local/issues)
 
-Please report bugs big and small by [opening an issue](https://github.com/eoscostarica/eos-local/issues)
+## Pura Vida DAC
 
-## About EOS Costa Rica
-<p align="center">
-	<a href="https://eoscostarica.io">
-		<img src="https://cdn.rawgit.com/eoscostarica/assets/574d20a6/logos/eoscolors-transparent.png" width="300">
-	</a>
-</p>
-
-EOS Costa Rica is an independently-owned, self-funded, bare-metal genesis block producer that provides stable and secure infrastructure for EOSIO blockchains.  We support open source software for our community while offering enterprise solutions and custom smart contract development for our clients.
-
-[eoscostarica.io](https://eoscostarica.io)
-
-## License
-
-MIT © [EOS Costa Rica](https://eoscostarica.io)  
+[puravidadac.one](https://puravidadac.one)
 
 ## Contributors
 
