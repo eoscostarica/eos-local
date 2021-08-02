@@ -68,12 +68,9 @@ setup_contracts() {
   sleep 1
   
   # Deploy system contract
-  cleos set code eosio ./eosio.contracts.v1.8.x/eosio.system/eosio.system.wasm -j -d -s -x 3600 > trx
-  cleos sign trx -k $TESTNET_EOSIO_PRIVATE_KEY -p > trx.output
-  awk 'NR==2' trx.output | tr -d '"' && rm trx trx.output  
-  cleos set abi eosio ./eosio.contracts.v1.8.x/eosio.system/eosio.system.abi -j -d -s -x 3600 > trx
-  cleos sign trx -k $TESTNET_EOSIO_PRIVATE_KEY -p > trx.output
-  awk 'NR==2' trx.output | tr -d '"' && rm trx trx.output
+  cleos set code eosio ./eosio.contracts.v1.8.x/eosio.system/eosio.system.wasm
+  sleep 1
+  cleos set abi eosio ./eosio.contracts.v1.8.x/eosio.system/eosio.system.abi
   sleep 1
 
   # GET_SENDER
@@ -107,6 +104,11 @@ setup_contracts() {
   cleos set contract eosio.token ./eosio.contracts.v1.8.x/eosio.token/
   cleos set contract eosio.msig ./eosio.contracts.v1.8.x/eosio.msig/
   cleos push action eosio setpriv '["eosio.msig", 1]' -p eosio@active
+
+  cleos push action eosio.token create '[ "eosio", "10000000000.0000 EOS" ]' -p eosio.token@active
+  cleos push action eosio.token issue '[ "eosio", "1000000000.0000 EOS", "memo" ]' -p eosio@active
+  cleos push action eosio init '["0", "4,EOS"]' -p eosio@active
+
   lock_wallet
   echo "====================================== Done setup_contracts ======================================"
 }
