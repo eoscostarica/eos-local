@@ -13,7 +13,7 @@
 ## Description
 EOS Local provides a really quick way to setup an EOS local network for development.
 
-The primary benefits of containers are consistency accross different environments and deployment ease.
+The primary benefits of containers are consistency across different environments and deployment ease.
 
 This project has a [full-stack-boilerplate](https://github.com/eoscostarica/full-stack-boilerplate) for your dApp. 
 
