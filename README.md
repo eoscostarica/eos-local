@@ -71,7 +71,7 @@ By this point, you already have the EOS Mainnet Local Network image running loca
 │   └── workflows
 │       └── publish-docker-image.yml
 ├── config.ini ............... Nodeos configuration file
-├── Dockerfile ............... Contains instructions for building the Proton image
+├── Dockerfile ............... Contains instructions for building the EOS Mainnet Local Network image
 ├── genesis.json ............. Specifies the network genesis node parameters
 ├── docs ..................... Some media content for README
 ├── LICENSE .................. Terms and Conditions
