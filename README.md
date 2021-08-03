@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://raw.githubusercontent.com/eoscostarica/proton-affiliate/main/docs/img/proton-xpr-logo.png" width="200" >
+	<img src="docs/eoslocal.png" width="600">
 </p>
 
 <p align="center">
