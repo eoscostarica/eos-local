@@ -31,7 +31,7 @@ The EOSIO image is based on the `eosio.system`, `eosio.token` and `eosio.msig` c
 3. **eosio.msig**: Allows the creation of proposed transactions that require authorization from a list of accounts.
 
 ### Deployable projects
-As EOS Mainnet Local Network is based on EOSIO protocol, some already smart contract production projects can be deployed on our local network due to the local dev environment setup. Some of the are:
+As EOS Mainnet Local Network is based on EOSIO protocol, some already smart contract production projects can be deployed on our local network due to the local dev environment setup. Some of them are:
 1. Eden: Take a look at the smart contract code [here](https://github.com/eoscommunity/Eden/tree/main/contracts).
 2. simpleassets: A simple standard for digital assets on EOSIO blockchains: Non-Fungible Tokens (NFTs), Fungible Tokens (FTs), and Non-Transferable Tokens (NTTs). Take a look at the smart contract code [here](https://github.com/CryptoLions/SimpleAssets).
 3. atomicassets: AtomicAssets is a Non Fungible Token (NFT) standard for eosio blockchains developed by pink.network. Take a look at the smart contract code [here](https://github.com/pinknetworkx/atomicassets-contract).
