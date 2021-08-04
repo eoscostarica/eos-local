@@ -15,7 +15,7 @@ EOS Local provides a quick way to setup an EOS local network for development.
 
 The primary benefits of containers are consistency across different environments and deployment ease.
 
-This project has a [full-stack-boilerplate](https://github.com/eoscostarica/full-stack-boilerplate) for your dApp. 
+This project works along with a [full-stack-boilerplate](https://github.com/eoscostarica/full-stack-boilerplate) to help you build your EOS dApp.
 
 ### Why to use a local environment?
 Having a local environment provides a series of benefits that you cannot in a public network, for example, with EOS Mainnet locally, transaction costs are avoided since they are carried out in a development environment and not in production, also, they are accessed to system contracts to modify them as appropriate.
@@ -30,11 +30,21 @@ The EOSIO image is based on the `eosio.system`, `eosio.token` and `eosio.msig` c
 2. **eosio.token**: Defines the structures and actions that allow users to create, issue, and manage tokens for EOSIO-based blockchains.
 3. **eosio.msig**: Allows the creation of proposed transactions that require authorization from a list of accounts.
 
+### Deployable projects
+As EOS Mainnet Local Network is based on EOSIO protocol, some already smart contract production projects can be deployed on our local network due to the local dev environment setup. Some of the are:
+1. Eden: Take a look at the smart contract code [here](https://github.com/eoscommunity/Eden/tree/main/contracts).
+2. simpleassets: A simple standard for digital assets on EOSIO blockchains: Non-Fungible Tokens (NFTs), Fungible Tokens (FTs), and Non-Transferable Tokens (NTTs). Take a look at the smart contract code [here](https://github.com/CryptoLions/SimpleAssets).
+3. atomicassets: AtomicAssets is a Non Fungible Token (NFT) standard for eosio blockchains developed by pink.network. Take a look at the smart contract code [here](https://github.com/pinknetworkx/atomicassets-contract).
+4. dgoods: dGoods is an open source and free standard for handling the virtual representation of items, both digital and physical, on the EOS blockchain led by Mythical Games. Take a look at the smart contract code [here](https://github.com/MythicalGames/dgoods).
+
 ### Configuration key
-The preconfigured key is the eosio key that allows you to carry out the initial configuration of the network. You can consult it [here](https://github.com/eoscostarica/eos-local/blob/master/Dockerfile#L21).
+The preconfigured key to setup our genesis node is passed throw Dockerfile using the --build-arg option, so make sure to create a start key and save it to continue using the local dev environment with full access.
+
+To create a key, you can use `cleos create key --to-console`:
+
 ```
-EOSIO_PRIVATE_KEY: 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
-EOSIO_PUBLIC_KEY:  EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+Private key: 5KQPgxtxWqziZggdsYjgMkBcd8iHr96HPY2kr4CGLqA7eid4FCG
+Public key: EOS6SpGqFohbAHZHK3cDTT7oKyQedwXd4nZ6H6t9PKk2UN5hqNbna
 ```
 
 ### Prerequisites
@@ -57,8 +67,8 @@ If you run the command `cleos get info` or go to` http://127.0.0.1:8888/v1/chain
 ## Instructions for creating EOS Mainnet Local Network image locally
 To create the Docker image locally, you must run the following commands:
 - Clone the local Eos repository `https://github.com/eoscostarica/eos-local`
-- Enter the cloned repository folder `cd <path/eos-local>`
-- Build the Dockerfile image `docker build -t eos-local .`
+- Enter to the cloned repository folder `cd <path/eos-local>`
+- Build the Dockerfile image with env variables `docker build -t eos-local --build-arg testnet_eosio_public_key="<public_key>" --build-arg testnet_eosio_private_key="private_key" .`
 - Run the Dockerfile image `docker run -dp 8888:8888 eos-local`
 - Run the command `cleos get info` or check the link in the browser `http://127.0.0.1:8888/v1/chain/get_info`
 

@@ -33,7 +33,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            eoscostarica506/eosio-local
+            eoscostarica506/eos-local
             ghcr.io/${{ github.repository }}
       
       - name: Build and push Docker images

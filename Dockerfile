@@ -17,9 +17,12 @@ RUN cd /app/eosio.contracts \
   && ./build.sh -c /usr/local/eosio.cdt
 
 FROM eosio/eosio:release_1.8.x as nodeos
+ARG testnet_eosio_private_key
+ARG testnet_eosio_public_key
+ENV TESTNET_EOSIO_PRIVATE_KEY $testnet_eosio_private_key
+ENV TESTNET_EOSIO_PUBLIC_KEY $testnet_eosio_public_key
+
 WORKDIR /app
-ENV TESTNET_EOSIO_PRIVATE_KEY 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
-ENV TESTNET_EOSIO_PUBLIC_KEY EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
 
 COPY ./start.sh ./
 COPY ./config.ini ./config/
