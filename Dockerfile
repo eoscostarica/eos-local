@@ -10,10 +10,11 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN wget https://github.com/eosio/eosio.cdt/releases/download/v1.8.1/eosio.cdt_1.8.1-1-ubuntu-18.04_amd64.deb
 RUN apt install ./eosio.cdt_1.8.1-1-ubuntu-18.04_amd64.deb
 
-# build contracts
+# build system contracts
 RUN git clone -b release/1.9.x https://github.com/EOSIO/eosio.contracts.git
 RUN cd /app/eosio.contracts && ./build.sh -c /usr/local/eosio.cdt
 
+# build boot contract
 RUN git clone -b release/2.1.x https://github.com/EOSIO/eos.git
 RUN cd /app/eos/contracts/contracts/eosio.boot/ \
   && mkdir build \
