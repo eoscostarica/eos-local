@@ -60,18 +60,15 @@ setup_accounts() {
 setup_contracts() {
   echo "====================================== Start setup_contracts ======================================"
   unlock_wallet
-  # Deploy old system contract
+  # Activate PREACTIVATE_FEATURE
   curl --request POST \
     --url http://127.0.0.1:8888/v1/producer/schedule_protocol_feature_activations \
     -d '{"protocol_features_to_activate": ["0ec7e080177b2c02b278d5088611686b49d739925a92d9bfcacd7fc6b74053bd"]}' \
     && echo -e "\n"
   sleep 1
-  
-  # Deploy system contract
-  cleos set code eosio ./eosio.contracts.v1.8.x/eosio.system/eosio.system.wasm
-  sleep 1
-  cleos set abi eosio ./eosio.contracts.v1.8.x/eosio.system/eosio.system.abi
-  sleep 1
+
+  # Deploy eosio.boot contract
+  cleos set contract eosio /eosio.boot/
 
   # GET_SENDER
   cleos push action eosio activate '["f0af56d2c5a48d60a4a5b5c903edfb7db3a736a94ed589d0b797df33ff9d3e1d"]' -p eosio
@@ -99,10 +96,15 @@ setup_contracts() {
   cleos push action eosio activate '["299dcb6af692324b899b39f16d5a530a33062804e41f09dc97e9f156b4476707"]' -p eosio
   sleep 1
 
-  
+  # Deploy system contract
+  cleos set code eosio /eosio.contracts/eosio.system/eosio.system.wasm
+  sleep 1
+  cleos set abi eosio /eosio.contracts/eosio.system/eosio.system.abi
+  sleep 1
+
   # Deploy eosio.token and eosio.msig contracts
-  cleos set contract eosio.token ./eosio.contracts.v1.8.x/eosio.token/
-  cleos set contract eosio.msig ./eosio.contracts.v1.8.x/eosio.msig/
+  cleos set contract eosio.token /eosio.contracts/eosio.token/
+  cleos set contract eosio.msig /eosio.contracts/eosio.msig/
   cleos push action eosio setpriv '["eosio.msig", 1]' -p eosio@active
 
   cleos push action eosio.token create '[ "eosio", "10000000000.0000 EOS" ]' -p eosio.token@active
