@@ -72,11 +72,15 @@ Public key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
 ```
 
 ## Instructions for creating EOS Mainnet Local Network image locally
+Before starting, to use the `make` option, please do the following steps:
+- In your terminal, run `cp .env.example .env`
+- Set correct `.env` values to your local environment
+
 To create the Docker image locally, you must run the following commands:
 - Clone the local Eos repository `https://github.com/eoscostarica/eos-local`
 - Enter to the cloned repository folder `cd <path/eos-local>`
-- Build the Dockerfile image with env variables `docker build -t eos-local --build-arg testnet_eosio_public_key="<public_key>" --build-arg testnet_eosio_private_key="<private_key>" .`
-- Run the Dockerfile image `docker run -dp 8888:8888 eos-local`
+- Build the Dockerfile image with env variables `make build-docker` or `docker build -t eos-local --build-arg testnet_eosio_public_key="<public_key>" --build-arg testnet_eosio_private_key="<private_key>" .`
+- Run the Dockerfile image `make run` or `docker run -dp 8888:8888 eos-local`
 - Run the command `cleos get info` or check the link in the browser `http://127.0.0.1:8888/v1/chain/get_info`
 
 By this point, you already have the EOS Mainnet Local Network image running locally.
