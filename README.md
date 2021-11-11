@@ -67,15 +67,11 @@ If you run the command `cleos get info` or go to` http://127.0.0.1:8888/v1/chain
 **Note:** As the docker image were pulled from `eoscostarica506`, the eosio keys are:
 
 ```
-Private key: 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
-Public key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+Private key: 5KQPgxtxWqziZggdsYjgMkBcd8iHr96HPY2kr4CGLqA7eid4FCG
+Public key: EOS6SpGqFohbAHZHK3cDTT7oKyQedwXd4nZ6H6t9PKk2UN5hqNbna
 ```
 
 ## Instructions for creating EOS Mainnet Local Network image locally
-Before starting, to use the `make` option, please do the following steps:
-- In your terminal, run `cp .env.example .env`
-- Set correct `.env` values to your local environment
-
 To create the Docker image locally, you must run the following commands:
 - Clone the local Eos repository `https://github.com/eoscostarica/eos-local`
 - Enter to the cloned repository folder `cd <path/eos-local>`
