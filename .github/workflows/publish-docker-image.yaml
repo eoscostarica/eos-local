@@ -42,7 +42,7 @@ jobs:
             build-docker \
             push-image
         env:
-          TESTNET_EOSIO_PRIVATE_KEY: ${{ secrets.TESTNET_EOSIO_PRIVATE_KEY }}
-          TESTNET_EOSIO_PUBLIC_KEY: ${{ secrets.TESTNET_EOSIO_PUBLIC_KEY }}
+          TESTNET_EOSIO_PRIVATE_KEY: 5KQPgxtxWqziZggdsYjgMkBcd8iHr96HPY2kr4CGLqA7eid4FCG
+          TESTNET_EOSIO_PUBLIC_KEY: EOS6SpGqFohbAHZHK3cDTT7oKyQedwXd4nZ6H6t9PKk2UN5hqNbna
           DOCKER_REGISTRY: eoscostarica506
           IMAGE_NAME: eos-local
