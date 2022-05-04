@@ -67,8 +67,8 @@ If you run the command `cleos get info` or go to `http://127.0.0.1:8888/v1/chain
 **Note:** As the docker image were pulled from `eoscostarica506`, the eosio keys are:
 
 ```
-Private key: 5KQPgxtxWqziZggdsYjgMkBcd8iHr96HPY2kr4CGLqA7eid4FCG
-Public key: EOS6SpGqFohbAHZHK3cDTT7oKyQedwXd4nZ6H6t9PKk2UN5hqNbna
+Private key: 5JV5XER5ouVYfghE6AEgDeViqkH4VNAJaxwB6wVe4Mk2JHZywPQ
+Public key: EOS5hyZZRePAFyKVTEReHLErXviH6chc3w84pQcwtHnsNJWCWj3Jp
 ```
 
 ## Instructions for creating EOS Mainnet Local Network image locally
