@@ -40,11 +40,11 @@ As EOS Mainnet Local Network is based on EOSIO protocol, some already smart cont
 ### Configuration key
 The preconfigured key to setup our genesis node is passed throw Dockerfile using the --build-arg option, so make sure to create a start key and save it to continue using the local dev environment with full access.
 
-To create a key, you can use `cleos create key --to-console`:
+To create a key, you can use `cleos create key --to-console` or `cleos create key --file <file_name>.key` depending on your preference:
 
 ```
-Private key: 5KQPgxtxWqziZggdsYjgMkBcd8iHr96HPY2kr4CGLqA7eid4FCG
-Public key: EOS6SpGqFohbAHZHK3cDTT7oKyQedwXd4nZ6H6t9PKk2UN5hqNbna
+Private key: 5Jkvw1DbsGx7W8vSnrHtXSYxM9bfKoJvwEnH51KJYQGv6D5LZyA
+Public key: EOS5FCRb5XtkMKFTow2dfPQDQ11ZbfYrmhP4rxWPzZn6pzp1nugpz
 ```
 
 ### Prerequisites
@@ -75,6 +75,7 @@ Public key: EOS5hyZZRePAFyKVTEReHLErXviH6chc3w84pQcwtHnsNJWCWj3Jp
 To create the Docker image locally, you must run the following commands:
 - Clone the local Eos repository `https://github.com/eoscostarica/eos-local`
 - Enter to the cloned repository folder `cd <path/eos-local>`
+- Copy the example env file *.env.example* with `cp .env.example .env` and fill it with your keys
 - Build the Dockerfile image with env variables `make build-docker` or `docker build -t eos-local --build-arg testnet_eosio_public_key="<public_key>" --build-arg testnet_eosio_private_key="<private_key>" .`
 - Run the Dockerfile image `make run` or `docker run -dp 8888:8888 eos-local`
 - Run the command `cleos get info` or check the link in the browser `http://127.0.0.1:8888/v1/chain/get_info`
